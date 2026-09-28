@@ -14,11 +14,13 @@ export default function RootLayout() {
           headerShadowVisible: false,
           headerTintColor: colors.primary,
           headerTitleStyle: { color: colors.text, fontWeight: '800' },
+          headerTitleAlign: 'left',
           contentStyle: { backgroundColor: colors.bg },
         }}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="category/[category]" options={{ title: 'Categorie' }} />
+        <Stack.Screen name="calculator/materiaal_gewicht" options={{ title: 'Materiaalgewicht' }} />
         <Stack.Screen name="calculator/[id]" options={{ title: 'Calculator' }} />
       </Stack>
     </AppStateProvider>
