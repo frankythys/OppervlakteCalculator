@@ -8,7 +8,7 @@ export type HistoryItem = {
   calculatorId: string;
   calculatorTitle: string;
   createdAt: string;
-  inputs: Record<string, number>;
+  inputs: Record<string, number | string>;
   primaryResult: string;
 };
 
