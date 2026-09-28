@@ -4,10 +4,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { Screen } from '@/components/Screen';
 import { NumericInput } from '@/components/NumericInput';
+import { SelectInput } from '@/components/SelectInput';
 import { ResultCard, type ResultRow } from '@/components/ResultCard';
 import { TechnicalSketch } from '@/components/technical/TechnicalSketch';
 import { calculateCalculator } from '@/domain/calculators/engine';
 import { getCalculatorById } from '@/domain/calculators/repository';
+import { getInputPresetOptions, getPresetInputLabel } from '@/domain/calculators/inputPresets';
 import {
   getCalculatorMeta,
   getOutputPresentation,
@@ -29,13 +31,20 @@ export default function CalculatorDetailScreen() {
   const [results, setResults] = useState<Values | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const emptyInputs = () =>
+    calculator
+      ? Object.fromEntries(
+          calculator.inputs.map((input) => [input.id, meta.inputs?.[input.id]?.defaultValue ?? ''])
+        )
+      : {};
+
   useLayoutEffect(() => {
     navigation.setOptions({ title: calculator?.title ?? 'Calculator' });
   }, [calculator?.title, navigation]);
 
   useEffect(() => {
     if (!calculator) return;
-    setRawInputs(Object.fromEntries(calculator.inputs.map((input) => [input.id, ''])));
+    setRawInputs(emptyInputs());
     setResults(null);
     setError(null);
   }, [calculator]);
@@ -146,10 +155,32 @@ export default function CalculatorDetailScreen() {
 
           {calculator.inputs.map((input, index) => {
             const inputMeta = meta.inputs?.[input.id];
+            const presetOptions = getInputPresetOptions(calculator.id, input.id);
+            const label =
+              getPresetInputLabel(calculator.id, input.id) ??
+              getSafeInputLabel(calculator.id, input.id, index);
+
+            if (presetOptions) {
+              return (
+                <SelectInput
+                  key={input.id}
+                  label={label}
+                  value={rawInputs[input.id] ?? ''}
+                  options={presetOptions}
+                  onChange={(value) =>
+                    setRawInputs((current) => ({
+                      ...current,
+                      [input.id]: value,
+                    }))
+                  }
+                />
+              );
+            }
+
             return (
               <NumericInput
                 key={input.id}
-                label={getSafeInputLabel(calculator.id, input.id, index)}
+                label={label}
                 unit={inputMeta?.unit ?? (input.unit === 'auto' ? undefined : input.unit)}
                 placeholder={inputMeta?.placeholder}
                 step={inputMeta?.step}
@@ -174,7 +205,7 @@ export default function CalculatorDetailScreen() {
             <Pressable
               style={styles.secondaryButton}
               onPress={() => {
-                setRawInputs(Object.fromEntries(calculator.inputs.map((input) => [input.id, ''])));
+                setRawInputs(emptyInputs());
                 setResults(null);
                 setError(null);
               }}
@@ -192,8 +223,8 @@ export default function CalculatorDetailScreen() {
           <View style={styles.infoCard}>
             <Text style={styles.infoTitle}>Hoe wordt dit berekend?</Text>
             <Text style={styles.infoText}>
-              De technische bronformules worden intern gebruikt. Excel-celreferenties zijn nooit
-              zichtbaar als invoerveld of resultaatlabel.
+              De technische bronformules worden intern gebruikt. Materiaal- en densiteitskeuzes
+              vullen de juiste rekenwaarde automatisch in; Excel-celreferenties blijven intern.
             </Text>
           </View>
         </>
