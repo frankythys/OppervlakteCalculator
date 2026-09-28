@@ -21,7 +21,7 @@ export function Screen({ children, scroll = true, contentContainerStyle, ...prop
       <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
         <KeyboardAvoidingView
           style={styles.keyboardAvoider}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
           <View style={styles.content}>{children}</View>
         </KeyboardAvoidingView>
@@ -33,13 +33,14 @@ export function Screen({ children, scroll = true, contentContainerStyle, ...prop
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       <KeyboardAvoidingView
         style={styles.keyboardAvoider}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <ScrollView
           {...props}
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
           automaticallyAdjustKeyboardInsets={Platform.OS === 'ios'}
+          scrollsChildToFocus={Platform.OS === 'android'}
           contentContainerStyle={[styles.scrollContent, contentContainerStyle]}
         >
           {children}
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     padding: spacing.md,
-    // Extra ruimte zorgt dat het laatste invoerveld ook boven het Android-toetsenbord kan scrollen.
+    // Ruimte om het laatste veld boven het toetsenbord te kunnen scrollen.
     paddingBottom: 180,
   },
 });
