@@ -39,11 +39,6 @@ const INSULATION_DENSITIES: SelectOption[] = [
     description: 'Nominale densiteit 100 kg/m³',
   },
   {
-    label: 'Steenwol pijpschaal — ProRox PS 960 (125)',
-    value: '125',
-    description: 'Alternatieve product-/marktvariant 125 kg/m³',
-  },
-  {
     label: 'Steenwol pijpschaal — ProRox PS 970',
     value: '140',
     description: 'Nominale densiteit 140 kg/m³',
