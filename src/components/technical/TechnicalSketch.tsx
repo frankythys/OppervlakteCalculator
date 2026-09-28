@@ -18,9 +18,10 @@ type Props = {
   calculatorId: string;
 };
 
-const ROUND_PIPE_IMAGE = require('../../../assets/technical/round-pipe.jpg');
-const INSULATED_PIPE_IMAGE = require('../../../assets/technical/insulated-pipe.jpg');
-const CLAD_PIPE_IMAGE = require('../../../assets/technical/clad-insulated-pipe.jpg');
+const RAW_BASE = 'https://raw.githubusercontent.com/frankythys/OppervlakteCalculator/main/assets/technical';
+const ROUND_PIPE_IMAGE = { uri: `${RAW_BASE}/round-pipe.jpg` };
+const INSULATED_PIPE_IMAGE = { uri: `${RAW_BASE}/insulated-pipe.jpg` };
+const CLAD_PIPE_IMAGE = { uri: `${RAW_BASE}/clad-insulated-pipe.jpg` };
 
 const CONE_IDS = new Set(['conus_verloop_diameter', 'conus_verloop_omtrek']);
 const ROUND_IDS = new Set([
