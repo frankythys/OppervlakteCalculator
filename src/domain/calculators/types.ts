@@ -54,8 +54,14 @@ export type InputMeta = {
   step?: number;
 };
 
+export type OutputMeta = {
+  label: string;
+  unit?: string;
+};
+
 export type CalculatorMeta = {
   description: string;
   resultHint?: string;
   inputs?: Record<string, InputMeta>;
+  outputs?: Record<string, OutputMeta>;
 };
