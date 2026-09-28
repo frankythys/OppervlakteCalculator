@@ -7,8 +7,7 @@ import {
   View,
   type ScrollViewProps,
 } from 'react-native';
-import { useSegments } from 'expo-router';
-import { SafeAreaView, type Edge } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, spacing } from '@/theme/tokens';
 
 type Props = ScrollViewProps & {
@@ -17,15 +16,9 @@ type Props = ScrollViewProps & {
 };
 
 export function Screen({ children, scroll = true, contentContainerStyle, ...props }: Props) {
-  const segments = useSegments();
-  const isTabScreen = segments[0] === '(tabs)';
-  const edges: Edge[] = isTabScreen
-    ? ['top', 'left', 'right']
-    : ['top', 'left', 'right', 'bottom'];
-
   if (!scroll) {
     return (
-      <SafeAreaView style={styles.safe} edges={edges}>
+      <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
         <KeyboardAvoidingView
           style={styles.keyboardAvoider}
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -37,7 +30,7 @@ export function Screen({ children, scroll = true, contentContainerStyle, ...prop
   }
 
   return (
-    <SafeAreaView style={styles.safe} edges={edges}>
+    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       <KeyboardAvoidingView
         style={styles.keyboardAvoider}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -64,6 +57,6 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     padding: spacing.md,
-    paddingBottom: spacing.xl,
+    paddingBottom: spacing.lg,
   },
 });
