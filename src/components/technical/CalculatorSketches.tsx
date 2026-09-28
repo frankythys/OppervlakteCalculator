@@ -20,8 +20,8 @@ export function PipeSketch({ insulated = false }: { insulated?: boolean }) {
 export function ConeSketch() {
   return (
     <SketchCard title="Conus / verloop">
-      <SketchLine left={82} top={55} width={158} angle={0} />
-      <SketchLine left={52} top={156} width={218} angle={0} />
+      <SketchLine left={82} top={55} width={158} />
+      <SketchLine left={52} top={156} width={218} />
       <SketchLine left={82} top={56} width={106} angle={106} />
       <SketchLine left={240} top={56} width={106} angle={74} />
       <DimensionArrow left={88} top={24} width={144} label="Ø D1 = klein" />
@@ -40,6 +40,18 @@ export function RoundValveSketch() {
       <DimensionArrow left={74} top={166} width={178} label="B = totale maat" />
       <DimensionArrow left={258} top={55} width={104} label="Ø D" vertical />
       <SketchLabel text="flenskap" left={116} top={102} emphasis />
+    </SketchCard>
+  );
+}
+
+export function OvalSketch() {
+  return (
+    <SketchCard title="Ovale flenskap / afsluiter">
+      <View style={styles.ovalOuter} />
+      <View style={styles.ovalInner} />
+      <DimensionArrow left={65} top={170} width={205} label="A = totale maat" />
+      <DimensionArrow left={278} top={67} width={86} label="C / Ø" vertical />
+      <SketchLabel text="rechte middenzone" left={109} top={103} />
     </SketchCard>
   );
 }
@@ -89,6 +101,19 @@ export function InsulationSketch() {
   );
 }
 
+export function CladdingSketch() {
+  return (
+    <SketchCard title="Beplating rond geïsoleerde leiding">
+      <View style={styles.claddingOuter} />
+      <View style={styles.claddingInner} />
+      <DimensionArrow left={72} top={174} width={190} label="L = lengte" />
+      <DimensionArrow left={270} top={55} width={108} label="Ø leiding" vertical />
+      <SketchLabel text="t iso" left={181} top={42} emphasis />
+      <SketchLabel text="plaat rond buitenzijde" left={94} top={112} />
+    </SketchCard>
+  );
+}
+
 export function BendSketch() {
   return (
     <SketchCard title="Bocht">
@@ -108,6 +133,17 @@ export function CircleSketch() {
       <View style={styles.circle} />
       <DimensionArrow left={86} top={173} width={160} label="Ø D = diameter" />
       <SketchLine left={86} top={128} width={160} dashed />
+    </SketchCard>
+  );
+}
+
+export function SphereSketch({ half = false }: { half?: boolean }) {
+  return (
+    <SketchCard title={half ? 'Bolkop' : 'Bol'}>
+      <View style={half ? styles.halfSphere : styles.sphere} />
+      <SketchLine left={165} top={50} width={76} angle={90} dashed />
+      <SketchLabel text="R = straal" left={174} top={98} emphasis />
+      <SketchLabel text="t = isolatiedikte" left={93} top={44} />
     </SketchCard>
   );
 }
@@ -151,6 +187,14 @@ const styles = StyleSheet.create({
     position: 'absolute', left: 156, top: 22, width: 18, height: 42,
     borderWidth: 2, borderColor: colors.primary, backgroundColor: '#CBD8E5',
   },
+  ovalOuter: {
+    position: 'absolute', left: 65, top: 64, width: 205, height: 92,
+    borderRadius: 46, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#DFE8F1',
+  },
+  ovalInner: {
+    position: 'absolute', left: 98, top: 82, width: 139, height: 56,
+    borderRadius: 28, borderWidth: 2, borderColor: colors.accent, backgroundColor: colors.surfaceMuted,
+  },
   boxFront: {
     position: 'absolute', left: 82, top: 72, width: 140, height: 82,
     borderWidth: 2, borderColor: colors.primary, backgroundColor: '#DCE6F0',
@@ -167,6 +211,14 @@ const styles = StyleSheet.create({
     position: 'absolute', left: 116, top: 76, width: 98, height: 67,
     borderRadius: 36, borderWidth: 2, borderColor: colors.primary, backgroundColor: '#CFDBE7',
   },
+  claddingOuter: {
+    position: 'absolute', left: 75, top: 61, width: 185, height: 103,
+    borderRadius: 52, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#E1E8EF',
+  },
+  claddingInner: {
+    position: 'absolute', left: 104, top: 80, width: 127, height: 65,
+    borderRadius: 34, borderWidth: 3, borderColor: colors.accent, backgroundColor: colors.surfaceMuted,
+  },
   bendOuter: {
     position: 'absolute', left: 90, top: 54, width: 160, height: 108,
     borderTopWidth: 28, borderRightWidth: 28, borderColor: colors.primary,
@@ -180,5 +232,14 @@ const styles = StyleSheet.create({
   circle: {
     position: 'absolute', left: 86, top: 48, width: 160, height: 160,
     borderRadius: 80, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#E3EBF3',
+  },
+  sphere: {
+    position: 'absolute', left: 91, top: 38, width: 150, height: 150,
+    borderRadius: 75, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#E3EBF3',
+  },
+  halfSphere: {
+    position: 'absolute', left: 91, top: 74, width: 150, height: 76,
+    borderTopLeftRadius: 75, borderTopRightRadius: 75,
+    borderWidth: 3, borderBottomWidth: 2, borderColor: colors.primary, backgroundColor: '#E3EBF3',
   },
 });
