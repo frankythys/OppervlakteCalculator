@@ -17,7 +17,9 @@ export default function CalculatorsScreen() {
   return (
     <Screen>
       <Text style={styles.title}>Calculators</Text>
-      <Text style={styles.subtitle}>39 technische calculators, gegroepeerd per toepassing.</Text>
+      <Text style={styles.subtitle}>
+        {calculators.length} technische calculators, gegroepeerd per toepassing.
+      </Text>
 
       <View style={styles.search}>
         <SearchBar value={query} onChangeText={setQuery} />
