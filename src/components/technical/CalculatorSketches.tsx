@@ -80,13 +80,13 @@ export function RectangularHoodSketch() {
   );
 }
 
-export function PlateSketch() {
+export function PlateSketch({ title = 'Vlakke plaat' }: { title?: string }) {
   return (
-    <SketchCard title="Vlakke plaat">
+    <SketchCard title={title}>
       <View style={styles.plateFront} />
       <DimensionArrow left={58} top={154} width={174} label="L = lengte" />
-      <DimensionArrow left={238} top={48} width={92} label="B" vertical />
-      <SketchLabel text="B = breedte" left={172} top={83} />
+      <DimensionArrow left={218} top={48} width={92} label="B" vertical />
+      <SketchLabel text="B = breedte" left={156} top={83} />
 
       <View style={styles.plateSideView} />
       <SketchLabel text="t = dikte" left={54} top={21} emphasis />
