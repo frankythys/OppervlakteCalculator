@@ -13,15 +13,11 @@ import {
   TrapeziumSketch,
 } from './CalculatorSketches';
 import { TechnicalImageCard } from './TechnicalImageCard';
+import { technicalImages } from './technicalImages';
 
 type Props = {
   calculatorId: string;
 };
-
-const RAW_BASE = 'https://raw.githubusercontent.com/frankythys/OppervlakteCalculator/main/assets/technical';
-const ROUND_PIPE_IMAGE = { uri: `${RAW_BASE}/round-pipe.jpg` };
-const INSULATED_PIPE_IMAGE = { uri: `${RAW_BASE}/insulated-pipe.jpg` };
-const CLAD_PIPE_IMAGE = { uri: `${RAW_BASE}/clad-insulated-pipe.jpg` };
 
 const CONE_IDS = new Set(['conus_verloop_diameter', 'conus_verloop_omtrek']);
 const ROUND_IDS = new Set([
@@ -42,22 +38,16 @@ const RECTANGULAR_IDS = new Set([
   'inzet',
 ]);
 const INSULATION_IDS = new Set(['isolatie_volume', 'gaasdeken_gewicht']);
-const BEND_IDS = new Set([
-  'bocht_lengte',
-  'bocht_oppervlakte',
-  'knik_hartmaat',
-  'bocht_segmenten',
-  'bocht_praktische_limiet',
-]);
+const BEND_SKETCH_IDS = new Set(['bocht_segmenten', 'bocht_praktische_limiet']);
 const CIRCLE_IDS = new Set(['cirkel', 'cirkel_segment']);
 
 export function TechnicalSketch({ calculatorId }: Props) {
   if (calculatorId === 'leiding_met_isolatie') {
     return (
       <TechnicalImageCard
-        source={INSULATED_PIPE_IMAGE}
+        source={technicalImages.pipes.straightInsulated}
         title="Ronde leiding met isolatie"
-        caption="Doorsnede en zijaanzicht met leidingdiameter, isolatiedikte en lengte."
+        caption="Voer de kale leidingdiameter, isolatiedikte t en lengte L in. ØD toont de resulterende buitendiameter geïsoleerd."
       />
     );
   }
@@ -65,16 +55,42 @@ export function TechnicalSketch({ calculatorId }: Props) {
   if (calculatorId === 'leiding_geisoleerd') {
     return (
       <TechnicalImageCard
-        source={ROUND_PIPE_IMAGE}
+        source={technicalImages.pipes.straightInsulated}
         title="Ronde geïsoleerde leiding"
-        caption="Gebruik de gemeten buitendiameter van de geïsoleerde ronde leiding en de lengte."
+        caption="Gebruik de gemeten buitendiameter ØD van de geïsoleerde leiding en de lengte L."
+      />
+    );
+  }
+
+  if (calculatorId === 'bocht_lengte' || calculatorId === 'bocht_oppervlakte') {
+    return (
+      <TechnicalImageCard
+        source={technicalImages.bends.elbowRadius}
+        title="Bocht met radius"
+        caption="R is de hartlijnradius. ØD is de buitendiameter van de geïsoleerde leiding; t is de isolatiedikte."
+      />
+    );
+  }
+
+  if (calculatorId === 'knik_hartmaat') {
+    return (
+      <TechnicalImageCard
+        source={technicalImages.bends.kink}
+        title="Knik / verstekbocht"
+        caption="Technisch zijaanzicht van een knik. Gebruik de gevraagde hoek en radius uit de calculator."
       />
     );
   }
 
   if (calculatorId === 'alu_beplating_gewicht') {
-    return <TechnicalImageCard source={CLAD_PIPE_IMAGE} title="Beplating rond ronde leiding" />;
+    return (
+      <TechnicalImageCard
+        source={technicalImages.pipes.cladInsulated}
+        title="Beplating rond ronde leiding"
+      />
+    );
   }
+
   if (calculatorId === 'plaat_gewicht') return <PlateSketch />;
   if (calculatorId === 'bol') return <SphereSketch />;
   if (calculatorId === 'bolkop') return <SphereSketch half />;
@@ -83,7 +99,7 @@ export function TechnicalSketch({ calculatorId }: Props) {
   if (ROUND_IDS.has(calculatorId)) return <RoundValveSketch />;
   if (RECTANGULAR_IDS.has(calculatorId)) return <RectangularHoodSketch />;
   if (INSULATION_IDS.has(calculatorId)) return <InsulationSketch />;
-  if (BEND_IDS.has(calculatorId)) return <BendSketch />;
+  if (BEND_SKETCH_IDS.has(calculatorId)) return <BendSketch />;
   if (CIRCLE_IDS.has(calculatorId)) return <CircleSketch />;
   if (calculatorId === 'trapezium') return <TrapeziumSketch />;
 

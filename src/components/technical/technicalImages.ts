@@ -5,9 +5,12 @@ export const technicalImages = {
     round: require('../../../assets/technical/pipes/round-pipe.jpg') as ImageSourcePropType,
     insulated: require('../../../assets/technical/pipes/insulated-pipe.jpg') as ImageSourcePropType,
     cladInsulated: require('../../../assets/technical/pipes/clad-insulated-pipe.jpg') as ImageSourcePropType,
+    straightInsulated: require('../../../assets/technical/pipes/straight-insulated-pipe.jpg') as ImageSourcePropType,
   },
-  // Add future technical assets here only; calculator screens should import from this registry.
-  bends: {},
+  bends: {
+    elbowRadius: require('../../../assets/technical/bends/bocht-90-radius.jpg') as ImageSourcePropType,
+    kink: require('../../../assets/technical/bends/knik/knik.jpg') as ImageSourcePropType,
+  },
   plates: {},
   flanges: {},
   valves: {},
