@@ -82,15 +82,7 @@ export function TechnicalSketch({ calculatorId }: Props) {
     );
   }
 
-  if (calculatorId === 'alu_beplating_gewicht') {
-    return (
-      <TechnicalImageCard
-        source={technicalImages.pipes.cladInsulated}
-        title="Beplating rond ronde leiding"
-      />
-    );
-  }
-
+  if (calculatorId === 'alu_beplating_gewicht') return <CladdingSketch />;
   if (calculatorId === 'plaat_gewicht') return <PlateSketch />;
   if (calculatorId === 'bol') return <SphereSketch />;
   if (calculatorId === 'bolkop') return <SphereSketch half />;
