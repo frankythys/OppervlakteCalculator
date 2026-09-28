@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "Oppervlakte Calculator",
+    "slug": "oppervlakte-calculator",
+    "scheme": "oppervlaktecalculator",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "plugins": ["expo-router"],
+    "android": {
+      "package": "com.oppervlaktecalculator.app",
+      "edgeToEdgeEnabled": true
+    },
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

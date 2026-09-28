@@ -1,0 +1,5668 @@
+{
+  "schema_version": "1.0.0",
+  "name": "Oppervlakte Calculator",
+  "source": {
+    "file": "Oppervlakte_01.xls",
+    "sheet": "Oppervlakte",
+    "formula_count": 141
+  },
+  "conventions": {
+    "default_dimension_unit": "mm",
+    "surface_unit": "m²",
+    "decimal_separator_ui": ",",
+    "internal_decimal_separator": "."
+  },
+  "runtime_helpers": [
+    "degToRad",
+    "ceilToMultiple"
+  ],
+  "security_note": "Expressions are bundled app data. Do not accept or execute formulas downloaded from untrusted users.",
+  "categories": [
+    "Afsluiters",
+    "Algemeen",
+    "Bochten",
+    "Flenskappen",
+    "Kappen en kasten",
+    "Leidingen",
+    "Materiaal",
+    "PU-schuim",
+    "Tabellen",
+    "Tanks en bollen",
+    "Tijd en prijs",
+    "Vormen"
+  ],
+  "calculators": [
+    {
+      "id": "algemeen_percentage",
+      "title": "Algemeen - percentages",
+      "category": "Algemeen",
+      "row_range": [
+        3,
+        3
+      ],
+      "inputs": [
+        {
+          "id": "B3",
+          "source_cell": "B3",
+          "label": "Invoer B3",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C3",
+          "source_cell": "C3",
+          "label": "Invoer C3",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "F1",
+          "source_cell": "F1",
+          "label": "Invoer F1",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "F3",
+          "source_cell": "F3",
+          "label": "Invoer F3",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "D3",
+          "source_cell": "D3",
+          "expression": "B3-C3",
+          "excel_formula": "=B3-C3",
+          "dependencies": [
+            "B3",
+            "C3"
+          ],
+          "display_label": "Bedrag met Btw",
+          "context_labels": [
+            "Procent tussen 2 getallen",
+            "Bedrag 1(Grootste)",
+            "Bedrag 2",
+            "Verschil",
+            "Procent",
+            "Bedrag met Btw"
+          ],
+          "number_format": "General",
+          "example_result": 55,
+          "state": "ready"
+        },
+        {
+          "id": "E3",
+          "source_cell": "E3",
+          "expression": "(D3/B3)",
+          "excel_formula": "=(D3/B3)",
+          "dependencies": [
+            "B3",
+            "D3"
+          ],
+          "display_label": "Bedrag zonder Btw",
+          "context_labels": [
+            "Procent tussen 2 getallen",
+            "Bedrag 1(Grootste)",
+            "Bedrag 2",
+            "Verschil",
+            "Procent",
+            "Bedrag met Btw",
+            "Bedrag zonder Btw"
+          ],
+          "number_format": "0.00%",
+          "example_result": 0.333333333333333,
+          "state": "ready"
+        },
+        {
+          "id": "G3",
+          "source_cell": "G3",
+          "expression": "F3/F1*100",
+          "excel_formula": "=F3/F1*100",
+          "dependencies": [
+            "F1",
+            "F3"
+          ],
+          "display_label": "Bedrag zonder Btw",
+          "context_labels": [
+            "Procent tussen 2 getallen",
+            "Bedrag 1(Grootste)",
+            "Bedrag 2",
+            "Verschil",
+            "Procent",
+            "Bedrag met Btw",
+            "Bedrag zonder Btw"
+          ],
+          "number_format": "_ [$€-813]\\ * #,##0.00_ ;_ [$€-813]\\ * \\-#,##0.00_ ;_ [$€-813]\\ * \\-??_ ;_ @_ ",
+          "example_result": 3801.65289256198,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "D3",
+          "label": "Bedrag met Btw"
+        },
+        {
+          "formula_id": "E3",
+          "label": "Bedrag zonder Btw"
+        },
+        {
+          "formula_id": "G3",
+          "label": "Bedrag zonder Btw"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "leiding_met_isolatie",
+      "title": "Leiding met isolatie",
+      "category": "Leidingen",
+      "row_range": [
+        5,
+        7
+      ],
+      "inputs": [
+        {
+          "id": "B7",
+          "source_cell": "B7",
+          "label": "Invoer B7",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C5",
+          "source_cell": "C5",
+          "label": "Invoer C5",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D7",
+          "source_cell": "D7",
+          "label": "Invoer D7",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "C7",
+          "source_cell": "C7",
+          "expression": "(B7+C5*2)*Math.PI/1000",
+          "excel_formula": "=(B7+C5*2)*PI()/1000",
+          "dependencies": [
+            "B7",
+            "C5"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "Meter met iso dikte",
+            "Isolatie Dikte",
+            "dia leiding kaal",
+            "afwikkeling",
+            "lengte",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 2.41902634326414,
+          "state": "ready"
+        },
+        {
+          "id": "E7",
+          "source_cell": "E7",
+          "expression": "((C7))*D7/1000",
+          "excel_formula": "=((C7))*D7/1000",
+          "dependencies": [
+            "C7",
+            "D7"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "Meter met iso dikte",
+            "Isolatie Dikte",
+            "dia leiding kaal",
+            "afwikkeling",
+            "lengte",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 60.4756585816035,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "C7",
+          "label": "aantal m²"
+        },
+        {
+          "formula_id": "E7",
+          "label": "aantal m²"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "leiding_geisoleerd",
+      "title": "Geïsoleerde leiding",
+      "category": "Leidingen",
+      "row_range": [
+        13,
+        13
+      ],
+      "inputs": [
+        {
+          "id": "B13",
+          "source_cell": "B13",
+          "label": "Invoer B13",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D13",
+          "source_cell": "D13",
+          "label": "Invoer D13",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "C13",
+          "source_cell": "C13",
+          "expression": "B13*Math.PI/1000",
+          "excel_formula": "=B13*PI()/1000",
+          "dependencies": [
+            "B13"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "Meter",
+            "dia leiding geisoleerd",
+            "afwikkeling",
+            "lengte",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 3.87044214922263,
+          "state": "ready"
+        },
+        {
+          "id": "E13",
+          "source_cell": "E13",
+          "expression": "C13*D13/1000",
+          "excel_formula": "=C13*D13/1000",
+          "dependencies": [
+            "C13",
+            "D13"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "Meter",
+            "dia leiding geisoleerd",
+            "afwikkeling",
+            "lengte",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 166.429012416573,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "C13",
+          "label": "aantal m²"
+        },
+        {
+          "formula_id": "E13",
+          "label": "aantal m²"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "cirkel",
+      "title": "Cirkel",
+      "category": "Vormen",
+      "row_range": [
+        19,
+        19
+      ],
+      "inputs": [
+        {
+          "id": "B19",
+          "source_cell": "B19",
+          "label": "Invoer B19",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "C19",
+          "source_cell": "C19",
+          "expression": "B19*Math.PI/1000",
+          "excel_formula": "=B19*PI()/1000",
+          "dependencies": [
+            "B19"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "R² x 3,14",
+            "Cirkel",
+            "dia cirkel",
+            "afwikkeling",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 0.942477796076938,
+          "state": "ready"
+        },
+        {
+          "id": "E19",
+          "source_cell": "E19",
+          "expression": "(B19/2/1000)*(B19/2/1000)*3.14",
+          "excel_formula": "=(B19/2/1000)*(B19/2/1000)*3.14",
+          "dependencies": [
+            "B19"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "R² x 3,14",
+            "Cirkel",
+            "dia cirkel",
+            "afwikkeling",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 0.07065,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "C19",
+          "label": "aantal m²"
+        },
+        {
+          "formula_id": "E19",
+          "label": "aantal m²"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "cirkel_segment",
+      "title": "Cirkel segment",
+      "category": "Vormen",
+      "row_range": [
+        25,
+        27
+      ],
+      "inputs": [
+        {
+          "id": "B25",
+          "source_cell": "B25",
+          "label": "Invoer B25",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B26",
+          "source_cell": "B26",
+          "label": "Invoer B26",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "C25",
+          "source_cell": "C25",
+          "expression": "B25*Math.PI/1000",
+          "excel_formula": "=B25*PI()/1000",
+          "dependencies": [
+            "B25"
+          ],
+          "display_label": "buiten dia",
+          "context_labels": [
+            "Cirkel segment",
+            "dia cirkel",
+            "afwikkeling",
+            "lengte",
+            "aantal m²",
+            "buiten dia"
+          ],
+          "number_format": "0.00",
+          "example_result": 10.9955742875643,
+          "state": "ready"
+        },
+        {
+          "id": "E25",
+          "source_cell": "E25",
+          "expression": "(B25/2/1000)*(B25/2/1000)*3.14",
+          "excel_formula": "=(B25/2/1000)*(B25/2/1000)*3.14",
+          "dependencies": [
+            "B25"
+          ],
+          "display_label": "buiten dia",
+          "context_labels": [
+            "Cirkel segment",
+            "dia cirkel",
+            "afwikkeling",
+            "lengte",
+            "aantal m²",
+            "buiten dia"
+          ],
+          "number_format": "0.00",
+          "example_result": 9.61625,
+          "state": "ready"
+        },
+        {
+          "id": "C26",
+          "source_cell": "C26",
+          "expression": "B26*Math.PI/1000",
+          "excel_formula": "=B26*PI()/1000",
+          "dependencies": [
+            "B26"
+          ],
+          "display_label": "binnen dia",
+          "context_labels": [
+            "Cirkel segment",
+            "dia cirkel",
+            "afwikkeling",
+            "lengte",
+            "aantal m²",
+            "buiten dia",
+            "binnen dia"
+          ],
+          "number_format": "0.00",
+          "example_result": 9.1106186954104,
+          "state": "ready"
+        },
+        {
+          "id": "E26",
+          "source_cell": "E26",
+          "expression": "(B26/2/1000)*(B26/2/1000)*3.14",
+          "excel_formula": "=(B26/2/1000)*(B26/2/1000)*3.14",
+          "dependencies": [
+            "B26"
+          ],
+          "display_label": "binnen dia",
+          "context_labels": [
+            "Cirkel segment",
+            "dia cirkel",
+            "afwikkeling",
+            "lengte",
+            "aantal m²",
+            "buiten dia",
+            "binnen dia"
+          ],
+          "number_format": "0.00",
+          "example_result": 6.60185,
+          "state": "ready"
+        },
+        {
+          "id": "E27",
+          "source_cell": "E27",
+          "expression": "E25-E26",
+          "excel_formula": "=E25-E26",
+          "dependencies": [
+            "E25",
+            "E26"
+          ],
+          "display_label": "verschil",
+          "context_labels": [
+            "dia cirkel",
+            "afwikkeling",
+            "lengte",
+            "aantal m²",
+            "buiten dia",
+            "binnen dia",
+            "verschil"
+          ],
+          "number_format": "0.00",
+          "example_result": 3.0144,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "C25",
+          "label": "buiten dia"
+        },
+        {
+          "formula_id": "E25",
+          "label": "buiten dia"
+        },
+        {
+          "formula_id": "C26",
+          "label": "binnen dia"
+        },
+        {
+          "formula_id": "E26",
+          "label": "binnen dia"
+        },
+        {
+          "formula_id": "E27",
+          "label": "verschil"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "flenskast",
+      "title": "Flenskast",
+      "category": "Flenskappen",
+      "row_range": [
+        31,
+        34
+      ],
+      "inputs": [
+        {
+          "id": "B31",
+          "source_cell": "B31",
+          "label": "Invoer B31",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B32",
+          "source_cell": "B32",
+          "label": "Invoer B32",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B34",
+          "source_cell": "B34",
+          "label": "Invoer B34",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D34",
+          "source_cell": "D34",
+          "label": "Invoer D34",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "C31",
+          "source_cell": "C31",
+          "expression": "B31*Math.PI/1000",
+          "excel_formula": "=B31*PI()/1000",
+          "dependencies": [
+            "B31"
+          ],
+          "display_label": "buiten dia",
+          "context_labels": [
+            "Flenskast",
+            "dia cirkel",
+            "afwikkeling",
+            "lengte",
+            "aantal m²",
+            "buiten dia"
+          ],
+          "number_format": "0.00",
+          "example_result": 7.72831792783089,
+          "state": "ready"
+        },
+        {
+          "id": "E31",
+          "source_cell": "E31",
+          "expression": "(B31/2/1000)*(B31/2/1000)*3.14",
+          "excel_formula": "=(B31/2/1000)*(B31/2/1000)*3.14",
+          "dependencies": [
+            "B31"
+          ],
+          "display_label": "buiten dia",
+          "context_labels": [
+            "Flenskast",
+            "dia cirkel",
+            "afwikkeling",
+            "lengte",
+            "aantal m²",
+            "buiten dia"
+          ],
+          "number_format": "0.00",
+          "example_result": 4.750506,
+          "state": "ready"
+        },
+        {
+          "id": "C32",
+          "source_cell": "C32",
+          "expression": "B32*Math.PI/1000",
+          "excel_formula": "=B32*PI()/1000",
+          "dependencies": [
+            "B32"
+          ],
+          "display_label": "binnen dia",
+          "context_labels": [
+            "Flenskast",
+            "dia cirkel",
+            "afwikkeling",
+            "lengte",
+            "aantal m²",
+            "buiten dia",
+            "binnen dia"
+          ],
+          "number_format": "0.00",
+          "example_result": 7.41415866247191,
+          "state": "ready"
+        },
+        {
+          "id": "E32",
+          "source_cell": "E32",
+          "expression": "(B32/2/1000)*(B32/2/1000)*3.14",
+          "excel_formula": "=(B32/2/1000)*(B32/2/1000)*3.14",
+          "dependencies": [
+            "B32"
+          ],
+          "display_label": "binnen dia",
+          "context_labels": [
+            "Flenskast",
+            "dia cirkel",
+            "afwikkeling",
+            "lengte",
+            "aantal m²",
+            "buiten dia",
+            "binnen dia"
+          ],
+          "number_format": "0.00",
+          "example_result": 4.372136,
+          "state": "ready"
+        },
+        {
+          "id": "E33",
+          "source_cell": "E33",
+          "expression": "(E31-E32)*2",
+          "excel_formula": "=(E31-E32)*2",
+          "dependencies": [
+            "E31",
+            "E32"
+          ],
+          "display_label": "2 st cirkel segment",
+          "context_labels": [
+            "afwikkeling",
+            "lengte",
+            "aantal m²",
+            "buiten dia",
+            "binnen dia",
+            "cirkel segment",
+            "2 stuks",
+            "2 st cirkel segment"
+          ],
+          "number_format": "0.00",
+          "example_result": 0.756740000000001,
+          "state": "ready"
+        },
+        {
+          "id": "C34",
+          "source_cell": "C34",
+          "expression": "B34*Math.PI/1000",
+          "excel_formula": "=B34*PI()/1000",
+          "dependencies": [
+            "B34"
+          ],
+          "display_label": "mantel",
+          "context_labels": [
+            "buiten dia",
+            "binnen dia",
+            "cirkel segment",
+            "2 stuks",
+            "2 st cirkel segment",
+            "mantel"
+          ],
+          "number_format": "0.00",
+          "example_result": 7.72831792783089,
+          "state": "ready"
+        },
+        {
+          "id": "E34",
+          "source_cell": "E34",
+          "expression": "C34*D34/1000",
+          "excel_formula": "=C34*D34/1000",
+          "dependencies": [
+            "C34",
+            "D34"
+          ],
+          "display_label": "mantel",
+          "context_labels": [
+            "buiten dia",
+            "binnen dia",
+            "cirkel segment",
+            "2 stuks",
+            "2 st cirkel segment",
+            "mantel"
+          ],
+          "number_format": "0.00",
+          "example_result": 2.31849537834927,
+          "state": "ready"
+        },
+        {
+          "id": "F34",
+          "source_cell": "F34",
+          "expression": "E33+E34",
+          "excel_formula": "=E33+E34",
+          "dependencies": [
+            "E33",
+            "E34"
+          ],
+          "display_label": "mantel",
+          "context_labels": [
+            "buiten dia",
+            "binnen dia",
+            "cirkel segment",
+            "2 stuks",
+            "2 st cirkel segment",
+            "mantel"
+          ],
+          "number_format": "0.00",
+          "example_result": 3.07523537834927,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "C31",
+          "label": "buiten dia"
+        },
+        {
+          "formula_id": "E31",
+          "label": "buiten dia"
+        },
+        {
+          "formula_id": "C32",
+          "label": "binnen dia"
+        },
+        {
+          "formula_id": "E32",
+          "label": "binnen dia"
+        },
+        {
+          "formula_id": "E33",
+          "label": "2 st cirkel segment"
+        },
+        {
+          "formula_id": "C34",
+          "label": "mantel"
+        },
+        {
+          "formula_id": "E34",
+          "label": "mantel"
+        },
+        {
+          "formula_id": "F34",
+          "label": "mantel"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "rechthoek",
+      "title": "Rechthoek",
+      "category": "Vormen",
+      "row_range": [
+        38,
+        40
+      ],
+      "inputs": [
+        {
+          "id": "B38",
+          "source_cell": "B38",
+          "label": "Invoer B38",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C38",
+          "source_cell": "C38",
+          "label": "Invoer C38",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D38",
+          "source_cell": "D38",
+          "label": "Invoer D38",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C40",
+          "source_cell": "C40",
+          "label": "Invoer C40",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D40",
+          "source_cell": "D40",
+          "label": "Invoer D40",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E38",
+          "source_cell": "E38",
+          "expression": "(C38/100*D38/100)/100*B38",
+          "excel_formula": "=(C38/100*D38/100)/100*B38",
+          "dependencies": [
+            "B38",
+            "C38",
+            "D38"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "A",
+            "Rechthoek",
+            "Aantal",
+            "B",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 2.5935,
+          "state": "ready"
+        },
+        {
+          "id": "E40",
+          "source_cell": "E40",
+          "expression": "C40*2+D40*2",
+          "excel_formula": "=C40*2+D40*2",
+          "dependencies": [
+            "C40",
+            "D40"
+          ],
+          "display_label": "Omvang",
+          "context_labels": [
+            "Aantal",
+            "A",
+            "B",
+            "aantal m²",
+            "Omvang"
+          ],
+          "number_format": "0.00",
+          "example_result": 1300,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E38",
+          "label": "aantal m²"
+        },
+        {
+          "formula_id": "E40",
+          "label": "Omvang"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "kast",
+      "title": "Kast",
+      "category": "Kappen en kasten",
+      "row_range": [
+        45,
+        47
+      ],
+      "inputs": [
+        {
+          "id": "B45",
+          "source_cell": "B45",
+          "label": "Invoer B45",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C45",
+          "source_cell": "C45",
+          "label": "Invoer C45",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D45",
+          "source_cell": "D45",
+          "label": "Invoer D45",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C46",
+          "source_cell": "C46",
+          "label": "Invoer C46",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D46",
+          "source_cell": "D46",
+          "label": "Invoer D46",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C47",
+          "source_cell": "C47",
+          "label": "Invoer C47",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D47",
+          "source_cell": "D47",
+          "label": "Invoer D47",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E45",
+          "source_cell": "E45",
+          "expression": "2/100*(C45/100*D45/100+C45/100*B45/100+D45/100*B45/100)",
+          "excel_formula": "=2/100*(C45/100*D45/100+C45/100*B45/100+D45/100*B45/100)",
+          "dependencies": [
+            "B45",
+            "C45",
+            "D45"
+          ],
+          "display_label": "H",
+          "context_labels": [
+            "A",
+            "kast",
+            "hoogte",
+            "B-H",
+            "aantal m²",
+            "zonder bodem",
+            "zonder wand",
+            "H"
+          ],
+          "number_format": "0.00",
+          "example_result": 7.3304,
+          "state": "ready"
+        },
+        {
+          "id": "F45",
+          "source_cell": "F45",
+          "expression": "E45-E46",
+          "excel_formula": "=E45-E46",
+          "dependencies": [
+            "E45",
+            "E46"
+          ],
+          "display_label": "H",
+          "context_labels": [
+            "A",
+            "kast",
+            "hoogte",
+            "B-H",
+            "aantal m²",
+            "zonder bodem",
+            "zonder wand",
+            "H"
+          ],
+          "number_format": "0.00",
+          "example_result": 7.3304,
+          "state": "ready"
+        },
+        {
+          "id": "G45",
+          "source_cell": "G45",
+          "expression": "E45-E47",
+          "excel_formula": "=E45-E47",
+          "dependencies": [
+            "E45",
+            "E47"
+          ],
+          "display_label": "zonder wand",
+          "context_labels": [
+            "kast",
+            "hoogte",
+            "A",
+            "B-H",
+            "aantal m²",
+            "zonder bodem",
+            "zonder wand"
+          ],
+          "number_format": "0.00",
+          "example_result": 7.3304,
+          "state": "ready"
+        },
+        {
+          "id": "E46",
+          "source_cell": "E46",
+          "expression": "(C46/100*D46/100)/100",
+          "excel_formula": "=(C46/100*D46/100)/100",
+          "dependencies": [
+            "C46",
+            "D46"
+          ],
+          "display_label": "MIN BODEM",
+          "context_labels": [
+            "kast",
+            "hoogte",
+            "B-H",
+            "aantal m²",
+            "zonder bodem",
+            "zonder wand",
+            "H",
+            "MIN BODEM"
+          ],
+          "number_format": "0.00",
+          "example_result": 0,
+          "state": "ready"
+        },
+        {
+          "id": "E47",
+          "source_cell": "E47",
+          "expression": "(C47/100*D47/100)/100",
+          "excel_formula": "=(C47/100*D47/100)/100",
+          "dependencies": [
+            "C47",
+            "D47"
+          ],
+          "display_label": "MIN WAND",
+          "context_labels": [
+            "B-H",
+            "aantal m²",
+            "zonder bodem",
+            "zonder wand",
+            "H",
+            "MIN BODEM",
+            "B",
+            "MIN WAND"
+          ],
+          "number_format": "0.00",
+          "example_result": 0,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E45",
+          "label": "H"
+        },
+        {
+          "formula_id": "F45",
+          "label": "H"
+        },
+        {
+          "formula_id": "G45",
+          "label": "zonder wand"
+        },
+        {
+          "formula_id": "E46",
+          "label": "MIN BODEM"
+        },
+        {
+          "formula_id": "E47",
+          "label": "MIN WAND"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "trapezium",
+      "title": "Trapezium",
+      "category": "Vormen",
+      "row_range": [
+        51,
+        51
+      ],
+      "inputs": [
+        {
+          "id": "B51",
+          "source_cell": "B51",
+          "label": "Invoer B51",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C51",
+          "source_cell": "C51",
+          "label": "Invoer C51",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D51",
+          "source_cell": "D51",
+          "label": "Invoer D51",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E51",
+          "source_cell": "E51",
+          "expression": "(C51/1000+D51/1000)/2*B51/1000",
+          "excel_formula": "=(C51/1000+D51/1000)/2*B51/1000",
+          "dependencies": [
+            "B51",
+            "C51",
+            "D51"
+          ],
+          "display_label": "H",
+          "context_labels": [
+            "A",
+            "Trapezuim",
+            "hoogte",
+            "B",
+            "aantal m²",
+            "H"
+          ],
+          "number_format": "0.00",
+          "example_result": 1.86,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E51",
+          "label": "H"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "verloop",
+      "title": "Verloop",
+      "category": "Leidingen",
+      "row_range": [
+        57,
+        59
+      ],
+      "inputs": [
+        {
+          "id": "B57",
+          "source_cell": "B57",
+          "label": "Invoer B57",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C57",
+          "source_cell": "C57",
+          "label": "Invoer C57",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D57",
+          "source_cell": "D57",
+          "label": "Invoer D57",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C59",
+          "source_cell": "C59",
+          "label": "Invoer C59",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D59",
+          "source_cell": "D59",
+          "label": "Invoer D59",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B59",
+          "source_cell": "B59",
+          "label": "Invoer B59",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E57",
+          "source_cell": "E57",
+          "expression": "(C57/1000+D57/1000)/2*3.14*B57/1000",
+          "excel_formula": "=(C57/1000+D57/1000)/2*3.14*B57/1000",
+          "dependencies": [
+            "B57",
+            "C57",
+            "D57"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "Verloop",
+            "H",
+            "hoogte",
+            "kleine dia",
+            "grote dia",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 1.86516,
+          "state": "ready"
+        },
+        {
+          "id": "E59",
+          "source_cell": "E59",
+          "expression": "(C59+D59)/2",
+          "excel_formula": "=(C59+D59)/2",
+          "dependencies": [
+            "C59",
+            "D59"
+          ],
+          "display_label": "Gemiddelde omv",
+          "context_labels": [
+            "H",
+            "hoogte",
+            "kleine dia",
+            "grote dia",
+            "aantal m²",
+            "kleine omv",
+            "Grote omv",
+            "Gemiddelde omv"
+          ],
+          "number_format": "0.00",
+          "example_result": 2.445,
+          "state": "ready"
+        },
+        {
+          "id": "F59",
+          "source_cell": "F59",
+          "expression": "E59*B59",
+          "excel_formula": "=E59*B59",
+          "dependencies": [
+            "B59",
+            "E59"
+          ],
+          "display_label": "Gemiddelde omv",
+          "context_labels": [
+            "H",
+            "hoogte",
+            "kleine dia",
+            "grote dia",
+            "aantal m²",
+            "kleine omv",
+            "Grote omv",
+            "Gemiddelde omv"
+          ],
+          "number_format": "0.00",
+          "example_result": 1.467,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E57",
+          "label": "aantal m²"
+        },
+        {
+          "formula_id": "E59",
+          "label": "Gemiddelde omv"
+        },
+        {
+          "formula_id": "F59",
+          "label": "Gemiddelde omv"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "omvang_flenskap",
+      "title": "Omvang flenskap",
+      "category": "Flenskappen",
+      "row_range": [
+        62,
+        62
+      ],
+      "inputs": [
+        {
+          "id": "D62",
+          "source_cell": "D62",
+          "label": "Invoer D62",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "B62",
+          "source_cell": "B62",
+          "expression": "D62*Math.PI",
+          "excel_formula": "=D62*PI()",
+          "dependencies": [
+            "D62"
+          ],
+          "display_label": "DIA",
+          "context_labels": [
+            "Omvang Flenskap",
+            "Omvang",
+            "Afwikkeling dia",
+            "DIA"
+          ],
+          "number_format": "0.00",
+          "example_result": 879.645943005142,
+          "state": "ready"
+        },
+        {
+          "id": "C62",
+          "source_cell": "C62",
+          "expression": "(D62*Math.PI)",
+          "excel_formula": "=(D62*PI())",
+          "dependencies": [
+            "D62"
+          ],
+          "display_label": "DIA",
+          "context_labels": [
+            "Omvang Flenskap",
+            "Omvang",
+            "Afwikkeling dia",
+            "DIA"
+          ],
+          "number_format": "0.00",
+          "example_result": 879.645943005142,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "B62",
+          "label": "DIA"
+        },
+        {
+          "formula_id": "C62",
+          "label": "DIA"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "flenskap_met_deksels",
+      "title": "Flenskap + 2 deksels",
+      "category": "Flenskappen",
+      "row_range": [
+        65,
+        65
+      ],
+      "inputs": [
+        {
+          "id": "B65",
+          "source_cell": "B65",
+          "label": "Invoer B65",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D65",
+          "source_cell": "D65",
+          "label": "Invoer D65",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "C65",
+          "source_cell": "C65",
+          "expression": "B65*Math.PI/1000",
+          "excel_formula": "=B65*PI()/1000",
+          "dependencies": [
+            "B65"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "M² Flenskap + 2 Deksels",
+            "Dia Flenskap",
+            "afwikkeling",
+            "Lengte",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 8.48230016469244,
+          "state": "ready"
+        },
+        {
+          "id": "E65",
+          "source_cell": "E65",
+          "expression": "(C65*D65/1000)+(B65/2/1000*B65/2/1000)*3.14*2",
+          "excel_formula": "=(C65*D65/1000)+(B65/2/1000*B65/2/1000)*3.14*2",
+          "dependencies": [
+            "B65",
+            "C65",
+            "D65"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "M² Flenskap + 2 Deksels",
+            "Dia Flenskap",
+            "afwikkeling",
+            "Lengte",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 15.6864500823462,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "C65",
+          "label": "M²"
+        },
+        {
+          "formula_id": "E65",
+          "label": "M²"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "flenskap_zonder_deksels",
+      "title": "Flenskap zonder deksels",
+      "category": "Flenskappen",
+      "row_range": [
+        68,
+        68
+      ],
+      "inputs": [
+        {
+          "id": "B68",
+          "source_cell": "B68",
+          "label": "Invoer B68",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D68",
+          "source_cell": "D68",
+          "label": "Invoer D68",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "C68",
+          "source_cell": "C68",
+          "expression": "B68*Math.PI/1000",
+          "excel_formula": "=B68*PI()/1000",
+          "dependencies": [
+            "B68"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "M² Flenskap zonder deksels",
+            "B",
+            "Dia Flenskap",
+            "afwikkeling",
+            "Lengte",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 1.00530964914873,
+          "state": "ready"
+        },
+        {
+          "id": "E68",
+          "source_cell": "E68",
+          "expression": "C68*D68/1000",
+          "excel_formula": "=C68*D68/1000",
+          "dependencies": [
+            "C68",
+            "D68"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "M² Flenskap zonder deksels",
+            "B",
+            "Dia Flenskap",
+            "afwikkeling",
+            "Lengte",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 0.502654824574367,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "C68",
+          "label": "M²"
+        },
+        {
+          "formula_id": "E68",
+          "label": "M²"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "ronde_afsluiter",
+      "title": "Ronde afsluiter",
+      "category": "Afsluiters",
+      "row_range": [
+        74,
+        77
+      ],
+      "inputs": [
+        {
+          "id": "D74",
+          "source_cell": "D74",
+          "label": "Invoer D74",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E74",
+          "source_cell": "E74",
+          "label": "Invoer E74",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D77",
+          "source_cell": "D77",
+          "label": "Invoer D77",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E77",
+          "source_cell": "E77",
+          "label": "Invoer E77",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "B74",
+          "source_cell": "B74",
+          "expression": "C74+D74+((E74*2)-D74)",
+          "excel_formula": "=C74+D74+((E74*2)-D74)",
+          "dependencies": [
+            "C74",
+            "D74",
+            "E74"
+          ],
+          "display_label": "B",
+          "context_labels": [
+            "Omvang Ronde Afsluiter",
+            "Omvang",
+            "Afwikkeling 1/2 dia",
+            "B"
+          ],
+          "number_format": "0.00",
+          "example_result": 1035.53093477052,
+          "state": "ready"
+        },
+        {
+          "id": "C74",
+          "source_cell": "C74",
+          "expression": "(D74*Math.PI)/2",
+          "excel_formula": "=(D74*PI())/2",
+          "dependencies": [
+            "D74"
+          ],
+          "display_label": "A",
+          "context_labels": [
+            "Omvang Ronde Afsluiter",
+            "Omvang",
+            "Afwikkeling 1/2 dia",
+            "B",
+            "A"
+          ],
+          "number_format": "0.00",
+          "example_result": 455.53093477052,
+          "state": "ready"
+        },
+        {
+          "id": "B75",
+          "source_cell": "B75",
+          "expression": "ceilToMultiple(B74, 10)",
+          "excel_formula": "=CEILING(B74,10)",
+          "dependencies": [
+            "B74"
+          ],
+          "display_label": "B",
+          "context_labels": [
+            "Omvang Ronde Afsluiter",
+            "Omvang",
+            "Afwikkeling 1/2 dia",
+            "B"
+          ],
+          "number_format": "0.00",
+          "example_result": 1040,
+          "state": "ready"
+        },
+        {
+          "id": "B77",
+          "source_cell": "B77",
+          "expression": "C77+D77+((E77*2)-D77)",
+          "excel_formula": "=C77+D77+((E77*2)-D77)",
+          "dependencies": [
+            "C77",
+            "D77",
+            "E77"
+          ],
+          "display_label": "A",
+          "context_labels": [
+            "A"
+          ],
+          "number_format": "0.00",
+          "example_result": 2242.47779607694,
+          "state": "ready"
+        },
+        {
+          "id": "C77",
+          "source_cell": "C77",
+          "expression": "(D77*Math.PI)/2",
+          "excel_formula": "=(D77*PI())/2",
+          "dependencies": [
+            "D77"
+          ],
+          "display_label": "A",
+          "context_labels": [
+            "A"
+          ],
+          "number_format": "0.00",
+          "example_result": 942.477796076938,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "B74",
+          "label": "B"
+        },
+        {
+          "formula_id": "C74",
+          "label": "A"
+        },
+        {
+          "formula_id": "B75",
+          "label": "B"
+        },
+        {
+          "formula_id": "B77",
+          "label": "A"
+        },
+        {
+          "formula_id": "C77",
+          "label": "A"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "ronde_afsluiterkap",
+      "title": "Ronde afsluiterkap + deksels",
+      "category": "Afsluiters",
+      "row_range": [
+        81,
+        81
+      ],
+      "inputs": [
+        {
+          "id": "B81",
+          "source_cell": "B81",
+          "label": "Invoer B81",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C81",
+          "source_cell": "C81",
+          "label": "Invoer C81",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D81",
+          "source_cell": "D81",
+          "label": "Invoer D81",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E81",
+          "source_cell": "E81",
+          "expression": "((D81*Math.PI/2+C81+C81)*B81/1000000)+(2*(C81*D81/1000000))",
+          "excel_formula": "=((D81*PI()/2+C81+C81)*B81/1000000)+(2*(C81*D81/1000000))",
+          "dependencies": [
+            "B81",
+            "C81",
+            "D81"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "B",
+            "M² Ronde Afsluiterkap + Deksels",
+            "C",
+            "A",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 2.57398223686155,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E81",
+          "label": "M²"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "inzet",
+      "title": "Inzet",
+      "category": "Vormen",
+      "row_range": [
+        84,
+        84
+      ],
+      "inputs": [
+        {
+          "id": "B84",
+          "source_cell": "B84",
+          "label": "Invoer B84",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C84",
+          "source_cell": "C84",
+          "label": "Invoer C84",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D84",
+          "source_cell": "D84",
+          "label": "Invoer D84",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E84",
+          "source_cell": "E84",
+          "expression": "(B84+C84+D84)*2",
+          "excel_formula": "=(B84+C84+D84)*2",
+          "dependencies": [
+            "B84",
+            "C84",
+            "D84"
+          ],
+          "display_label": "Omvang",
+          "context_labels": [
+            "Inzet",
+            "Breedte",
+            "Lengte",
+            "Hoogte",
+            "Omvang"
+          ],
+          "number_format": "0.00",
+          "example_result": 620,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E84",
+          "label": "Omvang"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "rechthoekige_afsluiterkap",
+      "title": "Rechthoekige afsluiterkap",
+      "category": "Afsluiters",
+      "row_range": [
+        87,
+        90
+      ],
+      "inputs": [
+        {
+          "id": "C87",
+          "source_cell": "C87",
+          "label": "Invoer C87",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D87",
+          "source_cell": "D87",
+          "label": "Invoer D87",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B90",
+          "source_cell": "B90",
+          "label": "Invoer B90",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C90",
+          "source_cell": "C90",
+          "label": "Invoer C90",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D90",
+          "source_cell": "D90",
+          "label": "Invoer D90",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "B87",
+          "source_cell": "B87",
+          "expression": "(C87*2)+(D87*2)",
+          "excel_formula": "=(C87*2)+(D87*2)",
+          "dependencies": [
+            "C87",
+            "D87"
+          ],
+          "display_label": "C",
+          "context_labels": [
+            "Omvang Rechthoekig Afsluiterkap",
+            "Omvang",
+            "A",
+            "C"
+          ],
+          "number_format": "0.00",
+          "example_result": 1020,
+          "state": "ready"
+        },
+        {
+          "id": "E90",
+          "source_cell": "E90",
+          "expression": "((C90*B90*2)+(D90*B90*2)+(C90*D90*2))/1000000",
+          "excel_formula": "=((C90*B90*2)+(D90*B90*2)+(C90*D90*2))/1000000",
+          "dependencies": [
+            "B90",
+            "C90",
+            "D90"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "C",
+            "M² Rechthoekig Afsluiterkap + 2 Deksels",
+            "A",
+            "B",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 7.5,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "B87",
+          "label": "C"
+        },
+        {
+          "formula_id": "E90",
+          "label": "M²"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "ovale_flenskap",
+      "title": "Ovale flenskap",
+      "category": "Flenskappen",
+      "row_range": [
+        95,
+        96
+      ],
+      "inputs": [
+        {
+          "id": "D95",
+          "source_cell": "D95",
+          "label": "Invoer D95",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E95",
+          "source_cell": "E95",
+          "label": "Invoer E95",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "B95",
+          "source_cell": "B95",
+          "expression": "((E95-D95)*2)+C95",
+          "excel_formula": "=((E95-D95)*2)+C95",
+          "dependencies": [
+            "C95",
+            "D95",
+            "E95"
+          ],
+          "display_label": "B",
+          "context_labels": [
+            "Omvang Ovaal Flenskap",
+            "Omvang",
+            "Afwikkeling dia",
+            "B"
+          ],
+          "number_format": "0.00",
+          "example_result": 1242.47779607694,
+          "state": "ready"
+        },
+        {
+          "id": "C95",
+          "source_cell": "C95",
+          "expression": "(D95*Math.PI)",
+          "excel_formula": "=(D95*PI())",
+          "dependencies": [
+            "D95"
+          ],
+          "display_label": "A",
+          "context_labels": [
+            "Omvang Ovaal Flenskap",
+            "Omvang",
+            "Afwikkeling dia",
+            "B",
+            "A"
+          ],
+          "number_format": "0.00",
+          "example_result": 942.477796076938,
+          "state": "ready"
+        },
+        {
+          "id": "B96",
+          "source_cell": "B96",
+          "expression": "ceilToMultiple(B95, 10)",
+          "excel_formula": "=CEILING(B95,10)",
+          "dependencies": [
+            "B95"
+          ],
+          "display_label": "B",
+          "context_labels": [
+            "Omvang Ovaal Flenskap",
+            "Omvang",
+            "Afwikkeling dia",
+            "B"
+          ],
+          "number_format": "0.00",
+          "example_result": 1250,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "B95",
+          "label": "B"
+        },
+        {
+          "formula_id": "C95",
+          "label": "A"
+        },
+        {
+          "formula_id": "B96",
+          "label": "B"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "ovale_afsluiter",
+      "title": "Ovale afsluiter + deksels",
+      "category": "Afsluiters",
+      "row_range": [
+        99,
+        101
+      ],
+      "inputs": [
+        {
+          "id": "D99",
+          "source_cell": "D99",
+          "label": "Invoer D99",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B99",
+          "source_cell": "B99",
+          "label": "Invoer B99",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C99",
+          "source_cell": "C99",
+          "label": "Invoer C99",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E99",
+          "source_cell": "E99",
+          "expression": "(C101*D99/1000)+(B101/2/1000*B101/2/1000)*3.14*2",
+          "excel_formula": "=(C101*D99/1000)+(B101/2/1000*B101/2/1000)*3.14*2",
+          "dependencies": [
+            "B101",
+            "C101",
+            "D99"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "M² Ovale afsluiter+deksels",
+            "A",
+            "C",
+            "B",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 0.188463706143592,
+          "state": "ready"
+        },
+        {
+          "id": "B101",
+          "source_cell": "B101",
+          "expression": "C99/2+B99/2",
+          "excel_formula": "=C99/2+B99/2",
+          "dependencies": [
+            "B99",
+            "C99"
+          ],
+          "display_label": "afwikkeling",
+          "context_labels": [
+            "A",
+            "C",
+            "B",
+            "fiktieve dia",
+            "afwikkeling"
+          ],
+          "number_format": "General",
+          "example_result": 200,
+          "state": "ready"
+        },
+        {
+          "id": "C101",
+          "source_cell": "C101",
+          "expression": "B99/1000*Math.PI",
+          "excel_formula": "=B99/1000*PI()",
+          "dependencies": [
+            "B99"
+          ],
+          "display_label": "afwikkeling",
+          "context_labels": [
+            "A",
+            "C",
+            "B",
+            "aantal m²",
+            "fiktieve dia",
+            "afwikkeling"
+          ],
+          "number_format": "General",
+          "example_result": 0.628318530717959,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E99",
+          "label": "aantal m²"
+        },
+        {
+          "formula_id": "B101",
+          "label": "afwikkeling"
+        },
+        {
+          "formula_id": "C101",
+          "label": "afwikkeling"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "bocht_lengte",
+      "title": "Bocht 90° / 45° - buitenlengte",
+      "category": "Bochten",
+      "row_range": [
+        104,
+        105
+      ],
+      "inputs": [
+        {
+          "id": "B104",
+          "source_cell": "B104",
+          "label": "Invoer B104",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C104",
+          "source_cell": "C104",
+          "label": "Invoer C104",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B105",
+          "source_cell": "B105",
+          "label": "Invoer B105",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C105",
+          "source_cell": "C105",
+          "label": "Invoer C105",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "D104",
+          "source_cell": "D104",
+          "expression": "((B104+(C104/2))*Math.PI/4)",
+          "excel_formula": "=((B104+(C104/2))*PI()/4)",
+          "dependencies": [
+            "B104",
+            "C104"
+          ],
+          "display_label": "45°",
+          "context_labels": [
+            "Lengte Buitenkant Bocht 90° + 45°",
+            "Radius",
+            "DIA",
+            "90°",
+            "45°"
+          ],
+          "number_format": "0.00",
+          "example_result": 1513.46226086688,
+          "state": "ready"
+        },
+        {
+          "id": "E104",
+          "source_cell": "E104",
+          "expression": "D104/2",
+          "excel_formula": "=D104/2",
+          "dependencies": [
+            "D104"
+          ],
+          "display_label": "45°",
+          "context_labels": [
+            "Lengte Buitenkant Bocht 90° + 45°",
+            "Radius",
+            "DIA",
+            "90°",
+            "45°"
+          ],
+          "number_format": "0.00",
+          "example_result": 756.731130433441,
+          "state": "ready"
+        },
+        {
+          "id": "F104",
+          "source_cell": "F104",
+          "expression": "((B104+(C104/2))*1.57)",
+          "excel_formula": "=((B104+(C104/2))*1.57)",
+          "dependencies": [
+            "B104",
+            "C104"
+          ],
+          "display_label": "45°",
+          "context_labels": [
+            "Lengte Buitenkant Bocht 90° + 45°",
+            "Radius",
+            "DIA",
+            "90°",
+            "45°"
+          ],
+          "number_format": "0.00",
+          "example_result": 3025.39,
+          "state": "ready"
+        },
+        {
+          "id": "D105",
+          "source_cell": "D105",
+          "expression": "((B105+(C105/2))*1.57)",
+          "excel_formula": "=((B105+(C105/2))*1.57)",
+          "dependencies": [
+            "B105",
+            "C105"
+          ],
+          "display_label": "45°",
+          "context_labels": [
+            "Lengte Buitenkant Bocht 90° + 45°",
+            "Radius",
+            "DIA",
+            "90°",
+            "45°"
+          ],
+          "number_format": "0.00",
+          "example_result": 847.8,
+          "state": "ready"
+        },
+        {
+          "id": "E105",
+          "source_cell": "E105",
+          "expression": "D105/2",
+          "excel_formula": "=D105/2",
+          "dependencies": [
+            "D105"
+          ],
+          "display_label": "45°",
+          "context_labels": [
+            "Lengte Buitenkant Bocht 90° + 45°",
+            "Radius",
+            "DIA",
+            "90°",
+            "45°"
+          ],
+          "number_format": "0.00",
+          "example_result": 423.9,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "D104",
+          "label": "45°"
+        },
+        {
+          "formula_id": "E104",
+          "label": "45°"
+        },
+        {
+          "formula_id": "F104",
+          "label": "45°"
+        },
+        {
+          "formula_id": "D105",
+          "label": "45°"
+        },
+        {
+          "formula_id": "E105",
+          "label": "45°"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "bocht_oppervlakte",
+      "title": "Bocht - oppervlakte",
+      "category": "Bochten",
+      "row_range": [
+        108,
+        109
+      ],
+      "inputs": [
+        {
+          "id": "C108",
+          "source_cell": "C108",
+          "label": "Invoer C108",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B108",
+          "source_cell": "B108",
+          "label": "Invoer B108",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "D108",
+          "source_cell": "D108",
+          "expression": "(C108*Math.PI)*B109/1000",
+          "excel_formula": "=(C108*PI())*B109/1000",
+          "dependencies": [
+            "B109",
+            "C108"
+          ],
+          "display_label": "45°",
+          "context_labels": [
+            "M² Bocht",
+            "Radius",
+            "DIA",
+            "90°",
+            "45°"
+          ],
+          "number_format": "0.00",
+          "example_result": 3.55483411318437,
+          "state": "ready"
+        },
+        {
+          "id": "E108",
+          "source_cell": "E108",
+          "expression": "(C108*Math.PI)*B109/1000/2",
+          "excel_formula": "=(C108*PI())*B109/1000/2",
+          "dependencies": [
+            "B109",
+            "C108"
+          ],
+          "display_label": "45°",
+          "context_labels": [
+            "M² Bocht",
+            "Radius",
+            "DIA",
+            "90°",
+            "45°"
+          ],
+          "number_format": "0.00",
+          "example_result": 1.77741705659218,
+          "state": "ready"
+        },
+        {
+          "id": "B109",
+          "source_cell": "B109",
+          "expression": "B108*(Math.PI/2)/1000",
+          "excel_formula": "=B108*(PI()/2)/1000",
+          "dependencies": [
+            "B108"
+          ],
+          "display_label": "Hoogte",
+          "context_labels": [
+            "M² Bocht",
+            "Radius",
+            "DIA",
+            "90°",
+            "Hoogte"
+          ],
+          "number_format": "0.00",
+          "example_result": 1.4451326206513,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "D108",
+          "label": "45°"
+        },
+        {
+          "formula_id": "E108",
+          "label": "45°"
+        },
+        {
+          "formula_id": "B109",
+          "label": "Hoogte"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "knik_hartmaat",
+      "title": "Knik - halve hartmaat",
+      "category": "Bochten",
+      "row_range": [
+        112,
+        112
+      ],
+      "inputs": [
+        {
+          "id": "C112",
+          "source_cell": "C112",
+          "label": "Invoer C112",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D112",
+          "source_cell": "D112",
+          "label": "Invoer D112",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E112",
+          "source_cell": "E112",
+          "expression": "Math.tan(degToRad(C112/2))*D112",
+          "excel_formula": "=TAN(RADIANS(C112/2))*D112",
+          "dependencies": [
+            "C112",
+            "D112"
+          ],
+          "display_label": "LENGTE",
+          "context_labels": [
+            "Hoogte",
+            "Lengte 1/2 Knik Hart Maat",
+            "Ø",
+            "GRADEN",
+            "RADIUS",
+            "LENGTE"
+          ],
+          "number_format": "0.00",
+          "example_result": 43000,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E112",
+          "label": "LENGTE"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "bocht_segmenten",
+      "title": "Bocht - segmentradius",
+      "category": "Bochten",
+      "row_range": [
+        119,
+        121
+      ],
+      "inputs": [
+        {
+          "id": "B119",
+          "source_cell": "B119",
+          "label": "Invoer B119",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C119",
+          "source_cell": "C119",
+          "label": "Invoer C119",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E119",
+          "source_cell": "E119",
+          "expression": "B119*Math.tan(degToRad(C121))",
+          "excel_formula": "=B119*TAN(RADIANS(C121))",
+          "dependencies": [
+            "B119",
+            "C121"
+          ],
+          "display_label": "RADIUS",
+          "context_labels": [
+            "Radius segmenten Bocht",
+            "Hoogte C",
+            "SEGM",
+            "DIA",
+            "RADIUS"
+          ],
+          "number_format": "0",
+          "example_result": 500,
+          "state": "ready"
+        },
+        {
+          "id": "C120",
+          "source_cell": "C120",
+          "expression": "90/C119",
+          "excel_formula": "=90/C119",
+          "dependencies": [
+            "C119"
+          ],
+          "display_label": "HOEK 1",
+          "context_labels": [
+            "Radius segmenten Bocht",
+            "Hoogte C",
+            "SEGM",
+            "DIA",
+            "RADIUS",
+            "HOEK 1"
+          ],
+          "number_format": "#,##0\\°",
+          "example_result": 45,
+          "state": "ready"
+        },
+        {
+          "id": "C121",
+          "source_cell": "C121",
+          "expression": "90-C120",
+          "excel_formula": "=90-C120",
+          "dependencies": [
+            "C120"
+          ],
+          "display_label": "HOEK 2",
+          "context_labels": [
+            "Hoogte C",
+            "SEGM",
+            "DIA",
+            "RADIUS",
+            "HOEK 1",
+            "HOEK 2"
+          ],
+          "number_format": "#,##0\\°",
+          "example_result": 45,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E119",
+          "label": "RADIUS"
+        },
+        {
+          "formula_id": "C120",
+          "label": "HOEK 1"
+        },
+        {
+          "formula_id": "C121",
+          "label": "HOEK 2"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "bolkop",
+      "title": "Bolkop - oppervlakte",
+      "category": "Tanks en bollen",
+      "row_range": [
+        126,
+        126
+      ],
+      "inputs": [
+        {
+          "id": "B126",
+          "source_cell": "B126",
+          "label": "Invoer B126",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C126",
+          "source_cell": "C126",
+          "label": "Invoer C126",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E126",
+          "source_cell": "E126",
+          "expression": "((4*Math.PI*(B126+C126)**2)/1000000)/2",
+          "excel_formula": "=((4*PI()*(B126+C126)^2)/1000000)/2",
+          "dependencies": [
+            "B126",
+            "C126"
+          ],
+          "display_label": "Oppervlakte",
+          "context_labels": [
+            "Oppervlakte bol kop",
+            "Straal",
+            "Iso dikte",
+            "Oppervlakte"
+          ],
+          "number_format": "0.00",
+          "example_result": 42.8016866310381,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E126",
+          "label": "Oppervlakte"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "bol",
+      "title": "Bol - oppervlakte",
+      "category": "Tanks en bollen",
+      "row_range": [
+        129,
+        129
+      ],
+      "inputs": [
+        {
+          "id": "B129",
+          "source_cell": "B129",
+          "label": "Invoer B129",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C129",
+          "source_cell": "C129",
+          "label": "Invoer C129",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E129",
+          "source_cell": "E129",
+          "expression": "((4*Math.PI*(B129+C129)**2)/1000000)",
+          "excel_formula": "=((4*PI()*(B129+C129)^2)/1000000)",
+          "dependencies": [
+            "B129",
+            "C129"
+          ],
+          "display_label": "Oppervlakte",
+          "context_labels": [
+            "Oppervlakte bol",
+            "Straal",
+            "Iso dikte",
+            "Oppervlakte"
+          ],
+          "number_format": "0.00",
+          "example_result": 85.6033732620761,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E129",
+          "label": "Oppervlakte"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "uren_100_stelsel",
+      "title": "Minuten naar 100-stelsel",
+      "category": "Tijd en prijs",
+      "row_range": [
+        133,
+        133
+      ],
+      "inputs": [
+        {
+          "id": "A133",
+          "source_cell": "A133",
+          "label": "Invoer A133",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "B133",
+          "source_cell": "B133",
+          "expression": "A133/60",
+          "excel_formula": "=A133/60",
+          "dependencies": [
+            "A133"
+          ],
+          "display_label": "100 stelsel",
+          "context_labels": [
+            "Uitreken uren 100 stelsel",
+            "Minuten",
+            "100 stelsel"
+          ],
+          "number_format": "0.000",
+          "example_result": 0.0075,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "B133",
+          "label": "100 stelsel"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "gaasdekens_rollen",
+      "title": "Gaasdekens - rollen en prijs",
+      "category": "Materiaal",
+      "row_range": [
+        136,
+        140
+      ],
+      "inputs": [
+        {
+          "id": "B136",
+          "source_cell": "B136",
+          "label": "Invoer B136",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C136",
+          "source_cell": "C136",
+          "label": "Invoer C136",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E136",
+          "source_cell": "E136",
+          "label": "Invoer E136",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B137",
+          "source_cell": "B137",
+          "label": "Invoer B137",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C137",
+          "source_cell": "C137",
+          "label": "Invoer C137",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E137",
+          "source_cell": "E137",
+          "label": "Invoer E137",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B138",
+          "source_cell": "B138",
+          "label": "Invoer B138",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C138",
+          "source_cell": "C138",
+          "label": "Invoer C138",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E138",
+          "source_cell": "E138",
+          "label": "Invoer E138",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B139",
+          "source_cell": "B139",
+          "label": "Invoer B139",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C139",
+          "source_cell": "C139",
+          "label": "Invoer C139",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E139",
+          "source_cell": "E139",
+          "label": "Invoer E139",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B140",
+          "source_cell": "B140",
+          "label": "Invoer B140",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C140",
+          "source_cell": "C140",
+          "label": "Invoer C140",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E140",
+          "source_cell": "E140",
+          "label": "Invoer E140",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "D136",
+          "source_cell": "D136",
+          "expression": "C136*B136",
+          "excel_formula": "=C136*B136",
+          "dependencies": [
+            "B136",
+            "C136"
+          ],
+          "display_label": "Subtotaal",
+          "context_labels": [
+            "Aantal m² per rol gaasdekens//72 rollen per pallet",
+            "Knauf WM 640",
+            "M²/Rol",
+            "ROLLEN",
+            "M²",
+            "M² Prijs",
+            "Subtotaal"
+          ],
+          "number_format": "General",
+          "example_result": 0,
+          "state": "ready"
+        },
+        {
+          "id": "F136",
+          "source_cell": "F136",
+          "expression": "D136*E136",
+          "excel_formula": "=D136*E136",
+          "dependencies": [
+            "D136",
+            "E136"
+          ],
+          "display_label": "Subtotaal",
+          "context_labels": [
+            "Aantal m² per rol gaasdekens//72 rollen per pallet",
+            "Knauf WM 640",
+            "M²/Rol",
+            "ROLLEN",
+            "M²",
+            "M² Prijs",
+            "Subtotaal"
+          ],
+          "number_format": "General",
+          "example_result": 0,
+          "state": "ready"
+        },
+        {
+          "id": "D137",
+          "source_cell": "D137",
+          "expression": "C137*B137",
+          "excel_formula": "=C137*B137",
+          "dependencies": [
+            "B137",
+            "C137"
+          ],
+          "display_label": "Subtotaal",
+          "context_labels": [
+            "Aantal m² per rol gaasdekens//72 rollen per pallet",
+            "Knauf WM 640",
+            "M²/Rol",
+            "ROLLEN",
+            "M²",
+            "M² Prijs",
+            "Subtotaal"
+          ],
+          "number_format": "General",
+          "example_result": 0,
+          "state": "ready"
+        },
+        {
+          "id": "F137",
+          "source_cell": "F137",
+          "expression": "D137*E137",
+          "excel_formula": "=D137*E137",
+          "dependencies": [
+            "D137",
+            "E137"
+          ],
+          "display_label": "Subtotaal",
+          "context_labels": [
+            "Aantal m² per rol gaasdekens//72 rollen per pallet",
+            "Knauf WM 640",
+            "M²/Rol",
+            "ROLLEN",
+            "M²",
+            "M² Prijs",
+            "Subtotaal"
+          ],
+          "number_format": "General",
+          "example_result": 0,
+          "state": "ready"
+        },
+        {
+          "id": "D138",
+          "source_cell": "D138",
+          "expression": "C138*B138",
+          "excel_formula": "=C138*B138",
+          "dependencies": [
+            "B138",
+            "C138"
+          ],
+          "display_label": "Subtotaal",
+          "context_labels": [
+            "Knauf WM 640",
+            "M²/Rol",
+            "ROLLEN",
+            "M²",
+            "M² Prijs",
+            "Subtotaal"
+          ],
+          "number_format": "General",
+          "example_result": 0,
+          "state": "ready"
+        },
+        {
+          "id": "F138",
+          "source_cell": "F138",
+          "expression": "D138*E138",
+          "excel_formula": "=D138*E138",
+          "dependencies": [
+            "D138",
+            "E138"
+          ],
+          "display_label": "Subtotaal",
+          "context_labels": [
+            "Knauf WM 640",
+            "M²/Rol",
+            "ROLLEN",
+            "M²",
+            "M² Prijs",
+            "Subtotaal"
+          ],
+          "number_format": "General",
+          "example_result": 0,
+          "state": "ready"
+        },
+        {
+          "id": "D139",
+          "source_cell": "D139",
+          "expression": "C139*B139",
+          "excel_formula": "=C139*B139",
+          "dependencies": [
+            "B139",
+            "C139"
+          ],
+          "display_label": "D139",
+          "context_labels": [],
+          "number_format": "General",
+          "example_result": 0,
+          "state": "ready"
+        },
+        {
+          "id": "F139",
+          "source_cell": "F139",
+          "expression": "D139*E139",
+          "excel_formula": "=D139*E139",
+          "dependencies": [
+            "D139",
+            "E139"
+          ],
+          "display_label": "F139",
+          "context_labels": [],
+          "number_format": "General",
+          "example_result": 0,
+          "state": "ready"
+        },
+        {
+          "id": "D140",
+          "source_cell": "D140",
+          "expression": "C140*B140",
+          "excel_formula": "=C140*B140",
+          "dependencies": [
+            "B140",
+            "C140"
+          ],
+          "display_label": "D140",
+          "context_labels": [],
+          "number_format": "General",
+          "example_result": 0,
+          "state": "ready"
+        },
+        {
+          "id": "F140",
+          "source_cell": "F140",
+          "expression": "D140*E140",
+          "excel_formula": "=D140*E140",
+          "dependencies": [
+            "D140",
+            "E140"
+          ],
+          "display_label": "F140",
+          "context_labels": [],
+          "number_format": "General",
+          "example_result": 0,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "D136",
+          "label": "Subtotaal"
+        },
+        {
+          "formula_id": "F136",
+          "label": "Subtotaal"
+        },
+        {
+          "formula_id": "D137",
+          "label": "Subtotaal"
+        },
+        {
+          "formula_id": "F137",
+          "label": "Subtotaal"
+        },
+        {
+          "formula_id": "D138",
+          "label": "Subtotaal"
+        },
+        {
+          "formula_id": "F138",
+          "label": "Subtotaal"
+        },
+        {
+          "formula_id": "D139",
+          "label": "D139"
+        },
+        {
+          "formula_id": "F139",
+          "label": "F139"
+        },
+        {
+          "formula_id": "D140",
+          "label": "D140"
+        },
+        {
+          "formula_id": "F140",
+          "label": "F140"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "plaat_gewicht",
+      "title": "Plaat - gewicht en m²",
+      "category": "Materiaal",
+      "row_range": [
+        143,
+        145
+      ],
+      "inputs": [
+        {
+          "id": "B143",
+          "source_cell": "B143",
+          "label": "Invoer B143",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C143",
+          "source_cell": "C143",
+          "label": "Invoer C143",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D143",
+          "source_cell": "D143",
+          "label": "Invoer D143",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E143",
+          "source_cell": "E143",
+          "label": "Invoer E143",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B144",
+          "source_cell": "B144",
+          "label": "Invoer B144",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C144",
+          "source_cell": "C144",
+          "label": "Invoer C144",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D144",
+          "source_cell": "D144",
+          "label": "Invoer D144",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E144",
+          "source_cell": "E144",
+          "label": "Invoer E144",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B145",
+          "source_cell": "B145",
+          "label": "Invoer B145",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C145",
+          "source_cell": "C145",
+          "label": "Invoer C145",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D145",
+          "source_cell": "D145",
+          "label": "Invoer D145",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E145",
+          "source_cell": "E145",
+          "label": "Invoer E145",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "F143",
+          "source_cell": "F143",
+          "expression": "B143/1000*C143/1000*D143*E143",
+          "excel_formula": "=B143/1000*C143/1000*D143*E143",
+          "dependencies": [
+            "B143",
+            "C143",
+            "D143",
+            "E143"
+          ],
+          "display_label": "Staal",
+          "context_labels": [
+            "Gewicht Berekenen Plaat",
+            "Plaat lengte",
+            "PlaatBreedte",
+            "Plaatdikte",
+            "Soortelijk Gewicht",
+            "Uitkomst",
+            "aantal m²",
+            "Staal"
+          ],
+          "number_format": "0.00",
+          "example_result": 18.84,
+          "state": "ready"
+        },
+        {
+          "id": "G143",
+          "source_cell": "G143",
+          "expression": "(B143/100*C143/100)/100",
+          "excel_formula": "=(B143/100*C143/100)/100",
+          "dependencies": [
+            "B143",
+            "C143"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "Gewicht Berekenen Plaat",
+            "Plaat lengte",
+            "PlaatBreedte",
+            "Plaatdikte",
+            "Soortelijk Gewicht",
+            "Uitkomst",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 3,
+          "state": "ready"
+        },
+        {
+          "id": "F144",
+          "source_cell": "F144",
+          "expression": "B144/1000*C144/1000*D144*E144",
+          "excel_formula": "=B144/1000*C144/1000*D144*E144",
+          "dependencies": [
+            "B144",
+            "C144",
+            "D144",
+            "E144"
+          ],
+          "display_label": "Rvs",
+          "context_labels": [
+            "Plaat lengte",
+            "PlaatBreedte",
+            "Plaatdikte",
+            "Soortelijk Gewicht",
+            "Uitkomst",
+            "aantal m²",
+            "Staal",
+            "Rvs"
+          ],
+          "number_format": "0.00",
+          "example_result": 6.344,
+          "state": "ready"
+        },
+        {
+          "id": "G144",
+          "source_cell": "G144",
+          "expression": "(B144/100*C144/100)/100",
+          "excel_formula": "=(B144/100*C144/100)/100",
+          "dependencies": [
+            "B144",
+            "C144"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "Gewicht Berekenen Plaat",
+            "Plaat lengte",
+            "PlaatBreedte",
+            "Plaatdikte",
+            "Soortelijk Gewicht",
+            "Uitkomst",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 1,
+          "state": "ready"
+        },
+        {
+          "id": "F145",
+          "source_cell": "F145",
+          "expression": "B145/1000*C145/1000*D145*E145",
+          "excel_formula": "=B145/1000*C145/1000*D145*E145",
+          "dependencies": [
+            "B145",
+            "C145",
+            "D145",
+            "E145"
+          ],
+          "display_label": "Aluminium",
+          "context_labels": [
+            "PlaatBreedte",
+            "Plaatdikte",
+            "Soortelijk Gewicht",
+            "Uitkomst",
+            "aantal m²",
+            "Staal",
+            "Rvs",
+            "Aluminium"
+          ],
+          "number_format": "0.00",
+          "example_result": 14.0616,
+          "state": "ready"
+        },
+        {
+          "id": "G145",
+          "source_cell": "G145",
+          "expression": "(B145/100*C145/100)/100",
+          "excel_formula": "=(B145/100*C145/100)/100",
+          "dependencies": [
+            "B145",
+            "C145"
+          ],
+          "display_label": "aantal m²",
+          "context_labels": [
+            "Plaat lengte",
+            "PlaatBreedte",
+            "Plaatdikte",
+            "Soortelijk Gewicht",
+            "Uitkomst",
+            "aantal m²"
+          ],
+          "number_format": "0.00",
+          "example_result": 8.68,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "F143",
+          "label": "Staal"
+        },
+        {
+          "formula_id": "G143",
+          "label": "aantal m²"
+        },
+        {
+          "formula_id": "F144",
+          "label": "Rvs"
+        },
+        {
+          "formula_id": "G144",
+          "label": "aantal m²"
+        },
+        {
+          "formula_id": "F145",
+          "label": "Aluminium"
+        },
+        {
+          "formula_id": "G145",
+          "label": "aantal m²"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "aluminium_bedrag",
+      "title": "Aluminium - bedrag",
+      "category": "Materiaal",
+      "row_range": [
+        148,
+        148
+      ],
+      "inputs": [
+        {
+          "id": "B148",
+          "source_cell": "B148",
+          "label": "Invoer B148",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C148",
+          "source_cell": "C148",
+          "label": "Invoer C148",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E148",
+          "source_cell": "E148",
+          "expression": "B148*C148",
+          "excel_formula": "=B148*C148",
+          "dependencies": [
+            "B148",
+            "C148"
+          ],
+          "display_label": "Prijs Alu",
+          "context_labels": [
+            "Aluminium",
+            "M² naar bedrag",
+            "Gewicht",
+            "Prijs / KG",
+            "Prijs Alu"
+          ],
+          "number_format": "0.00",
+          "example_result": 64.2256,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E148",
+          "label": "Prijs Alu"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "dia_omvang_lookup",
+      "title": "Diameter/omvang/radius lookup",
+      "category": "Tabellen",
+      "row_range": [
+        151,
+        154
+      ],
+      "inputs": [
+        {
+          "id": "'21-141(25-120)'!C3:C41",
+          "source_cell": "'21-141(25-120)'!C3:C41",
+          "label": "Invoer '21-141(25-120)'!C3:C41",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "'21-141(25-120)'!E2:O2",
+          "source_cell": "'21-141(25-120)'!E2:O2",
+          "label": "Invoer '21-141(25-120)'!E2:O2",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "'21-141(25-120)'!E3:O41",
+          "source_cell": "'21-141(25-120)'!E3:O41",
+          "label": "Invoer '21-141(25-120)'!E3:O41",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B151",
+          "source_cell": "B151",
+          "label": "Invoer B151",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C151",
+          "source_cell": "C151",
+          "label": "Invoer C151",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B154",
+          "source_cell": "B154",
+          "label": "Invoer B154",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C154",
+          "source_cell": "C154",
+          "label": "Invoer C154",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "D151",
+          "source_cell": "D151",
+          "expression": null,
+          "excel_formula": "=INDEX('21-141(25-120)'!$E$3:$O$41,MATCH(B151,'21-141(25-120)'!$C$3:$C$41,0),MATCH(C151,'21-141(25-120)'!$E$2:$O$2,0))",
+          "dependencies": [
+            "'21-141(25-120)'!C3:C41",
+            "'21-141(25-120)'!E2:O2",
+            "'21-141(25-120)'!E3:O41",
+            "B151",
+            "C151"
+          ],
+          "display_label": "Gegevens",
+          "context_labels": [
+            "Prijs Alu",
+            "Dia Omvang Radius",
+            "DIA",
+            "ISO",
+            "Gegevens"
+          ],
+          "number_format": "#,##0.00\" €\"",
+          "example_result": "490     Ø156             VKN     L=200",
+          "state": "external_lookup_required"
+        },
+        {
+          "id": "D154",
+          "source_cell": "D154",
+          "expression": null,
+          "excel_formula": "=INDEX('21-141(25-120)'!$E$3:$O$41,MATCH(B154,'21-141(25-120)'!$C$3:$C$41,0),MATCH(C154,'21-141(25-120)'!$E$2:$O$2,0))",
+          "dependencies": [
+            "'21-141(25-120)'!C3:C41",
+            "'21-141(25-120)'!E2:O2",
+            "'21-141(25-120)'!E3:O41",
+            "B154",
+            "C154"
+          ],
+          "display_label": "Gegevens",
+          "context_labels": [
+            "Dia Omvang Radius",
+            "DIA",
+            "ISO",
+            "Gegevens"
+          ],
+          "number_format": "#,##0.00\" €\"",
+          "example_result": "720     Ø229     R-190     3+2      ",
+          "state": "external_lookup_required"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "D151",
+          "label": "Gegevens"
+        },
+        {
+          "formula_id": "D154",
+          "label": "Gegevens"
+        }
+      ],
+      "state": "needs_lookup_table",
+      "notes": [
+        "Vereist tabeldata uit Excel-tabblad 21-141(25-120)."
+      ]
+    },
+    {
+      "id": "pu_flenskap",
+      "title": "PU-schuim - flenskap isolatiedikte",
+      "category": "PU-schuim",
+      "row_range": [
+        158,
+        160
+      ],
+      "inputs": [
+        {
+          "id": "D158",
+          "source_cell": "D158",
+          "label": "Invoer D158",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D160",
+          "source_cell": "D160",
+          "label": "Invoer D160",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E158",
+          "source_cell": "E158",
+          "label": "Invoer E158",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "B158",
+          "source_cell": "B158",
+          "expression": "D158*Math.PI",
+          "excel_formula": "=D158*PI()",
+          "dependencies": [
+            "D158"
+          ],
+          "display_label": "DIA flenskap",
+          "context_labels": [
+            "Uitrekenen iso dikte geschuimde kappen",
+            "Isolatie dikte Flenskap Pu schuim",
+            "Omvang",
+            "Afwikkeling dia",
+            "DIA flenskap"
+          ],
+          "number_format": "0.00",
+          "example_result": 816.814089933346,
+          "state": "ready"
+        },
+        {
+          "id": "C158",
+          "source_cell": "C158",
+          "expression": "(D158*Math.PI)",
+          "excel_formula": "=(D158*PI())",
+          "dependencies": [
+            "D158"
+          ],
+          "display_label": "Iso dikte ldg",
+          "context_labels": [
+            "Uitrekenen iso dikte geschuimde kappen",
+            "Isolatie dikte Flenskap Pu schuim",
+            "Omvang",
+            "Afwikkeling dia",
+            "DIA flenskap",
+            "Iso dikte ldg"
+          ],
+          "number_format": "0.00",
+          "example_result": 816.814089933346,
+          "state": "ready"
+        },
+        {
+          "id": "B160",
+          "source_cell": "B160",
+          "expression": "D160*Math.PI",
+          "excel_formula": "=D160*PI()",
+          "dependencies": [
+            "D160"
+          ],
+          "display_label": "Dia LDG",
+          "context_labels": [
+            "Omvang",
+            "Afwikkeling dia",
+            "DIA flenskap",
+            "Dia LDG"
+          ],
+          "number_format": "0.00",
+          "example_result": 471.238898038469,
+          "state": "ready"
+        },
+        {
+          "id": "C160",
+          "source_cell": "C160",
+          "expression": "(D160*Math.PI)",
+          "excel_formula": "=(D160*PI())",
+          "dependencies": [
+            "D160"
+          ],
+          "display_label": "Iso dikte pur",
+          "context_labels": [
+            "Omvang",
+            "Afwikkeling dia",
+            "DIA flenskap",
+            "Iso dikte ldg",
+            "Dia LDG",
+            "Iso dikte pur"
+          ],
+          "number_format": "0.00",
+          "example_result": 471.238898038469,
+          "state": "ready"
+        },
+        {
+          "id": "E160",
+          "source_cell": "E160",
+          "expression": "((D158-D160)/2)+(E158/2)",
+          "excel_formula": "=((D158-D160)/2)+(E158/2)",
+          "dependencies": [
+            "D158",
+            "D160",
+            "E158"
+          ],
+          "display_label": "Iso dikte pur",
+          "context_labels": [
+            "Omvang",
+            "Afwikkeling dia",
+            "DIA flenskap",
+            "Iso dikte ldg",
+            "Dia LDG",
+            "Iso dikte pur"
+          ],
+          "number_format": "General",
+          "example_result": 75,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "B158",
+          "label": "DIA flenskap"
+        },
+        {
+          "formula_id": "C158",
+          "label": "Iso dikte ldg"
+        },
+        {
+          "formula_id": "B160",
+          "label": "Dia LDG"
+        },
+        {
+          "formula_id": "C160",
+          "label": "Iso dikte pur"
+        },
+        {
+          "formula_id": "E160",
+          "label": "Iso dikte pur"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "pu_rechthoekige_kap",
+      "title": "PU-schuim - rechthoekige afsluiterkap",
+      "category": "PU-schuim",
+      "row_range": [
+        165,
+        170
+      ],
+      "inputs": [
+        {
+          "id": "C165",
+          "source_cell": "C165",
+          "label": "Invoer C165",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D165",
+          "source_cell": "D165",
+          "label": "Invoer D165",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C170",
+          "source_cell": "C170",
+          "label": "Invoer C170",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E165",
+          "source_cell": "E165",
+          "label": "Invoer E165",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C167",
+          "source_cell": "C167",
+          "label": "Invoer C167",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C168",
+          "source_cell": "C168",
+          "label": "Invoer C168",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "B165",
+          "source_cell": "B165",
+          "expression": "(C165*2)+(D165*2)",
+          "excel_formula": "=(C165*2)+(D165*2)",
+          "dependencies": [
+            "C165",
+            "D165"
+          ],
+          "display_label": "C",
+          "context_labels": [
+            "Isolatie dikte Rechthoekige aflsuiterkap Pu schuim",
+            "Omvang",
+            "B",
+            "C"
+          ],
+          "number_format": "0.00",
+          "example_result": 1040,
+          "state": "ready"
+        },
+        {
+          "id": "C166",
+          "source_cell": "C166",
+          "expression": "(C169-(C170/2))",
+          "excel_formula": "=(C169-(C170/2))",
+          "dependencies": [
+            "C169",
+            "C170"
+          ],
+          "display_label": "Iso dikte pur",
+          "context_labels": [
+            "Isolatie dikte Rechthoekige aflsuiterkap Pu schuim",
+            "Omvang",
+            "B",
+            "C",
+            "Iso dikte ldg",
+            "Zijde A",
+            "Iso dikte pur"
+          ],
+          "number_format": "0.00",
+          "example_result": 38.1370849898476,
+          "state": "ready"
+        },
+        {
+          "id": "E167",
+          "source_cell": "E167",
+          "expression": "((C166+D170)/2)+(E165/2)",
+          "excel_formula": "=((C166+D170)/2)+(E165/2)",
+          "dependencies": [
+            "C166",
+            "D170",
+            "E165"
+          ],
+          "display_label": "zijde C in mm :",
+          "context_labels": [
+            "Omvang",
+            "B",
+            "C",
+            "Iso dikte ldg",
+            "Zijde A",
+            "Iso dikte pur",
+            "zijde C in mm :"
+          ],
+          "number_format": "General",
+          "example_result": 66.5685424949238,
+          "state": "ready"
+        },
+        {
+          "id": "C169",
+          "source_cell": "C169",
+          "expression": "Math.sqrt((C167*C167)+(C168*C168))/2",
+          "excel_formula": "=SQRT((C167*C167)+(C168*C168))/2",
+          "dependencies": [
+            "C167",
+            "C168"
+          ],
+          "display_label": "zijde A :",
+          "context_labels": [
+            "Zijde A",
+            "Iso dikte pur",
+            "zijde C in mm :",
+            "zijde B in mm :",
+            "zijde A :"
+          ],
+          "number_format": "0.00",
+          "example_result": 113.137084989848,
+          "state": "ready"
+        },
+        {
+          "id": "D170",
+          "source_cell": "D170",
+          "expression": "(D165/2)-(C170/2)",
+          "excel_formula": "=(D165/2)-(C170/2)",
+          "dependencies": [
+            "C170",
+            "D165"
+          ],
+          "display_label": "Dia LDG Geisoleerd",
+          "context_labels": [
+            "zijde C in mm :",
+            "zijde B in mm :",
+            "zijde A :",
+            "Dia LDG Geisoleerd"
+          ],
+          "number_format": "General",
+          "example_result": 55,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "B165",
+          "label": "C"
+        },
+        {
+          "formula_id": "C166",
+          "label": "Iso dikte pur"
+        },
+        {
+          "formula_id": "E167",
+          "label": "zijde C in mm :"
+        },
+        {
+          "formula_id": "C169",
+          "label": "zijde A :"
+        },
+        {
+          "formula_id": "D170",
+          "label": "Dia LDG Geisoleerd"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "pu_hondenhok_kap",
+      "title": "PU-schuim - hondenhok afsluiterkap",
+      "category": "PU-schuim",
+      "row_range": [
+        173,
+        178
+      ],
+      "inputs": [
+        {
+          "id": "C173",
+          "source_cell": "C173",
+          "label": "Invoer C173",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D173",
+          "source_cell": "D173",
+          "label": "Invoer D173",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "E173",
+          "source_cell": "E173",
+          "label": "Invoer E173",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C175",
+          "source_cell": "C175",
+          "label": "Invoer C175",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C176",
+          "source_cell": "C176",
+          "label": "Invoer C176",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C177",
+          "source_cell": "C177",
+          "label": "Invoer C177",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "B173",
+          "source_cell": "B173",
+          "expression": "C174+C173+((D173*2)-C173)",
+          "excel_formula": "=C174+C173+((D173*2)-C173)",
+          "dependencies": [
+            "C173",
+            "C174",
+            "D173"
+          ],
+          "display_label": "A",
+          "context_labels": [
+            "Dia LDG Geisoleerd",
+            "Isolatie dikte honde hok aflsuiterkap Pu schuim",
+            "Omvang",
+            "B",
+            "A"
+          ],
+          "number_format": "0.00",
+          "example_result": 1079.82297150257,
+          "state": "ready"
+        },
+        {
+          "id": "C174",
+          "source_cell": "C174",
+          "expression": "(C173*Math.PI)/2",
+          "excel_formula": "=(C173*PI())/2",
+          "dependencies": [
+            "C173"
+          ],
+          "display_label": "Iso dikte pur",
+          "context_labels": [
+            "Isolatie dikte honde hok aflsuiterkap Pu schuim",
+            "Omvang",
+            "B",
+            "A",
+            "Iso dikte",
+            "Afwikkeling 1/2 dia",
+            "Iso dikte pur"
+          ],
+          "number_format": "0.00",
+          "example_result": 439.822971502571,
+          "state": "ready"
+        },
+        {
+          "id": "E175",
+          "source_cell": "E175",
+          "expression": "(D178+D177)/2+(E173/2)",
+          "excel_formula": "=(D178+D177)/2+(E173/2)",
+          "dependencies": [
+            "D177",
+            "D178",
+            "E173"
+          ],
+          "display_label": "Dia ldg geisoleerd",
+          "context_labels": [
+            "Omvang",
+            "B",
+            "A",
+            "Iso dikte",
+            "Afwikkeling 1/2 dia",
+            "Iso dikte pur",
+            "Dia ldg geisoleerd"
+          ],
+          "number_format": "General",
+          "example_result": 93.1370849898476,
+          "state": "ready"
+        },
+        {
+          "id": "D177",
+          "source_cell": "D177",
+          "expression": "(D173-C175)/2",
+          "excel_formula": "=(D173-C175)/2",
+          "dependencies": [
+            "C175",
+            "D173"
+          ],
+          "display_label": "zijde B in mm :",
+          "context_labels": [
+            "Afwikkeling 1/2 dia",
+            "Iso dikte pur",
+            "A",
+            "Dia ldg geisoleerd",
+            "zijde C in mm :",
+            "zijde B in mm :"
+          ],
+          "number_format": "0.00",
+          "example_result": 40,
+          "state": "ready"
+        },
+        {
+          "id": "C178",
+          "source_cell": "C178",
+          "expression": "Math.sqrt((C176*C176)+(C177*C177))/2",
+          "excel_formula": "=SQRT((C176*C176)+(C177*C177))/2",
+          "dependencies": [
+            "C176",
+            "C177"
+          ],
+          "display_label": "zijde A :",
+          "context_labels": [
+            "A",
+            "Dia ldg geisoleerd",
+            "zijde C in mm :",
+            "zijde B in mm :",
+            "B",
+            "zijde A :"
+          ],
+          "number_format": "0.00",
+          "example_result": 226.274169979695,
+          "state": "ready"
+        },
+        {
+          "id": "D178",
+          "source_cell": "D178",
+          "expression": "C178-(C175/2)",
+          "excel_formula": "=C178-(C175/2)",
+          "dependencies": [
+            "C175",
+            "C178"
+          ],
+          "display_label": "zijde A :",
+          "context_labels": [
+            "A",
+            "Dia ldg geisoleerd",
+            "zijde C in mm :",
+            "zijde B in mm :",
+            "B",
+            "zijde A :"
+          ],
+          "number_format": "0.00",
+          "example_result": 106.274169979695,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "B173",
+          "label": "A"
+        },
+        {
+          "formula_id": "C174",
+          "label": "Iso dikte pur"
+        },
+        {
+          "formula_id": "E175",
+          "label": "Dia ldg geisoleerd"
+        },
+        {
+          "formula_id": "D177",
+          "label": "zijde B in mm :"
+        },
+        {
+          "formula_id": "C178",
+          "label": "zijde A :"
+        },
+        {
+          "formula_id": "D178",
+          "label": "zijde A :"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "isolatie_volume",
+      "title": "Isolatie - volume, oppervlak en gewicht",
+      "category": "Materiaal",
+      "row_range": [
+        185,
+        187
+      ],
+      "inputs": [
+        {
+          "id": "C185",
+          "source_cell": "C185",
+          "label": "Invoer C185",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "A185",
+          "source_cell": "A185",
+          "label": "Invoer A185",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B185",
+          "source_cell": "B185",
+          "label": "Invoer B185",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "A187",
+          "source_cell": "A187",
+          "label": "Invoer A187",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E185",
+          "source_cell": "E185",
+          "expression": "F185*(C185/1000)",
+          "excel_formula": "=F185*(C185/1000)",
+          "dependencies": [
+            "C185",
+            "F185"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "Hoogte",
+            "Radius",
+            "Iso Dikte",
+            "M³",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 424.929309050433,
+          "state": "ready"
+        },
+        {
+          "id": "F185",
+          "source_cell": "F185",
+          "expression": "(2*Math.PI*(B185+C185)*A185)/1000000",
+          "excel_formula": "=(2*PI()*(B185+C185)*A185)/1000000",
+          "dependencies": [
+            "A185",
+            "B185",
+            "C185"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "Hoogte",
+            "Radius",
+            "Iso Dikte",
+            "M³",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 1416.43103016811,
+          "state": "ready"
+        },
+        {
+          "id": "E187",
+          "source_cell": "E187",
+          "expression": "E185*A187",
+          "excel_formula": "=E185*A187",
+          "dependencies": [
+            "A187",
+            "E185"
+          ],
+          "display_label": "Gewicht",
+          "context_labels": [
+            "Hoogte",
+            "Radius",
+            "Iso Dikte",
+            "M³",
+            "M²",
+            "Densiteit Kg/M³",
+            "Kg",
+            "Gewicht"
+          ],
+          "number_format": "0.00",
+          "example_result": 42492.9309050433,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E185",
+          "label": "M²"
+        },
+        {
+          "formula_id": "F185",
+          "label": "M²"
+        },
+        {
+          "formula_id": "E187",
+          "label": "Gewicht"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "gaasdeken_gewicht",
+      "title": "Gaasdeken - gewicht",
+      "category": "Materiaal",
+      "row_range": [
+        190,
+        194
+      ],
+      "inputs": [
+        {
+          "id": "B192",
+          "source_cell": "B192",
+          "label": "Invoer B192",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C192",
+          "source_cell": "C192",
+          "label": "Invoer C192",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "A192",
+          "source_cell": "A192",
+          "label": "Invoer A192",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "A194",
+          "source_cell": "A194",
+          "label": "Invoer A194",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E190",
+          "source_cell": "E190",
+          "expression": "(B192+(2*C192))*3.14",
+          "excel_formula": "=(B192+(2*C192))*3.14",
+          "dependencies": [
+            "B192",
+            "C192"
+          ],
+          "display_label": "Omvang =",
+          "context_labels": [
+            "Gewicht",
+            "Gewicht berekenen gaasdeken",
+            "Omvang ="
+          ],
+          "number_format": "General",
+          "example_result": 9859.6,
+          "state": "ready"
+        },
+        {
+          "id": "E192",
+          "source_cell": "E192",
+          "expression": "F192*(C192/1000)",
+          "excel_formula": "=F192*(C192/1000)",
+          "dependencies": [
+            "C192",
+            "F192"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "Omvang =",
+            "Hoogte",
+            "Dia",
+            "Iso Dikte",
+            "M³",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 3.95840674352314,
+          "state": "ready"
+        },
+        {
+          "id": "F192",
+          "source_cell": "F192",
+          "expression": "(B192*Math.PI)*A192/1000000",
+          "excel_formula": "=(B192*PI())*A192/1000000",
+          "dependencies": [
+            "A192",
+            "B192"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "Omvang =",
+            "Hoogte",
+            "Dia",
+            "Iso Dikte",
+            "M³",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 56.5486677646163,
+          "state": "ready"
+        },
+        {
+          "id": "E194",
+          "source_cell": "E194",
+          "expression": "E192*A194",
+          "excel_formula": "=E192*A194",
+          "dependencies": [
+            "A194",
+            "E192"
+          ],
+          "display_label": "Gewicht",
+          "context_labels": [
+            "Hoogte",
+            "Dia",
+            "Iso Dikte",
+            "M³",
+            "M²",
+            "Densiteit Kg/M³",
+            "Kg",
+            "Gewicht"
+          ],
+          "number_format": "0.00",
+          "example_result": 494.800842940392,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E190",
+          "label": "Omvang ="
+        },
+        {
+          "formula_id": "E192",
+          "label": "M²"
+        },
+        {
+          "formula_id": "F192",
+          "label": "M²"
+        },
+        {
+          "formula_id": "E194",
+          "label": "Gewicht"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "alu_beplating_gewicht",
+      "title": "Alu beplating 1 mm - gewicht",
+      "category": "Materiaal",
+      "row_range": [
+        197,
+        201
+      ],
+      "inputs": [
+        {
+          "id": "B199",
+          "source_cell": "B199",
+          "label": "Invoer B199",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C199",
+          "source_cell": "C199",
+          "label": "Invoer C199",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "A199",
+          "source_cell": "A199",
+          "label": "Invoer A199",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "A201",
+          "source_cell": "A201",
+          "label": "Invoer A201",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E197",
+          "source_cell": "E197",
+          "expression": "(B199+(2*C199))*3.14",
+          "excel_formula": "=(B199+(2*C199))*3.14",
+          "dependencies": [
+            "B199",
+            "C199"
+          ],
+          "display_label": "Omvang =",
+          "context_labels": [
+            "Gewicht",
+            "Gewicht berekenen Alu beplating 1 mm dik",
+            "Omvang ="
+          ],
+          "number_format": "General",
+          "example_result": 157006.28,
+          "state": "ready"
+        },
+        {
+          "id": "E199",
+          "source_cell": "E199",
+          "expression": "E197*A199/1000000",
+          "excel_formula": "=E197*A199/1000000",
+          "dependencies": [
+            "A199",
+            "E197"
+          ],
+          "display_label": "M²",
+          "context_labels": [
+            "Omvang =",
+            "Hoogte",
+            "Dia",
+            "Iso Dikte",
+            "M²"
+          ],
+          "number_format": "0.00",
+          "example_result": 2355.0942,
+          "state": "ready"
+        },
+        {
+          "id": "E201",
+          "source_cell": "E201",
+          "expression": "E199*A201",
+          "excel_formula": "=E199*A201",
+          "dependencies": [
+            "A201",
+            "E199"
+          ],
+          "display_label": "Gewicht",
+          "context_labels": [
+            "Hoogte",
+            "Dia",
+            "Iso Dikte",
+            "M²",
+            "Gewicht per M²",
+            "Gewicht"
+          ],
+          "number_format": "0.00",
+          "example_result": 6358.75434,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E197",
+          "label": "Omvang ="
+        },
+        {
+          "formula_id": "E199",
+          "label": "M²"
+        },
+        {
+          "formula_id": "E201",
+          "label": "Gewicht"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "norton_band",
+      "title": "Norton band - tijd en prijs",
+      "category": "Tijd en prijs",
+      "row_range": [
+        206,
+        206
+      ],
+      "inputs": [
+        {
+          "id": "A206",
+          "source_cell": "A206",
+          "label": "Invoer A206",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B206",
+          "source_cell": "B206",
+          "label": "Invoer B206",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D206",
+          "source_cell": "D206",
+          "label": "Invoer D206",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "C206",
+          "source_cell": "C206",
+          "expression": "(A206*B206)/60",
+          "excel_formula": "=(A206*B206)/60",
+          "dependencies": [
+            "A206",
+            "B206"
+          ],
+          "display_label": "Prijs Norton band",
+          "context_labels": [
+            "Aantal Meters",
+            "Tijd per meter per min",
+            "Uur",
+            "Eenheidprijs/Meter",
+            "Prijs Norton band"
+          ],
+          "number_format": "0.00",
+          "example_result": 5,
+          "state": "ready"
+        },
+        {
+          "id": "E206",
+          "source_cell": "E206",
+          "expression": "A206*D206",
+          "excel_formula": "=A206*D206",
+          "dependencies": [
+            "A206",
+            "D206"
+          ],
+          "display_label": "Prijs Norton band",
+          "context_labels": [
+            "Aantal Meters",
+            "Tijd per meter per min",
+            "Uur",
+            "Eenheidprijs/Meter",
+            "Prijs Norton band"
+          ],
+          "number_format": "_-* #,##0.00\\ [$€-813]_-;\\-* #,##0.00\\ [$€-813]_-;_-* \\-??\\ [$€-813]_-;_-@_-",
+          "example_result": 53,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "C206",
+          "label": "Prijs Norton band"
+        },
+        {
+          "formula_id": "E206",
+          "label": "Prijs Norton band"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "bedragen_percentage",
+      "title": "Bedragen, percentage en factor",
+      "category": "Tijd en prijs",
+      "row_range": [
+        209,
+        213
+      ],
+      "inputs": [
+        {
+          "id": "A209",
+          "source_cell": "A209",
+          "label": "Invoer A209",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B209",
+          "source_cell": "B209",
+          "label": "Invoer B209",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "A211",
+          "source_cell": "A211",
+          "label": "Invoer A211",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B211",
+          "source_cell": "B211",
+          "label": "Invoer B211",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "A213",
+          "source_cell": "A213",
+          "label": "Invoer A213",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B212",
+          "source_cell": "B212",
+          "label": "Invoer B212",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C212",
+          "source_cell": "C212",
+          "label": "Invoer C212",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "C209",
+          "source_cell": "C209",
+          "expression": "A209-B209",
+          "excel_formula": "=A209-B209",
+          "dependencies": [
+            "A209",
+            "B209"
+          ],
+          "display_label": "%",
+          "context_labels": [
+            "Hoogste bedrag",
+            "Laagste bedrag",
+            "Verschil",
+            "%"
+          ],
+          "number_format": "_-* #,##0.00\\ [$€-813]_-;\\-* #,##0.00\\ [$€-813]_-;_-* \\-??\\ [$€-813]_-;_-@_-",
+          "example_result": 9.12000000000001,
+          "state": "ready"
+        },
+        {
+          "id": "D209",
+          "source_cell": "D209",
+          "expression": "((A209-B209)/A209)*100",
+          "excel_formula": "=((A209-B209)/A209)*100",
+          "dependencies": [
+            "A209",
+            "B209"
+          ],
+          "display_label": "%",
+          "context_labels": [
+            "Hoogste bedrag",
+            "Laagste bedrag",
+            "Verschil",
+            "%"
+          ],
+          "number_format": "0.00",
+          "example_result": 2.01850294365013,
+          "state": "ready"
+        },
+        {
+          "id": "C211",
+          "source_cell": "C211",
+          "expression": "A211*B211",
+          "excel_formula": "=A211*B211",
+          "dependencies": [
+            "A211",
+            "B211"
+          ],
+          "display_label": "Uitkomst",
+          "context_labels": [
+            "Hoogste bedrag",
+            "Laagste bedrag",
+            "Verschil",
+            "%",
+            "Bedrag",
+            "Uitkomst"
+          ],
+          "number_format": "_-* #,##0.00\\ [$€-813]_-;\\-* #,##0.00\\ [$€-813]_-;_-* \\-??\\ [$€-813]_-;_-@_-",
+          "example_result": 5.832,
+          "state": "ready"
+        },
+        {
+          "id": "D213",
+          "source_cell": "D213",
+          "expression": "B212/C212*A213",
+          "excel_formula": "=B212/C212*A213",
+          "dependencies": [
+            "A213",
+            "B212",
+            "C212"
+          ],
+          "display_label": "Bedrag Factor 0,46",
+          "context_labels": [
+            "Bedrag",
+            "%",
+            "Uitkomst",
+            "Bedrag factor 0,87",
+            "Bedrag Factor 0,46"
+          ],
+          "number_format": "0.00",
+          "example_result": 17.8659770114943,
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "C209",
+          "label": "%"
+        },
+        {
+          "formula_id": "D209",
+          "label": "%"
+        },
+        {
+          "formula_id": "C211",
+          "label": "Uitkomst"
+        },
+        {
+          "formula_id": "D213",
+          "label": "Bedrag Factor 0,46"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    },
+    {
+      "id": "bocht_praktische_limiet",
+      "title": "Bocht - praktische limiet / aantal delen",
+      "category": "Bochten",
+      "row_range": [
+        216,
+        222
+      ],
+      "inputs": [
+        {
+          "id": "J215",
+          "source_cell": "J215",
+          "label": "Invoer J215",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B216",
+          "source_cell": "B216",
+          "label": "Invoer B216",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C216",
+          "source_cell": "C216",
+          "label": "Invoer C216",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D216",
+          "source_cell": "D216",
+          "label": "Invoer D216",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B217",
+          "source_cell": "B217",
+          "label": "Invoer B217",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C217",
+          "source_cell": "C217",
+          "label": "Invoer C217",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D217",
+          "source_cell": "D217",
+          "label": "Invoer D217",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B218",
+          "source_cell": "B218",
+          "label": "Invoer B218",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C218",
+          "source_cell": "C218",
+          "label": "Invoer C218",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D218",
+          "source_cell": "D218",
+          "label": "Invoer D218",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B219",
+          "source_cell": "B219",
+          "label": "Invoer B219",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C219",
+          "source_cell": "C219",
+          "label": "Invoer C219",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D219",
+          "source_cell": "D219",
+          "label": "Invoer D219",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B220",
+          "source_cell": "B220",
+          "label": "Invoer B220",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C220",
+          "source_cell": "C220",
+          "label": "Invoer C220",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D220",
+          "source_cell": "D220",
+          "label": "Invoer D220",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B221",
+          "source_cell": "B221",
+          "label": "Invoer B221",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C221",
+          "source_cell": "C221",
+          "label": "Invoer C221",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D221",
+          "source_cell": "D221",
+          "label": "Invoer D221",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "B222",
+          "source_cell": "B222",
+          "label": "Invoer B222",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "C222",
+          "source_cell": "C222",
+          "label": "Invoer C222",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        },
+        {
+          "id": "D222",
+          "source_cell": "D222",
+          "label": "Invoer D222",
+          "type": "number",
+          "unit": "auto",
+          "required": true
+        }
+      ],
+      "formulas": [
+        {
+          "id": "E216",
+          "source_cell": "E216",
+          "expression": "B216+(2*C216)+2*(J215*2)",
+          "excel_formula": "=B216+(2*C216)+2*($J$215*2)",
+          "dependencies": [
+            "J215",
+            "B216",
+            "C216"
+          ],
+          "display_label": "0,75\"",
+          "context_labels": [
+            "Pijp Maat (inch)",
+            "Pijp Dia (mm)",
+            "Isolatie Dikte (mm)",
+            "Radius (R) (mm)",
+            "Buitendiameter Beplating (D) (mm)",
+            "Praktische Limiet (mm)",
+            "Aantal Delen / Opbouw",
+            "0,75\""
+          ],
+          "number_format": "General",
+          "example_result": 127,
+          "state": "ready"
+        },
+        {
+          "id": "F216",
+          "source_cell": "F216",
+          "expression": "(E216/2)+20",
+          "excel_formula": "=(E216/2)+20",
+          "dependencies": [
+            "E216"
+          ],
+          "display_label": "0,75\"",
+          "context_labels": [
+            "Pijp Dia (mm)",
+            "Isolatie Dikte (mm)",
+            "Radius (R) (mm)",
+            "Buitendiameter Beplating (D) (mm)",
+            "Praktische Limiet (mm)",
+            "Aantal Delen / Opbouw",
+            "Conclusie",
+            "0,75\""
+          ],
+          "number_format": "General",
+          "example_result": 83.5,
+          "state": "ready"
+        },
+        {
+          "id": "H216",
+          "source_cell": "H216",
+          "expression": "((D216>F216) ? \"✅ Mogelijk\" : \"❌ Onmogelijk\")",
+          "excel_formula": "=IF($D216>$F216,\"✅ Mogelijk\",\"❌ Onmogelijk\")",
+          "dependencies": [
+            "D216",
+            "F216"
+          ],
+          "display_label": "Noppen Folie",
+          "context_labels": [
+            "Isolatie Dikte (mm)",
+            "Radius (R) (mm)",
+            "Buitendiameter Beplating (D) (mm)",
+            "Praktische Limiet (mm)",
+            "Aantal Delen / Opbouw",
+            "Conclusie",
+            "Noppen Folie"
+          ],
+          "number_format": "_-* #,##0.00\\ [$€-813]_-;\\-* #,##0.00\\ [$€-813]_-;_-* \\-??\\ [$€-813]_-;_-@_-",
+          "example_result": "❌ Onmogelijk",
+          "state": "ready"
+        },
+        {
+          "id": "E217",
+          "source_cell": "E217",
+          "expression": "B217+(2*C217)+2*(J215*2)",
+          "excel_formula": "=B217+(2*C217)+2*($J$215*2)",
+          "dependencies": [
+            "J215",
+            "B217",
+            "C217"
+          ],
+          "display_label": "2\"",
+          "context_labels": [
+            "Pijp Dia (mm)",
+            "Isolatie Dikte (mm)",
+            "Radius (R) (mm)",
+            "Buitendiameter Beplating (D) (mm)",
+            "Praktische Limiet (mm)",
+            "Aantal Delen / Opbouw",
+            "0,75\"",
+            "2\""
+          ],
+          "number_format": "General",
+          "example_result": 160,
+          "state": "ready"
+        },
+        {
+          "id": "F217",
+          "source_cell": "F217",
+          "expression": "(E217/2)+20",
+          "excel_formula": "=(E217/2)+20",
+          "dependencies": [
+            "E217"
+          ],
+          "display_label": "2\"",
+          "context_labels": [
+            "Isolatie Dikte (mm)",
+            "Radius (R) (mm)",
+            "Buitendiameter Beplating (D) (mm)",
+            "Praktische Limiet (mm)",
+            "Aantal Delen / Opbouw",
+            "Conclusie",
+            "0,75\"",
+            "2\""
+          ],
+          "number_format": "General",
+          "example_result": 100,
+          "state": "ready"
+        },
+        {
+          "id": "H217",
+          "source_cell": "H217",
+          "expression": "((D217>F217) ? \"✅ Mogelijk\" : \"❌ Onmogelijk\")",
+          "excel_formula": "=IF($D217>$F217,\"✅ Mogelijk\",\"❌ Onmogelijk\")",
+          "dependencies": [
+            "D217",
+            "F217"
+          ],
+          "display_label": "Noppen Folie",
+          "context_labels": [
+            "Isolatie Dikte (mm)",
+            "Radius (R) (mm)",
+            "Buitendiameter Beplating (D) (mm)",
+            "Praktische Limiet (mm)",
+            "Aantal Delen / Opbouw",
+            "Conclusie",
+            "Noppen Folie"
+          ],
+          "number_format": "_-* #,##0.00\\ [$€-813]_-;\\-* #,##0.00\\ [$€-813]_-;_-* \\-??\\ [$€-813]_-;_-@_-",
+          "example_result": "❌ Onmogelijk",
+          "state": "ready"
+        },
+        {
+          "id": "E218",
+          "source_cell": "E218",
+          "expression": "B218+(2*C218)+2*(J215*2)",
+          "excel_formula": "=B218+(2*C218)+2*($J$215*2)",
+          "dependencies": [
+            "J215",
+            "B218",
+            "C218"
+          ],
+          "display_label": "2\"",
+          "context_labels": [
+            "Pijp Dia (mm)",
+            "Isolatie Dikte (mm)",
+            "Radius (R) (mm)",
+            "Buitendiameter Beplating (D) (mm)",
+            "Praktische Limiet (mm)",
+            "Aantal Delen / Opbouw",
+            "0,75\"",
+            "2\""
+          ],
+          "number_format": "General",
+          "example_result": 180,
+          "state": "ready"
+        },
+        {
+          "id": "F218",
+          "source_cell": "F218",
+          "expression": "(E218/2)+20",
+          "excel_formula": "=(E218/2)+20",
+          "dependencies": [
+            "E218"
+          ],
+          "display_label": "2\"",
+          "context_labels": [
+            "Isolatie Dikte (mm)",
+            "Radius (R) (mm)",
+            "Buitendiameter Beplating (D) (mm)",
+            "Praktische Limiet (mm)",
+            "Aantal Delen / Opbouw",
+            "Conclusie",
+            "0,75\"",
+            "2\""
+          ],
+          "number_format": "General",
+          "example_result": 110,
+          "state": "ready"
+        },
+        {
+          "id": "H218",
+          "source_cell": "H218",
+          "expression": "((D218>F218) ? \"✅ Mogelijk\" : \"❌ Onmogelijk\")",
+          "excel_formula": "=IF($D218>$F218,\"✅ Mogelijk\",\"❌ Onmogelijk\")",
+          "dependencies": [
+            "D218",
+            "F218"
+          ],
+          "display_label": "Noppen Folie",
+          "context_labels": [
+            "Isolatie Dikte (mm)",
+            "Radius (R) (mm)",
+            "Buitendiameter Beplating (D) (mm)",
+            "Praktische Limiet (mm)",
+            "Aantal Delen / Opbouw",
+            "Conclusie",
+            "Noppen Folie"
+          ],
+          "number_format": "_-* #,##0.00\\ [$€-813]_-;\\-* #,##0.00\\ [$€-813]_-;_-* \\-??\\ [$€-813]_-;_-@_-",
+          "example_result": "❌ Onmogelijk",
+          "state": "ready"
+        },
+        {
+          "id": "E219",
+          "source_cell": "E219",
+          "expression": "B219+(2*C219)+2*(J215*2)",
+          "excel_formula": "=B219+(2*C219)+2*($J$215*2)",
+          "dependencies": [
+            "J215",
+            "B219",
+            "C219"
+          ],
+          "display_label": "4 delen (Begin + 2 Midden + Eind)",
+          "context_labels": [
+            "0,75\"",
+            "2\"",
+            "4\"",
+            "4 delen (Begin + 2 Midden + Eind)"
+          ],
+          "number_format": "General",
+          "example_result": 214,
+          "state": "ready"
+        },
+        {
+          "id": "F219",
+          "source_cell": "F219",
+          "expression": "(E219/2)+20",
+          "excel_formula": "=(E219/2)+20",
+          "dependencies": [
+            "E219"
+          ],
+          "display_label": "4 delen (Begin + 2 Midden + Eind)",
+          "context_labels": [
+            "0,75\"",
+            "2\"",
+            "4\"",
+            "4 delen (Begin + 2 Midden + Eind)"
+          ],
+          "number_format": "General",
+          "example_result": 127,
+          "state": "ready"
+        },
+        {
+          "id": "H219",
+          "source_cell": "H219",
+          "expression": "((D219>F219) ? \"✅ Mogelijk\" : \"❌ Onmogelijk\")",
+          "excel_formula": "=IF($D219>$F219,\"✅ Mogelijk\",\"❌ Onmogelijk\")",
+          "dependencies": [
+            "D219",
+            "F219"
+          ],
+          "display_label": "4 delen (Begin + 2 Midden + Eind)",
+          "context_labels": [
+            "4 delen (Begin + 2 Midden + Eind)"
+          ],
+          "number_format": "_-* #,##0.00\\ [$€-813]_-;\\-* #,##0.00\\ [$€-813]_-;_-* \\-??\\ [$€-813]_-;_-@_-",
+          "example_result": "✅ Mogelijk",
+          "state": "ready"
+        },
+        {
+          "id": "E220",
+          "source_cell": "E220",
+          "expression": "B220+(2*C220)+2*(J215*2)",
+          "excel_formula": "=B220+(2*C220)+2*($J$215*2)",
+          "dependencies": [
+            "J215",
+            "B220",
+            "C220"
+          ],
+          "display_label": "4 delen (Begin + 2 Midden + Eind)",
+          "context_labels": [
+            "2\"",
+            "4\"",
+            "4 delen (Begin + 2 Midden + Eind)"
+          ],
+          "number_format": "General",
+          "example_result": 234,
+          "state": "ready"
+        },
+        {
+          "id": "F220",
+          "source_cell": "F220",
+          "expression": "(E220/2)+20",
+          "excel_formula": "=(E220/2)+20",
+          "dependencies": [
+            "E220"
+          ],
+          "display_label": "4 delen (Begin + 2 Midden + Eind)",
+          "context_labels": [
+            "2\"",
+            "4\"",
+            "4 delen (Begin + 2 Midden + Eind)"
+          ],
+          "number_format": "General",
+          "example_result": 137,
+          "state": "ready"
+        },
+        {
+          "id": "H220",
+          "source_cell": "H220",
+          "expression": "((D220>F220) ? \"✅ Mogelijk\" : \"❌ Onmogelijk\")",
+          "excel_formula": "=IF($D220>$F220,\"✅ Mogelijk\",\"❌ Onmogelijk\")",
+          "dependencies": [
+            "D220",
+            "F220"
+          ],
+          "display_label": "4 delen (Begin + 2 Midden + Eind)",
+          "context_labels": [
+            "4 delen (Begin + 2 Midden + Eind)"
+          ],
+          "number_format": "_-* #,##0.00\\ [$€-813]_-;\\-* #,##0.00\\ [$€-813]_-;_-* \\-??\\ [$€-813]_-;_-@_-",
+          "example_result": "✅ Mogelijk",
+          "state": "ready"
+        },
+        {
+          "id": "E221",
+          "source_cell": "E221",
+          "expression": "B221+(2*C221)+2*(J215*2)",
+          "excel_formula": "=B221+(2*C221)+2*($J$215*2)",
+          "dependencies": [
+            "J215",
+            "B221",
+            "C221"
+          ],
+          "display_label": "5 delen (Begin + 3 Midden + Eind)",
+          "context_labels": [
+            "2\"",
+            "4\"",
+            "4 delen (Begin + 2 Midden + Eind)",
+            "6\"",
+            "5 delen (Begin + 3 Midden + Eind)"
+          ],
+          "number_format": "General",
+          "example_result": 289,
+          "state": "ready"
+        },
+        {
+          "id": "F221",
+          "source_cell": "F221",
+          "expression": "(E221/2)+20",
+          "excel_formula": "=(E221/2)+20",
+          "dependencies": [
+            "E221"
+          ],
+          "display_label": "5 delen (Begin + 3 Midden + Eind)",
+          "context_labels": [
+            "2\"",
+            "4\"",
+            "4 delen (Begin + 2 Midden + Eind)",
+            "6\"",
+            "5 delen (Begin + 3 Midden + Eind)"
+          ],
+          "number_format": "General",
+          "example_result": 164.5,
+          "state": "ready"
+        },
+        {
+          "id": "H221",
+          "source_cell": "H221",
+          "expression": "((D221>F221) ? \"✅ Mogelijk\" : \"❌ Onmogelijk\")",
+          "excel_formula": "=IF($D221>$F221,\"✅ Mogelijk\",\"❌ Onmogelijk\")",
+          "dependencies": [
+            "D221",
+            "F221"
+          ],
+          "display_label": "5 delen (Begin + 3 Midden + Eind)",
+          "context_labels": [
+            "4 delen (Begin + 2 Midden + Eind)",
+            "5 delen (Begin + 3 Midden + Eind)"
+          ],
+          "number_format": "_-* #,##0.00\\ [$€-813]_-;\\-* #,##0.00\\ [$€-813]_-;_-* \\-??\\ [$€-813]_-;_-@_-",
+          "example_result": "✅ Mogelijk",
+          "state": "ready"
+        },
+        {
+          "id": "E222",
+          "source_cell": "E222",
+          "expression": "B222+(2*C222)+2*(J215*2)",
+          "excel_formula": "=B222+(2*C222)+2*($J$215*2)",
+          "dependencies": [
+            "J215",
+            "B222",
+            "C222"
+          ],
+          "display_label": "6 delen (Begin + 4 Midden + Eind)",
+          "context_labels": [
+            "4\"",
+            "4 delen (Begin + 2 Midden + Eind)",
+            "6\"",
+            "5 delen (Begin + 3 Midden + Eind)",
+            "8\"",
+            "6 delen (Begin + 4 Midden + Eind)"
+          ],
+          "number_format": "General",
+          "example_result": 339,
+          "state": "ready"
+        },
+        {
+          "id": "F222",
+          "source_cell": "F222",
+          "expression": "(E222/2)+20",
+          "excel_formula": "=(E222/2)+20",
+          "dependencies": [
+            "E222"
+          ],
+          "display_label": "6 delen (Begin + 4 Midden + Eind)",
+          "context_labels": [
+            "4\"",
+            "4 delen (Begin + 2 Midden + Eind)",
+            "6\"",
+            "5 delen (Begin + 3 Midden + Eind)",
+            "8\"",
+            "6 delen (Begin + 4 Midden + Eind)"
+          ],
+          "number_format": "General",
+          "example_result": 189.5,
+          "state": "ready"
+        },
+        {
+          "id": "H222",
+          "source_cell": "H222",
+          "expression": "((D222>F222) ? \"✅ Mogelijk\" : \"❌ Onmogelijk\")",
+          "excel_formula": "=IF($D222>$F222,\"✅ Mogelijk\",\"❌ Onmogelijk\")",
+          "dependencies": [
+            "D222",
+            "F222"
+          ],
+          "display_label": "6 delen (Begin + 4 Midden + Eind)",
+          "context_labels": [
+            "4 delen (Begin + 2 Midden + Eind)",
+            "5 delen (Begin + 3 Midden + Eind)",
+            "6 delen (Begin + 4 Midden + Eind)"
+          ],
+          "number_format": "_-* #,##0.00\\ [$€-813]_-;\\-* #,##0.00\\ [$€-813]_-;_-* \\-??\\ [$€-813]_-;_-@_-",
+          "example_result": "✅ Mogelijk",
+          "state": "ready"
+        }
+      ],
+      "outputs": [
+        {
+          "formula_id": "E216",
+          "label": "0,75\""
+        },
+        {
+          "formula_id": "F216",
+          "label": "0,75\""
+        },
+        {
+          "formula_id": "H216",
+          "label": "Noppen Folie"
+        },
+        {
+          "formula_id": "E217",
+          "label": "2\""
+        },
+        {
+          "formula_id": "F217",
+          "label": "2\""
+        },
+        {
+          "formula_id": "H217",
+          "label": "Noppen Folie"
+        },
+        {
+          "formula_id": "E218",
+          "label": "2\""
+        },
+        {
+          "formula_id": "F218",
+          "label": "2\""
+        },
+        {
+          "formula_id": "H218",
+          "label": "Noppen Folie"
+        },
+        {
+          "formula_id": "E219",
+          "label": "4 delen (Begin + 2 Midden + Eind)"
+        },
+        {
+          "formula_id": "F219",
+          "label": "4 delen (Begin + 2 Midden + Eind)"
+        },
+        {
+          "formula_id": "H219",
+          "label": "4 delen (Begin + 2 Midden + Eind)"
+        },
+        {
+          "formula_id": "E220",
+          "label": "4 delen (Begin + 2 Midden + Eind)"
+        },
+        {
+          "formula_id": "F220",
+          "label": "4 delen (Begin + 2 Midden + Eind)"
+        },
+        {
+          "formula_id": "H220",
+          "label": "4 delen (Begin + 2 Midden + Eind)"
+        },
+        {
+          "formula_id": "E221",
+          "label": "5 delen (Begin + 3 Midden + Eind)"
+        },
+        {
+          "formula_id": "F221",
+          "label": "5 delen (Begin + 3 Midden + Eind)"
+        },
+        {
+          "formula_id": "H221",
+          "label": "5 delen (Begin + 3 Midden + Eind)"
+        },
+        {
+          "formula_id": "E222",
+          "label": "6 delen (Begin + 4 Midden + Eind)"
+        },
+        {
+          "formula_id": "F222",
+          "label": "6 delen (Begin + 4 Midden + Eind)"
+        },
+        {
+          "formula_id": "H222",
+          "label": "6 delen (Begin + 4 Midden + Eind)"
+        }
+      ],
+      "state": "ready",
+      "notes": []
+    }
+  ],
+  "validation": {
+    "total_formulas": 141,
+    "ready_formulas": 139,
+    "external_lookup_formulas": 2,
+    "calculator_count": 39
+  },
+  "migration_notes": [
+    "Excel $-absolute references were normalized to normal variable names.",
+    "PI/RADIANS/TAN/SQRT/CEILING/IF were converted to app-compatible expressions.",
+    "INDEX/MATCH formulas are intentionally blocked until the referenced lookup table is supplied.",
+    "Input labels that say Invoer <cell> should be renamed in the UI once the exact original Excel input captions are available."
+  ]
+}

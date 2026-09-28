@@ -1,0 +1,26 @@
+node_modules/
+.expo/
+.expo-shared/
+
+# Android build/cache
+android/.gradle/
+android/build/
+android/app/build/
+android/.cxx/
+*.apk
+*.aab
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
