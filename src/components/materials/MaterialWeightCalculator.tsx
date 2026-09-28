@@ -33,8 +33,9 @@ type MaterialCalculation = {
   outsideDiameterMm?: number;
 };
 
-const INSULATED_PIPE_IMAGE = require('../../../assets/technical/insulated-pipe.jpg');
-const CLAD_PIPE_IMAGE = require('../../../assets/technical/clad-insulated-pipe.jpg');
+const RAW_BASE = 'https://raw.githubusercontent.com/frankythys/OppervlakteCalculator/main/assets/technical';
+const INSULATED_PIPE_IMAGE = { uri: `${RAW_BASE}/insulated-pipe.jpg` };
+const CLAD_PIPE_IMAGE = { uri: `${RAW_BASE}/clad-insulated-pipe.jpg` };
 const MANAGE_MATERIALS_ID = '__manage_materials__';
 
 const geometryOptions: SelectOption[] = [
