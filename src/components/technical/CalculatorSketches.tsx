@@ -6,13 +6,20 @@ import { DimensionArrow, SketchCard, SketchLabel, SketchLine } from './SketchPri
 export function PipeSketch({ insulated = false }: { insulated?: boolean }) {
   return (
     <SketchCard title={insulated ? 'Leiding met isolatie' : 'Leiding'}>
-      <View style={styles.pipeBody} />
-      <View style={styles.pipeEnd} />
-      {insulated ? <View style={styles.pipeInsulation} /> : null}
-      <DimensionArrow left={68} top={176} width={190} label="L = lengte" />
-      <DimensionArrow left={258} top={61} width={96} label="Ø D" vertical />
-      {insulated ? <SketchLabel text="t = isolatiedikte" left={166} top={34} emphasis /> : null}
-      <SketchLine left={205} top={53} width={54} angle={24} />
+      <View style={[styles.pipeCrossOuter, insulated && styles.pipeCrossInsulation]} />
+      {insulated ? <View style={styles.pipeCrossInner} /> : null}
+      <SketchLine left={66} top={86} width={104} dashed />
+      <SketchLabel text={insulated ? 'Ø leiding kaal' : 'Ø leiding'} left={65} top={100} />
+      {insulated ? (
+        <>
+          <SketchLine left={118} top={86} width={45} angle={-42} />
+          <SketchLabel text="t = isolatiedikte" left={145} top={42} emphasis />
+        </>
+      ) : null}
+
+      <View style={[styles.pipeSide, insulated && styles.pipeSideInsulated]} />
+      {insulated ? <View style={styles.pipeSideInner} /> : null}
+      <DimensionArrow left={196} top={158} width={108} label="L = lengte" />
     </SketchCard>
   );
 }
@@ -26,7 +33,7 @@ export function ConeSketch() {
       <SketchLine left={240} top={56} width={106} angle={74} />
       <DimensionArrow left={88} top={24} width={144} label="Ø D1 = klein" />
       <DimensionArrow left={58} top={174} width={206} label="Ø D2 = groot" />
-      <DimensionArrow left={278} top={55} width={102} label="H" vertical />
+      <DimensionArrow left={252} top={55} width={102} label="H" vertical />
     </SketchCard>
   );
 }
@@ -38,7 +45,7 @@ export function RoundValveSketch() {
       <View style={styles.roundFlangeInner} />
       <View style={styles.valveStem} />
       <DimensionArrow left={74} top={166} width={178} label="B = totale maat" />
-      <DimensionArrow left={258} top={55} width={104} label="Ø D" vertical />
+      <DimensionArrow left={236} top={55} width={104} label="Ø D" vertical />
       <SketchLabel text="flenskap" left={116} top={102} emphasis />
     </SketchCard>
   );
@@ -50,7 +57,7 @@ export function OvalSketch() {
       <View style={styles.ovalOuter} />
       <View style={styles.ovalInner} />
       <DimensionArrow left={65} top={170} width={205} label="A = totale maat" />
-      <DimensionArrow left={278} top={67} width={86} label="C / Ø" vertical />
+      <DimensionArrow left={248} top={67} width={86} label="C / Ø" vertical />
       <SketchLabel text="rechte middenzone" left={109} top={103} />
     </SketchCard>
   );
@@ -67,22 +74,23 @@ export function RectangularHoodSketch() {
       <SketchLine left={140} top={43} width={140} />
       <SketchLine left={280} top={43} width={140} angle={90} />
       <DimensionArrow left={86} top={174} width={132} label="A = breedte" />
-      <DimensionArrow left={290} top={66} width={86} label="H = hoogte" vertical />
-      <SketchLabel text="B = diepte" left={225} top={24} emphasis />
+      <DimensionArrow left={244} top={66} width={86} label="H" vertical />
+      <SketchLabel text="B = diepte" left={210} top={24} emphasis />
     </SketchCard>
   );
 }
 
 export function PlateSketch() {
   return (
-    <SketchCard title="Plaatmateriaal">
-      <View style={styles.plate} />
-      <SketchLine left={74} top={74} width={60} angle={-28} />
-      <SketchLine left={242} top={74} width={60} angle={-28} />
-      <SketchLine left={74} top={146} width={60} angle={-28} />
-      <DimensionArrow left={78} top={169} width={164} label="L = lengte" />
-      <DimensionArrow left={252} top={73} width={74} label="B = breedte" vertical />
-      <SketchLabel text="t = plaatdikte" left={204} top={38} emphasis />
+    <SketchCard title="Vlakke plaat">
+      <View style={styles.plateFront} />
+      <DimensionArrow left={58} top={154} width={174} label="L = lengte" />
+      <DimensionArrow left={238} top={48} width={92} label="B" vertical />
+      <SketchLabel text="B = breedte" left={172} top={83} />
+
+      <View style={styles.plateSideView} />
+      <SketchLabel text="t = dikte" left={54} top={21} emphasis />
+      <SketchLine left={101} top={41} width={36} angle={18} />
     </SketchCard>
   );
 }
@@ -90,26 +98,32 @@ export function PlateSketch() {
 export function InsulationSketch() {
   return (
     <SketchCard title="Isolatie rond leiding">
-      <View style={styles.isoOuter} />
-      <View style={styles.isoInner} />
-      <DimensionArrow left={91} top={169} width={150} label="L = lengte" />
-      <DimensionArrow left={255} top={51} width={112} label="Ø / R" vertical />
-      <SketchLabel text="t = isolatiedikte" left={165} top={44} emphasis />
-      <SketchLine left={202} top={65} width={53} angle={22} />
-      <SketchLabel text="ρ = densiteit" left={110} top={113} />
+      <View style={styles.isoCircleOuter} />
+      <View style={styles.isoCircleInner} />
+      <SketchLine left={66} top={86} width={116} dashed />
+      <SketchLabel text="Ø leiding kaal" left={68} top={102} />
+      <SketchLine left={124} top={86} width={47} angle={-43} />
+      <SketchLabel text="t = isolatiedikte" left={151} top={40} emphasis />
+
+      <View style={styles.isoSideOuter} />
+      <View style={styles.isoSideInner} />
+      <DimensionArrow left={194} top={158} width={110} label="L = lengte" />
     </SketchCard>
   );
 }
 
 export function CladdingSketch() {
   return (
-    <SketchCard title="Beplating rond geïsoleerde leiding">
-      <View style={styles.claddingOuter} />
-      <View style={styles.claddingInner} />
-      <DimensionArrow left={72} top={174} width={190} label="L = lengte" />
-      <DimensionArrow left={270} top={55} width={108} label="Ø leiding" vertical />
-      <SketchLabel text="t iso" left={181} top={42} emphasis />
-      <SketchLabel text="plaat rond buitenzijde" left={94} top={112} />
+    <SketchCard title="Beplating rond leiding">
+      <View style={styles.claddingCircleOuter} />
+      <View style={styles.claddingCircleInner} />
+      <SketchLine left={68} top={86} width={112} dashed />
+      <SketchLabel text="Ø over isolatie" left={67} top={102} />
+      <SketchLine left={124} top={86} width={46} angle={-42} />
+      <SketchLabel text="t = plaatdikte" left={150} top={40} emphasis />
+
+      <View style={styles.claddingSide} />
+      <DimensionArrow left={194} top={158} width={110} label="L = lengte" />
     </SketchCard>
   );
 }
@@ -132,7 +146,7 @@ export function CircleSketch() {
     <SketchCard title="Cirkel">
       <View style={styles.circle} />
       <DimensionArrow left={86} top={173} width={160} label="Ø D = diameter" />
-      <SketchLine left={86} top={128} width={160} dashed />
+      <SketchLine left={86} top={107} width={160} dashed />
     </SketchCard>
   );
 }
@@ -157,23 +171,34 @@ export function TrapeziumSketch() {
       <SketchLine left={225} top={62} width={102} angle={68} />
       <DimensionArrow left={107} top={29} width={116} label="A" />
       <DimensionArrow left={69} top={173} width={194} label="B" />
-      <DimensionArrow left={275} top={62} width={94} label="H" vertical />
+      <DimensionArrow left={242} top={62} width={94} label="H" vertical />
     </SketchCard>
   );
 }
 
 const styles = StyleSheet.create({
-  pipeBody: {
-    position: 'absolute', left: 72, top: 78, width: 180, height: 70,
-    borderWidth: 2, borderColor: colors.primary, backgroundColor: '#DCE6F0',
+  pipeCrossOuter: {
+    position: 'absolute', left: 68, top: 34, width: 104, height: 104,
+    borderRadius: 52, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#D8E2EC',
   },
-  pipeEnd: {
-    position: 'absolute', left: 225, top: 78, width: 54, height: 70,
-    borderRadius: 35, borderWidth: 2, borderColor: colors.primary, backgroundColor: '#EDF2F7',
+  pipeCrossInsulation: {
+    borderColor: colors.accent,
+    backgroundColor: '#EAF2FC',
   },
-  pipeInsulation: {
-    position: 'absolute', left: 57, top: 63, width: 220, height: 100,
-    borderRadius: 50, borderWidth: 2, borderColor: colors.accent, backgroundColor: 'transparent',
+  pipeCrossInner: {
+    position: 'absolute', left: 87, top: 53, width: 66, height: 66,
+    borderRadius: 33, borderWidth: 2, borderColor: colors.primary, backgroundColor: '#CFDBE7',
+  },
+  pipeSide: {
+    position: 'absolute', left: 198, top: 61, width: 104, height: 50,
+    borderRadius: 25, borderWidth: 2, borderColor: colors.primary, backgroundColor: '#D8E2EC',
+  },
+  pipeSideInsulated: {
+    height: 66, top: 53, borderRadius: 33, borderColor: colors.accent, backgroundColor: '#EAF2FC',
+  },
+  pipeSideInner: {
+    position: 'absolute', left: 198, top: 68, width: 104, height: 36,
+    borderRadius: 18, borderWidth: 2, borderColor: colors.primary, backgroundColor: '#CFDBE7',
   },
   roundFlangeOuter: {
     position: 'absolute', left: 91, top: 48, width: 148, height: 110,
@@ -199,25 +224,41 @@ const styles = StyleSheet.create({
     position: 'absolute', left: 82, top: 72, width: 140, height: 82,
     borderWidth: 2, borderColor: colors.primary, backgroundColor: '#DCE6F0',
   },
-  plate: {
-    position: 'absolute', left: 74, top: 74, width: 168, height: 72,
+  plateFront: {
+    position: 'absolute', left: 58, top: 48, width: 174, height: 92,
     borderWidth: 2, borderColor: colors.primary, backgroundColor: '#D8E2EC',
   },
-  isoOuter: {
-    position: 'absolute', left: 90, top: 57, width: 150, height: 105,
-    borderRadius: 55, borderWidth: 3, borderColor: colors.accent, backgroundColor: '#EAF2FC',
+  plateSideView: {
+    position: 'absolute', left: 58, top: 39, width: 80, height: 7,
+    borderWidth: 2, borderColor: colors.primary, backgroundColor: '#BFCEDF',
   },
-  isoInner: {
-    position: 'absolute', left: 116, top: 76, width: 98, height: 67,
+  isoCircleOuter: {
+    position: 'absolute', left: 66, top: 28, width: 116, height: 116,
+    borderRadius: 58, borderWidth: 4, borderColor: colors.accent, backgroundColor: '#EAF2FC',
+  },
+  isoCircleInner: {
+    position: 'absolute', left: 88, top: 50, width: 72, height: 72,
     borderRadius: 36, borderWidth: 2, borderColor: colors.primary, backgroundColor: '#CFDBE7',
   },
-  claddingOuter: {
-    position: 'absolute', left: 75, top: 61, width: 185, height: 103,
-    borderRadius: 52, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#E1E8EF',
+  isoSideOuter: {
+    position: 'absolute', left: 196, top: 55, width: 108, height: 62,
+    borderRadius: 31, borderWidth: 3, borderColor: colors.accent, backgroundColor: '#EAF2FC',
   },
-  claddingInner: {
-    position: 'absolute', left: 104, top: 80, width: 127, height: 65,
-    borderRadius: 34, borderWidth: 3, borderColor: colors.accent, backgroundColor: colors.surfaceMuted,
+  isoSideInner: {
+    position: 'absolute', left: 196, top: 69, width: 108, height: 34,
+    borderRadius: 17, borderWidth: 2, borderColor: colors.primary, backgroundColor: '#CFDBE7',
+  },
+  claddingCircleOuter: {
+    position: 'absolute', left: 68, top: 30, width: 112, height: 112,
+    borderRadius: 56, borderWidth: 4, borderColor: colors.accent, backgroundColor: '#F3F6FA',
+  },
+  claddingCircleInner: {
+    position: 'absolute', left: 80, top: 42, width: 88, height: 88,
+    borderRadius: 44, borderWidth: 2, borderColor: colors.primary, backgroundColor: '#CFDBE7',
+  },
+  claddingSide: {
+    position: 'absolute', left: 196, top: 58, width: 108, height: 56,
+    borderRadius: 28, borderWidth: 3, borderColor: colors.accent, backgroundColor: '#F3F6FA',
   },
   bendOuter: {
     position: 'absolute', left: 90, top: 54, width: 160, height: 108,
@@ -230,16 +271,16 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 68, backgroundColor: colors.surfaceMuted,
   },
   circle: {
-    position: 'absolute', left: 86, top: 48, width: 160, height: 160,
-    borderRadius: 80, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#E3EBF3',
-  },
-  sphere: {
-    position: 'absolute', left: 91, top: 38, width: 150, height: 150,
+    position: 'absolute', left: 86, top: 28, width: 150, height: 150,
     borderRadius: 75, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#E3EBF3',
   },
+  sphere: {
+    position: 'absolute', left: 91, top: 30, width: 145, height: 145,
+    borderRadius: 73, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#E3EBF3',
+  },
   halfSphere: {
-    position: 'absolute', left: 91, top: 74, width: 150, height: 76,
-    borderTopLeftRadius: 75, borderTopRightRadius: 75,
+    position: 'absolute', left: 91, top: 65, width: 145, height: 74,
+    borderTopLeftRadius: 73, borderTopRightRadius: 73,
     borderWidth: 3, borderBottomWidth: 2, borderColor: colors.primary, backgroundColor: '#E3EBF3',
   },
 });
