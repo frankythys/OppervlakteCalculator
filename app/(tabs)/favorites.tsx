@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import { Screen } from '@/components/Screen';
 import { EmptyState } from '@/components/EmptyState';
 import { CalculatorCard } from '@/components/CalculatorCard';
-import { calculators } from '@/domain/calculators/repository';
+import { calculators } from '@/domain/calculators/publicRepository';
 import { useAppState } from '@/state/AppStateProvider';
 import { colors } from '@/theme/tokens';
 
