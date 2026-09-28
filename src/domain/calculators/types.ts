@@ -47,11 +47,19 @@ export type CalculatorDataset = {
   calculators: Calculator[];
 };
 
+export type SelectOption = {
+  label: string;
+  value: string;
+  description?: string;
+};
+
 export type InputMeta = {
   label: string;
   unit?: string;
   placeholder?: string;
   step?: number;
+  defaultValue?: string;
+  options?: SelectOption[];
 };
 
 export type OutputMeta = {
