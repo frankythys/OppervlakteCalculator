@@ -6,20 +6,22 @@ import {
   ConeSketch,
   InsulationSketch,
   OvalSketch,
-  PipeSketch,
   PlateSketch,
   RectangularHoodSketch,
   RoundValveSketch,
   SphereSketch,
   TrapeziumSketch,
 } from './CalculatorSketches';
+import { TechnicalImageCard } from './TechnicalImageCard';
 
 type Props = {
   calculatorId: string;
 };
 
-const PIPE_IDS = new Set(['leiding_geisoleerd']);
-const INSULATED_PIPE_IDS = new Set(['leiding_met_isolatie']);
+const ROUND_PIPE_IMAGE = require('../../../assets/technical/round-pipe.jpg');
+const INSULATED_PIPE_IMAGE = require('../../../assets/technical/insulated-pipe.jpg');
+const CLAD_PIPE_IMAGE = require('../../../assets/technical/clad-insulated-pipe.jpg');
+
 const CONE_IDS = new Set(['conus_verloop_diameter', 'conus_verloop_omtrek']);
 const ROUND_IDS = new Set([
   'ronde_afsluiter',
@@ -49,12 +51,32 @@ const BEND_IDS = new Set([
 const CIRCLE_IDS = new Set(['cirkel', 'cirkel_segment']);
 
 export function TechnicalSketch({ calculatorId }: Props) {
-  if (calculatorId === 'alu_beplating_gewicht') return <CladdingSketch />;
+  if (calculatorId === 'leiding_met_isolatie') {
+    return (
+      <TechnicalImageCard
+        source={INSULATED_PIPE_IMAGE}
+        title="Ronde leiding met isolatie"
+        caption="Doorsnede en zijaanzicht met leidingdiameter, isolatiedikte en lengte."
+      />
+    );
+  }
+
+  if (calculatorId === 'leiding_geisoleerd') {
+    return (
+      <TechnicalImageCard
+        source={ROUND_PIPE_IMAGE}
+        title="Ronde geïsoleerde leiding"
+        caption="Gebruik de gemeten buitendiameter van de geïsoleerde ronde leiding en de lengte."
+      />
+    );
+  }
+
+  if (calculatorId === 'alu_beplating_gewicht') {
+    return <TechnicalImageCard source={CLAD_PIPE_IMAGE} title="Beplating rond ronde leiding" />;
+  }
   if (calculatorId === 'plaat_gewicht') return <PlateSketch />;
   if (calculatorId === 'bol') return <SphereSketch />;
   if (calculatorId === 'bolkop') return <SphereSketch half />;
-  if (INSULATED_PIPE_IDS.has(calculatorId)) return <PipeSketch insulated />;
-  if (PIPE_IDS.has(calculatorId)) return <PipeSketch />;
   if (CONE_IDS.has(calculatorId)) return <ConeSketch />;
   if (OVAL_IDS.has(calculatorId)) return <OvalSketch />;
   if (ROUND_IDS.has(calculatorId)) return <RoundValveSketch />;
