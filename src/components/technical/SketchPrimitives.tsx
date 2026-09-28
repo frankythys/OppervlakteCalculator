@@ -39,7 +39,12 @@ type LabelProps = {
 export function SketchLabel({ text, left, top, emphasis = false }: LabelProps) {
   return (
     <View style={[styles.label, { left, top }, emphasis && styles.labelEmphasis]}>
-      <Text style={[styles.labelText, emphasis && styles.labelTextEmphasis]}>{text}</Text>
+      <Text
+        numberOfLines={1}
+        style={[styles.labelText, emphasis && styles.labelTextEmphasis]}
+      >
+        {text}
+      </Text>
     </View>
   );
 }
@@ -59,7 +64,9 @@ export function DimensionArrow({ left, top, width, label, vertical = false }: Ar
         <View style={styles.verticalLine} />
         <View style={[styles.arrowHead, styles.arrowTop]} />
         <View style={[styles.arrowHead, styles.arrowBottom]} />
-        <SketchLabel text={label} left={10} top={Math.max(0, width / 2 - 13)} emphasis />
+        <View style={[styles.verticalLabelWrap, { top: Math.max(0, width / 2 - 11) }]}>
+          <Text numberOfLines={1} style={styles.dimensionText}>{label}</Text>
+        </View>
       </View>
     );
   }
@@ -70,7 +77,7 @@ export function DimensionArrow({ left, top, width, label, vertical = false }: Ar
       <View style={[styles.arrowHead, styles.arrowLeft]} />
       <View style={[styles.arrowHead, styles.arrowRight]} />
       <View style={styles.horizontalLabelWrap}>
-        <Text style={styles.dimensionText}>{label}</Text>
+        <Text numberOfLines={1} style={styles.dimensionText}>{label}</Text>
       </View>
     </View>
   );
@@ -81,10 +88,10 @@ export function SketchCard({ title, children }: { title: string; children: React
     <View style={styles.card}>
       <View style={styles.cardHeader}>
         <Text style={styles.cardTitle}>MAATVOERING</Text>
-        <Text style={styles.cardHint}>{title}</Text>
+        <Text numberOfLines={1} style={styles.cardHint}>{title}</Text>
       </View>
       <View style={styles.canvas}>{children}</View>
-      <Text style={styles.footer}>Schematische weergave — maten volgens invoervelden</Text>
+      <Text style={styles.footer}>Maten volgens de invoervelden.</Text>
     </View>
   );
 }
@@ -105,6 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: spacing.sm,
   },
   cardTitle: {
     color: colors.accent,
@@ -113,12 +121,14 @@ const styles = StyleSheet.create({
     letterSpacing: 1.2,
   },
   cardHint: {
+    flexShrink: 1,
     color: colors.textMuted,
     fontSize: 12,
     fontWeight: '700',
+    textAlign: 'right',
   },
   canvas: {
-    height: 220,
+    height: 205,
     marginHorizontal: spacing.sm,
     borderRadius: radius.md,
     backgroundColor: colors.surfaceMuted,
@@ -180,7 +190,7 @@ const styles = StyleSheet.create({
   },
   verticalDimension: {
     position: 'absolute',
-    width: 45,
+    width: 82,
   },
   verticalLine: {
     position: 'absolute',
@@ -189,6 +199,17 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: 1,
     backgroundColor: colors.accent,
+  },
+  verticalLabelWrap: {
+    position: 'absolute',
+    left: 14,
+    width: 64,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    borderRadius: 6,
+    backgroundColor: '#F2F7FF',
+    borderWidth: 1,
+    borderColor: colors.accent,
   },
   dimensionText: {
     color: colors.accent,
