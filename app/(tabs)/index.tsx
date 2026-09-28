@@ -6,7 +6,7 @@ import { SearchBar } from '@/components/SearchBar';
 import { SectionHeader } from '@/components/SectionHeader';
 import { CategoryCard } from '@/components/CategoryCard';
 import { CalculatorCard } from '@/components/CalculatorCard';
-import { calculators, categories, searchCalculators } from '@/domain/calculators/repository';
+import { calculators, categories, searchCalculators } from '@/domain/calculators/publicRepository';
 import { useAppState } from '@/state/AppStateProvider';
 import { colors, spacing } from '@/theme/tokens';
 
@@ -15,7 +15,7 @@ const QUICK_IDS = [
   'bocht_oppervlakte',
   'flenskap_met_deksels',
   'rechthoekige_afsluiterkap',
-  'plaat_gewicht',
+  'materiaal_gewicht',
 ];
 
 export default function HomeScreen() {
@@ -80,10 +80,7 @@ export default function HomeScreen() {
                   title={category}
                   count={calculators.filter((c) => c.category === category).length}
                   onPress={() =>
-                    router.push({
-                      pathname: '/category/[category]',
-                      params: { category },
-                    })
+                    router.push({ pathname: '/category/[category]', params: { category } })
                   }
                 />
               </View>
