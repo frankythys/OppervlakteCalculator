@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, radius, spacing } from '@/theme/tokens';
 import type { SelectOption } from '@/domain/calculators/types';
 
@@ -13,6 +14,7 @@ type Props = {
 
 export function SelectInput({ label, value, options, onChange }: Props) {
   const [open, setOpen] = useState(false);
+  const insets = useSafeAreaInsets();
   const selected = useMemo(() => options.find((option) => option.value === value), [options, value]);
 
   return (
@@ -32,14 +34,21 @@ export function SelectInput({ label, value, options, onChange }: Props) {
 
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
         <Pressable style={styles.backdrop} onPress={() => setOpen(false)}>
-          <Pressable style={styles.sheet} onPress={() => undefined}>
+          <Pressable
+            style={[styles.sheet, { paddingBottom: Math.max(insets.bottom, spacing.md) }]}
+            onPress={() => undefined}
+          >
             <View style={styles.sheetHeader}>
               <Text style={styles.sheetTitle}>{label}</Text>
               <Pressable onPress={() => setOpen(false)} hitSlop={10}>
                 <MaterialCommunityIcons name="close" size={24} color={colors.text} />
               </Pressable>
             </View>
-            <ScrollView contentContainerStyle={styles.options}>
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={styles.options}
+              showsVerticalScrollIndicator={false}
+            >
               {options.map((option) => {
                 const active = option.value === value;
                 return (
@@ -97,11 +106,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   sheet: {
-    maxHeight: '70%',
+    maxHeight: '76%',
     backgroundColor: colors.surface,
     borderTopLeftRadius: radius.lg,
     borderTopRightRadius: radius.lg,
-    paddingBottom: spacing.lg,
   },
   sheetHeader: {
     flexDirection: 'row',
@@ -112,7 +120,7 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.border,
   },
   sheetTitle: { color: colors.text, fontSize: 18, fontWeight: '900' },
-  options: { padding: spacing.sm },
+  options: { padding: spacing.sm, paddingBottom: spacing.md },
   option: {
     minHeight: 58,
     borderRadius: radius.md,
