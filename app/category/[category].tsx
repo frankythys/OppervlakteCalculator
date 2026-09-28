@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { Screen } from '@/components/Screen';
 import { CalculatorCard } from '@/components/CalculatorCard';
-import { getCalculatorsByCategory } from '@/domain/calculators/repository';
+import { getCalculatorsByCategory } from '@/domain/calculators/publicRepository';
 import { useAppState } from '@/state/AppStateProvider';
 import { colors } from '@/theme/tokens';
 
