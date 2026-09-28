@@ -20,6 +20,13 @@ import type { SelectOption } from '@/domain/calculators/types';
 
 type Geometry = 'plate' | 'insulation-pipe' | 'insulation-flat' | 'cladding-pipe';
 
+type MaterialCalculation = {
+  areaM2: number;
+  volumeM3: number;
+  weightKg: number;
+  outsideDiameterMm?: number;
+};
+
 const geometryOptions: SelectOption[] = [
   { label: 'Metaalplaat', value: 'plate', description: 'Vlakke plaat: lengte × breedte × dikte' },
   { label: 'Isolatie rond leiding', value: 'insulation-pipe', description: 'Exact ringvolume rond een leiding' },
@@ -72,9 +79,10 @@ export function MaterialWeightCalculator() {
   const thicknessOptions = usesInsulation ? insulationThicknessOptions : plateThicknessOptions;
 
   const selectedMaterial = materialList.find((item) => item.id === materialId);
-  const densityKgM3 = materialId === 'custom' ? toNumber(customDensity) : selectedMaterial?.densityKgM3 ?? 0;
+  const densityKgM3 =
+    materialId === 'custom' ? toNumber(customDensity) : selectedMaterial?.densityKgM3 ?? 0;
 
-  const calculation = useMemo(() => {
+  const calculation = useMemo<MaterialCalculation | null>(() => {
     const lengthMm = toNumber(length);
     const widthMm = toNumber(width);
     const diameterMm = toNumber(diameter);
@@ -86,11 +94,7 @@ export function MaterialWeightCalculator() {
       if (!widthMm) return null;
       const areaM2 = (lengthMm * widthMm) / 1_000_000;
       const volumeM3 = areaM2 * (thicknessMm / 1000);
-      return {
-        areaM2,
-        volumeM3,
-        weightKg: volumeM3 * densityKgM3,
-      };
+      return { areaM2, volumeM3, weightKg: volumeM3 * densityKgM3 };
     }
 
     if (!diameterMm) return null;
@@ -98,11 +102,7 @@ export function MaterialWeightCalculator() {
     if (geometry === 'cladding-pipe') {
       const areaM2 = Math.PI * (diameterMm / 1000) * (lengthMm / 1000);
       const volumeM3 = areaM2 * (thicknessMm / 1000);
-      return {
-        areaM2,
-        volumeM3,
-        weightKg: volumeM3 * densityKgM3,
-      };
+      return { areaM2, volumeM3, weightKg: volumeM3 * densityKgM3 };
     }
 
     const innerRadiusM = diameterMm / 2000;
@@ -121,7 +121,7 @@ export function MaterialWeightCalculator() {
 
   const resultRows: ResultRow[] = calculation
     ? [
-        ...(calculation.outsideDiameterMm
+        ...(calculation.outsideDiameterMm !== undefined
           ? [{ label: 'Buitendiameter', value: `${format(calculation.outsideDiameterMm, 1)} mm` }]
           : []),
         { label: 'Oppervlakte', value: `${format(calculation.areaM2)} m²` },
@@ -129,7 +129,7 @@ export function MaterialWeightCalculator() {
       ]
     : [];
 
-  const primary = calculation
+  const primary: ResultRow | null = calculation
     ? { label: 'Theoretisch gewicht', value: `${format(calculation.weightKg, 2)} kg` }
     : null;
 
@@ -210,13 +210,31 @@ export function MaterialWeightCalculator() {
       )}
 
       <Text style={styles.sectionTitle}>Maten</Text>
-      <NumericInput label="Lengte" unit="mm" value={length} onChange={setLength} placeholder="1000" step={100} />
+      <NumericInput
+        label="Lengte"
+        unit="mm"
+        value={length}
+        onChange={setLength}
+        placeholder="1000"
+        step={100}
+      />
 
       {geometry === 'plate' || geometry === 'insulation-flat' ? (
-        <NumericInput label="Breedte" unit="mm" value={width} onChange={setWidth} placeholder="1000" step={100} />
+        <NumericInput
+          label="Breedte"
+          unit="mm"
+          value={width}
+          onChange={setWidth}
+          placeholder="1000"
+          step={100}
+        />
       ) : (
         <NumericInput
-          label={geometry === 'insulation-pipe' ? 'Buitendiameter leiding kaal' : 'Buitendiameter over isolatie'}
+          label={
+            geometry === 'insulation-pipe'
+              ? 'Buitendiameter leiding kaal'
+              : 'Buitendiameter over isolatie'
+          }
           unit="mm"
           value={diameter}
           onChange={setDiameter}
@@ -264,7 +282,13 @@ const styles = StyleSheet.create({
   category: { color: colors.accent, fontSize: 12, fontWeight: '900', letterSpacing: 1.1 },
   title: { color: colors.text, fontSize: 27, fontWeight: '900', marginTop: spacing.sm },
   description: { color: colors.textMuted, fontSize: 15, lineHeight: 21, marginTop: spacing.sm },
-  sectionTitle: { color: colors.text, fontSize: 19, fontWeight: '900', marginTop: spacing.md, marginBottom: spacing.md },
+  sectionTitle: {
+    color: colors.text,
+    fontSize: 19,
+    fontWeight: '900',
+    marginTop: spacing.md,
+    marginBottom: spacing.md,
+  },
   densityCard: {
     minHeight: 64,
     borderRadius: radius.md,
