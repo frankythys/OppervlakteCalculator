@@ -7,7 +7,11 @@ import { NumericInput } from '@/components/NumericInput';
 import { ResultCard, type ResultRow } from '@/components/ResultCard';
 import { calculateCalculator } from '@/domain/calculators/engine';
 import { getCalculatorById } from '@/domain/calculators/repository';
-import { getCalculatorMeta } from '@/domain/calculators/uiMeta';
+import {
+  getCalculatorMeta,
+  getOutputPresentation,
+  getSafeInputLabel,
+} from '@/domain/calculators/uiMeta';
 import { useAppState } from '@/state/AppStateProvider';
 import { formatScalar, parseNumericInput } from '@/utils/format';
 import { colors, radius, spacing } from '@/theme/tokens';
@@ -74,10 +78,19 @@ export default function CalculatorDetailScreen() {
   const outputRows: ResultRow[] = results
     ? calculator.outputs
         .filter((output) => output.formula_id in results)
-        .map((output) => ({
-          label: output.label,
-          value: formatScalar(results[output.formula_id], 3),
-        }))
+        .map((output) => {
+          const presentation = getOutputPresentation(
+            calculator.id,
+            output.formula_id,
+            output.label
+          );
+          const formatted = formatScalar(results[output.formula_id], 3);
+
+          return {
+            label: presentation.label,
+            value: presentation.unit ? `${formatted} ${presentation.unit}` : formatted,
+          };
+        })
     : [];
 
   const primary = outputRows.at(-1) ?? null;
@@ -128,12 +141,12 @@ export default function CalculatorDetailScreen() {
         <>
           <Text style={styles.sectionTitle}>Invoer</Text>
 
-          {calculator.inputs.map((input) => {
+          {calculator.inputs.map((input, index) => {
             const inputMeta = meta.inputs?.[input.id];
             return (
               <NumericInput
                 key={input.id}
-                label={inputMeta?.label ?? input.label.replace(/^Invoer\s+/, 'Waarde ')}
+                label={getSafeInputLabel(calculator.id, input.id, index)}
                 unit={inputMeta?.unit ?? (input.unit === 'auto' ? undefined : input.unit)}
                 placeholder={inputMeta?.placeholder}
                 step={inputMeta?.step}
@@ -176,9 +189,8 @@ export default function CalculatorDetailScreen() {
           <View style={styles.infoCard}>
             <Text style={styles.infoTitle}>Hoe wordt dit berekend?</Text>
             <Text style={styles.infoText}>
-              Deze calculator gebruikt de gecontroleerde formule uit de oorspronkelijke
-              oppervlakteberekening. Excel-celnamen worden alleen intern gebruikt en zijn niet
-              zichtbaar voor de gebruiker.
+              De technische bronformules worden intern gebruikt. Excel-celreferenties zijn nooit
+              zichtbaar als invoerveld of resultaatlabel.
             </Text>
           </View>
         </>
@@ -199,7 +211,13 @@ const styles = StyleSheet.create({
   category: { color: colors.accent, fontSize: 12, fontWeight: '900', letterSpacing: 1.1 },
   title: { color: colors.text, fontSize: 27, fontWeight: '900', marginTop: spacing.sm },
   description: { color: colors.textMuted, fontSize: 15, lineHeight: 21, marginTop: spacing.sm },
-  sectionTitle: { color: colors.text, fontSize: 19, fontWeight: '900', marginTop: spacing.lg, marginBottom: spacing.md },
+  sectionTitle: {
+    color: colors.text,
+    fontSize: 19,
+    fontWeight: '900',
+    marginTop: spacing.lg,
+    marginBottom: spacing.md,
+  },
   warning: {
     marginTop: spacing.lg,
     borderRadius: radius.md,
