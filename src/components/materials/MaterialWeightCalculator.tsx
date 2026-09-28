@@ -6,11 +6,8 @@ import { NumericInput } from '@/components/NumericInput';
 import { SelectInput } from '@/components/SelectInput';
 import { ResultCard, type ResultRow } from '@/components/ResultCard';
 import { MaterialLibraryModal } from '@/components/materials/MaterialLibraryModal';
-import {
-  CladdingSketch,
-  InsulationSketch,
-  PlateSketch,
-} from '@/components/technical/CalculatorSketches';
+import { PlateSketch } from '@/components/technical/CalculatorSketches';
+import { TechnicalImageCard } from '@/components/technical/TechnicalImageCard';
 import {
   insulationMaterials,
   insulationThicknessesMm,
@@ -36,6 +33,8 @@ type MaterialCalculation = {
   outsideDiameterMm?: number;
 };
 
+const INSULATED_PIPE_IMAGE = require('../../../assets/technical/insulated-pipe.jpg');
+const CLAD_PIPE_IMAGE = require('../../../assets/technical/clad-insulated-pipe.jpg');
 const MANAGE_MATERIALS_ID = '__manage_materials__';
 
 const geometryOptions: SelectOption[] = [
@@ -252,9 +251,21 @@ export function MaterialWeightCalculator() {
         <SelectInput label="Toepassing" value={geometry} options={geometryOptions} onChange={resetForGeometry} />
 
         {geometry === 'plate' ? <PlateSketch /> : null}
-        {geometry === 'insulation-flat' ? <PlateSketch /> : null}
-        {geometry === 'insulation-pipe' ? <InsulationSketch /> : null}
-        {geometry === 'cladding-pipe' ? <CladdingSketch /> : null}
+        {geometry === 'insulation-flat' ? <PlateSketch title="Vlakke isolatie" /> : null}
+        {geometry === 'insulation-pipe' ? (
+          <TechnicalImageCard
+            source={INSULATED_PIPE_IMAGE}
+            title="Isolatie rond ronde leiding"
+            caption="Ø d = leiding kaal · t = isolatiedikte · Ø D = buitendiameter geïsoleerd · L = lengte"
+          />
+        ) : null}
+        {geometry === 'cladding-pipe' ? (
+          <TechnicalImageCard
+            source={CLAD_PIPE_IMAGE}
+            title="Beplating rond ronde leiding"
+            caption="Ø D = buitendiameter over isolatie · t plaat = plaatdikte · L = lengte"
+          />
+        ) : null}
 
         <Text style={styles.sectionTitle}>Materiaal</Text>
         <SelectInput
@@ -298,11 +309,7 @@ export function MaterialWeightCalculator() {
           />
         ) : (
           <NumericInput
-            label={
-              geometry === 'insulation-pipe'
-                ? 'Buitendiameter leiding kaal'
-                : 'Buitendiameter over isolatie'
-            }
+            label={geometry === 'insulation-pipe' ? 'Diameter leiding kaal' : 'Buitendiameter over isolatie'}
             unit="mm"
             value={diameter}
             onChange={setDiameter}
