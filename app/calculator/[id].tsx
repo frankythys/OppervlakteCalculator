@@ -5,6 +5,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { Screen } from '@/components/Screen';
 import { NumericInput } from '@/components/NumericInput';
 import { ResultCard, type ResultRow } from '@/components/ResultCard';
+import { TechnicalSketch } from '@/components/technical/TechnicalSketch';
 import { calculateCalculator } from '@/domain/calculators/engine';
 import { getCalculatorById } from '@/domain/calculators/repository';
 import {
@@ -129,6 +130,8 @@ export default function CalculatorDetailScreen() {
         <Text style={styles.title}>{calculator.title}</Text>
         <Text style={styles.description}>{meta.description}</Text>
       </View>
+
+      <TechnicalSketch calculatorId={calculator.id} />
 
       {calculator.state !== 'ready' ? (
         <View style={styles.warning}>
