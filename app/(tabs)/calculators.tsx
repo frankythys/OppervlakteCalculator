@@ -5,7 +5,7 @@ import { Screen } from '@/components/Screen';
 import { SearchBar } from '@/components/SearchBar';
 import { CategoryCard } from '@/components/CategoryCard';
 import { CalculatorCard } from '@/components/CalculatorCard';
-import { calculators, categories, searchCalculators } from '@/domain/calculators/repository';
+import { calculators, categories, searchCalculators } from '@/domain/calculators/publicRepository';
 import { useAppState } from '@/state/AppStateProvider';
 import { colors, spacing } from '@/theme/tokens';
 
