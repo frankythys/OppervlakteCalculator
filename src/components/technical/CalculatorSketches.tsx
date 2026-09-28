@@ -8,7 +8,12 @@ export function PipeSketch({ insulated = false }: { insulated?: boolean }) {
     <SketchCard title={insulated ? 'Leiding met isolatie' : 'Leiding'}>
       <View style={[styles.pipeCrossOuter, insulated && styles.pipeCrossInsulation]} />
       {insulated ? <View style={styles.pipeCrossInner} /> : null}
-      <SketchLine left={66} top={86} width={104} dashed />
+      <SketchLine
+        left={insulated ? 87 : 68}
+        top={86}
+        width={insulated ? 66 : 104}
+        dashed
+      />
       <SketchLabel text={insulated ? 'Ø leiding kaal' : 'Ø leiding'} left={65} top={100} />
       {insulated ? (
         <>
@@ -84,9 +89,9 @@ export function PlateSketch({ title = 'Vlakke plaat' }: { title?: string }) {
   return (
     <SketchCard title={title}>
       <View style={styles.plateFront} />
-      <DimensionArrow left={58} top={154} width={174} label="L = lengte" />
-      <DimensionArrow left={218} top={48} width={92} label="B" vertical />
-      <SketchLabel text="B = breedte" left={156} top={83} />
+      <DimensionArrow left={58} top={154} width={160} label="L = lengte" />
+      <DimensionArrow left={224} top={48} width={92} label="B" vertical />
+      <SketchLabel text="B = breedte" left={151} top={83} />
 
       <View style={styles.plateSideView} />
       <SketchLabel text="t = dikte" left={54} top={21} emphasis />
@@ -100,7 +105,7 @@ export function InsulationSketch() {
     <SketchCard title="Isolatie rond leiding">
       <View style={styles.isoCircleOuter} />
       <View style={styles.isoCircleInner} />
-      <SketchLine left={66} top={86} width={116} dashed />
+      <SketchLine left={88} top={86} width={72} dashed />
       <SketchLabel text="Ø leiding kaal" left={68} top={102} />
       <SketchLine left={124} top={86} width={47} angle={-43} />
       <SketchLabel text="t = isolatiedikte" left={151} top={40} emphasis />
@@ -117,7 +122,7 @@ export function CladdingSketch() {
     <SketchCard title="Beplating rond leiding">
       <View style={styles.claddingCircleOuter} />
       <View style={styles.claddingCircleInner} />
-      <SketchLine left={68} top={86} width={112} dashed />
+      <SketchLine left={80} top={86} width={88} dashed />
       <SketchLabel text="Ø over isolatie" left={67} top={102} />
       <SketchLine left={124} top={86} width={46} angle={-42} />
       <SketchLabel text="t = plaatdikte" left={150} top={40} emphasis />
@@ -225,7 +230,7 @@ const styles = StyleSheet.create({
     borderWidth: 2, borderColor: colors.primary, backgroundColor: '#DCE6F0',
   },
   plateFront: {
-    position: 'absolute', left: 58, top: 48, width: 174, height: 92,
+    position: 'absolute', left: 58, top: 48, width: 160, height: 92,
     borderWidth: 2, borderColor: colors.primary, backgroundColor: '#D8E2EC',
   },
   plateSideView: {
