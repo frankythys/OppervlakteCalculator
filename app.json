@@ -9,7 +9,8 @@
     "plugins": ["expo-router"],
     "android": {
       "package": "com.oppervlaktecalculator.app",
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "softwareKeyboardLayoutMode": "resize"
     },
     "experiments": {
       "typedRoutes": true
