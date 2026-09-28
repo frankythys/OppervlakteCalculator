@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Switch, Text, View } from 'react-native';
 import { Screen } from '@/components/Screen';
+import { calculators } from '@/domain/calculators/repository';
 import { colors, radius, spacing } from '@/theme/tokens';
 
 export default function SettingsScreen() {
@@ -19,7 +20,7 @@ export default function SettingsScreen() {
       <Text style={styles.section}>Over de app</Text>
       <View style={styles.card}>
         <SettingRow label="Versie" value="0.1.0" />
-        <SettingRow label="Calculators" value="39" last />
+        <SettingRow label="Calculators" value={String(calculators.length)} last />
       </View>
     </Screen>
   );
@@ -39,7 +40,11 @@ function SettingRow({
   return (
     <View style={[styles.row, !last && styles.rowBorder]}>
       <Text style={styles.label}>{label}</Text>
-      {toggle ? <Switch value trackColor={{ true: colors.primarySoft }} /> : <Text style={styles.value}>{value}</Text>}
+      {toggle ? (
+        <Switch value trackColor={{ true: colors.primarySoft }} />
+      ) : (
+        <Text style={styles.value}>{value}</Text>
+      )}
     </View>
   );
 }
@@ -47,7 +52,13 @@ function SettingRow({
 const styles = StyleSheet.create({
   title: { color: colors.text, fontSize: 30, fontWeight: '900' },
   subtitle: { color: colors.textMuted, marginTop: 5, marginBottom: spacing.lg },
-  section: { color: colors.text, fontSize: 18, fontWeight: '800', marginTop: spacing.lg, marginBottom: spacing.sm },
+  section: {
+    color: colors.text,
+    fontSize: 18,
+    fontWeight: '800',
+    marginTop: spacing.lg,
+    marginBottom: spacing.sm,
+  },
   card: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
@@ -62,7 +73,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  rowBorder: { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
+  rowBorder: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.border,
+  },
   label: { color: colors.text, fontWeight: '700' },
   value: { color: colors.textMuted },
 });
