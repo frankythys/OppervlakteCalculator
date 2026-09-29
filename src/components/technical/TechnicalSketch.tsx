@@ -45,7 +45,7 @@ export function TechnicalSketch({ calculatorId }: Props) {
   if (calculatorId === 'leiding_met_isolatie') {
     return (
       <TechnicalImageCard
-        source={technicalImages.pipes.straightInsulated}
+        source={technicalImages.pipes.straightPipe}
         title="Ronde leiding met isolatie"
         caption="Voer de kale leidingdiameter, isolatiedikte t en lengte L in. ØD toont de resulterende buitendiameter geïsoleerd."
       />
@@ -55,7 +55,7 @@ export function TechnicalSketch({ calculatorId }: Props) {
   if (calculatorId === 'leiding_geisoleerd') {
     return (
       <TechnicalImageCard
-        source={technicalImages.pipes.straightInsulated}
+        source={technicalImages.pipes.straightPipe}
         title="Ronde geïsoleerde leiding"
         caption="Gebruik de gemeten buitendiameter ØD van de geïsoleerde leiding en de lengte L."
       />
@@ -65,7 +65,7 @@ export function TechnicalSketch({ calculatorId }: Props) {
   if (calculatorId === 'bocht_lengte' || calculatorId === 'bocht_oppervlakte') {
     return (
       <TechnicalImageCard
-        source={technicalImages.bends.elbowRadius}
+        source={technicalImages.bends.bend90}
         title="Bocht met radius"
         caption="R is de hartlijnradius. ØD is de buitendiameter van de geïsoleerde leiding; t is de isolatiedikte."
       />
