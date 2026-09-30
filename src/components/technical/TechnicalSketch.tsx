@@ -8,7 +8,6 @@ import {
   PlateSketch,
   RectangularHoodSketch,
   RoundValveSketch,
-  SphereSketch,
   TrapeziumSketch,
 } from './CalculatorSketches';
 import { TechnicalImageCard } from './TechnicalImageCard';
@@ -109,10 +108,18 @@ export function TechnicalSketch({ calculatorId }: Props) {
     );
   }
 
+  if (calculatorId === 'bol') {
+    return (
+      <TechnicalImageCard
+        source={technicalImages.tanks.sphere}
+        title="Bol / bolkop"
+        caption="Straal r en isolatiedikte t. Kies hele bol of halve bol (bolkop)."
+      />
+    );
+  }
+
   if (calculatorId === 'alu_beplating_gewicht') return <CladdingSketch />;
   if (calculatorId === 'plaat_gewicht') return <PlateSketch />;
-  if (calculatorId === 'bol') return <SphereSketch />;
-  if (calculatorId === 'bolkop') return <SphereSketch half />;
   if (OVAL_IDS.has(calculatorId)) return <OvalSketch />;
   if (ROUND_IDS.has(calculatorId)) return <RoundValveSketch />;
   if (RECTANGULAR_IDS.has(calculatorId)) return <RectangularHoodSketch />;

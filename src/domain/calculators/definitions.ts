@@ -215,28 +215,20 @@ export const definitions: CalcDefinition[] = [
   },
   {
     id: 'bol',
-    title: 'Bol - oppervlakte',
+    title: 'Bol / bolkop - oppervlakte',
     category: 'Tanks en bollen',
-    description: 'Bereken de oppervlakte van een geïsoleerde bol.',
+    description: 'Bereken de geïsoleerde oppervlakte van een bol of bolkop (halve bol).',
+    resultHint: 'Maten in mm. Oppervlakte in m², gemeten over de isolatie.',
     inputs: [
-      { key: 'straal', label: 'Straal', unit: 'mm' },
-      { key: 'isolatiedikte', label: 'Isolatiedikte', unit: 'mm', defaultValue: '0' },
-    ],
-    outputs: [
       {
-        label: 'Oppervlakte',
-        unit: 'm²',
-        primary: true,
-        compute: ({ straal, isolatiedikte }) => (4 * PI * (straal + isolatiedikte) ** 2) / 1_000_000,
+        key: 'vorm',
+        label: 'Vorm',
+        defaultValue: '1',
+        options: [
+          { label: 'Hele bol', value: '1', description: 'Volledige bol · 4·π·r²' },
+          { label: 'Halve bol (bolkop)', value: '0.5', description: 'Bolkop · 2·π·r²' },
+        ],
       },
-    ],
-  },
-  {
-    id: 'bolkop',
-    title: 'Bolkop - oppervlakte',
-    category: 'Tanks en bollen',
-    description: 'Bereken de oppervlakte van een geïsoleerde bolkop (halve bol).',
-    inputs: [
       { key: 'straal', label: 'Straal', unit: 'mm' },
       { key: 'isolatiedikte', label: 'Isolatiedikte', unit: 'mm', defaultValue: '0' },
     ],
@@ -245,7 +237,8 @@ export const definitions: CalcDefinition[] = [
         label: 'Oppervlakte',
         unit: 'm²',
         primary: true,
-        compute: ({ straal, isolatiedikte }) => (4 * PI * (straal + isolatiedikte) ** 2) / 1_000_000 / 2,
+        compute: ({ vorm, straal, isolatiedikte }) =>
+          ((4 * PI * (straal + isolatiedikte) ** 2) / 1_000_000) * vorm,
       },
     ],
   },

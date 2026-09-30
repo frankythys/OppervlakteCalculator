@@ -13,6 +13,7 @@ const HIDDEN_SOURCE_IDS = new Set([
   'leiding_geisoleerd',
   'conus_verloop_omtrek',
   'knik_hartmaat',
+  'bolkop',
 ]);
 
 const materialWeightCalculator: Calculator = {

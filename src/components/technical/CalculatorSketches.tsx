@@ -142,17 +142,6 @@ export function CircleSketch() {
   );
 }
 
-export function SphereSketch({ half = false }: { half?: boolean }) {
-  return (
-    <SketchCard title={half ? 'Bolkop' : 'Bol'}>
-      <View style={half ? styles.halfSphere : styles.sphere} />
-      <SketchLine left={165} top={50} width={76} angle={90} dashed />
-      <SketchLabel text="R = straal" left={174} top={98} emphasis />
-      <SketchLabel text="t = isolatiedikte" left={93} top={44} />
-    </SketchCard>
-  );
-}
-
 export function TrapeziumSketch() {
   return (
     <SketchCard title="Trapezium">
