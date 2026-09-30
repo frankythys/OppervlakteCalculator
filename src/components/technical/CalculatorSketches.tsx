@@ -29,20 +29,6 @@ export function PipeSketch({ insulated = false }: { insulated?: boolean }) {
   );
 }
 
-export function ConeSketch() {
-  return (
-    <SketchCard title="Conus / verloop">
-      <SketchLine left={82} top={55} width={158} />
-      <SketchLine left={52} top={156} width={218} />
-      <SketchLine left={82} top={56} width={106} angle={106} />
-      <SketchLine left={240} top={56} width={106} angle={74} />
-      <DimensionArrow left={88} top={24} width={144} label="Ø D1 = klein" />
-      <DimensionArrow left={58} top={174} width={206} label="Ø D2 = groot" />
-      <DimensionArrow left={252} top={55} width={102} label="H" vertical />
-    </SketchCard>
-  );
-}
-
 export function RoundValveSketch() {
   return (
     <SketchCard title="Ronde afsluiter / flenskap">

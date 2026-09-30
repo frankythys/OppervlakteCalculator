@@ -3,7 +3,6 @@ import {
   BendSketch,
   CircleSketch,
   CladdingSketch,
-  ConeSketch,
   InsulationSketch,
   OvalSketch,
   PlateSketch,
@@ -19,21 +18,19 @@ type Props = {
   calculatorId: string;
 };
 
-const CONE_IDS = new Set(['conus_verloop_diameter', 'conus_verloop_omtrek']);
-const ROUND_IDS = new Set([
-  'ronde_afsluiter',
-  'ronde_afsluiterkap',
+const FLANGE_PHOTO_IDS = new Set([
+  'flenskast',
   'omvang_flenskap',
   'flenskap_met_deksels',
   'flenskap_zonder_deksels',
-  'flenskast',
+  'ovale_flenskap',
+  'pu_flenskap',
 ]);
-const OVAL_IDS = new Set(['ovale_flenskap', 'ovale_afsluiter']);
+const ROUND_IDS = new Set(['ronde_afsluiter', 'ronde_afsluiterkap']);
+const OVAL_IDS = new Set(['ovale_afsluiter']);
 const RECTANGULAR_IDS = new Set([
   'rechthoek_oppervlakte',
   'rechthoek_omvang',
-  'rechthoekige_afsluiterkap_omvang',
-  'rechthoekige_afsluiterkap',
   'kast',
   'inzet',
 ]);
@@ -48,16 +45,6 @@ export function TechnicalSketch({ calculatorId }: Props) {
         source={technicalImages.pipes.straightPipe}
         title="Ronde leiding met isolatie"
         caption="Voer de kale leidingdiameter, isolatiedikte t en lengte L in. ØD toont de resulterende buitendiameter geïsoleerd."
-      />
-    );
-  }
-
-  if (calculatorId === 'leiding_geisoleerd') {
-    return (
-      <TechnicalImageCard
-        source={technicalImages.pipes.straightPipe}
-        title="Ronde geïsoleerde leiding"
-        caption="Gebruik de gemeten buitendiameter ØD van de geïsoleerde leiding en de lengte L."
       />
     );
   }
@@ -82,11 +69,50 @@ export function TechnicalSketch({ calculatorId }: Props) {
     );
   }
 
+  if (FLANGE_PHOTO_IDS.has(calculatorId)) {
+    return (
+      <TechnicalImageCard
+        source={technicalImages.caps.flange}
+        title="Flenskap"
+        caption="Meet de diameter van de flenskap. Bij deksels telt de app de twee ronde deksels mee bij de manteloppervlakte."
+      />
+    );
+  }
+
+  if (calculatorId === 'pu_hondenhok_kap') {
+    return (
+      <TechnicalImageCard
+        source={technicalImages.caps.doghouse}
+        title="Hondenhok-afsluiterkap"
+        caption="Rechthoekige afsluiterkap in hondenhokvorm. Voer de gevraagde maten en de PU-isolatiedikte in."
+      />
+    );
+  }
+
+  if (calculatorId === 'rechthoekige_afsluiterkap' || calculatorId === 'rechthoekige_afsluiterkap_omvang') {
+    return (
+      <TechnicalImageCard
+        source={technicalImages.caps.rectangular}
+        title="Rechthoekige afsluiterkap"
+        caption="Lengte × breedte × hoogte. De app telt de twee deksels mee bij de oppervlakte."
+      />
+    );
+  }
+
+  if (calculatorId === 'conus_verloop_diameter') {
+    return (
+      <TechnicalImageCard
+        source={technicalImages.pipes.cone}
+        title="Conus / verloop"
+        caption="Ø D1 = kleine diameter · Ø D2 = grote diameter · L = lengte van het verloop."
+      />
+    );
+  }
+
   if (calculatorId === 'alu_beplating_gewicht') return <CladdingSketch />;
   if (calculatorId === 'plaat_gewicht') return <PlateSketch />;
   if (calculatorId === 'bol') return <SphereSketch />;
   if (calculatorId === 'bolkop') return <SphereSketch half />;
-  if (CONE_IDS.has(calculatorId)) return <ConeSketch />;
   if (OVAL_IDS.has(calculatorId)) return <OvalSketch />;
   if (ROUND_IDS.has(calculatorId)) return <RoundValveSketch />;
   if (RECTANGULAR_IDS.has(calculatorId)) return <RectangularHoodSketch />;

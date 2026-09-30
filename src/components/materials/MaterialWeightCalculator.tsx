@@ -8,6 +8,7 @@ import { ResultCard, type ResultRow } from '@/components/ResultCard';
 import { MaterialLibraryModal } from '@/components/materials/MaterialLibraryModal';
 import { PlateSketch } from '@/components/technical/CalculatorSketches';
 import { TechnicalImageCard } from '@/components/technical/TechnicalImageCard';
+import { technicalImages } from '@/components/technical/technicalImages';
 import {
   insulationMaterials,
   insulationThicknessesMm,
@@ -33,9 +34,6 @@ type MaterialCalculation = {
   outsideDiameterMm?: number;
 };
 
-const RAW_BASE = 'https://raw.githubusercontent.com/frankythys/OppervlakteCalculator/main/assets/technical';
-const INSULATED_PIPE_IMAGE = { uri: `${RAW_BASE}/insulated-pipe.jpg` };
-const CLAD_PIPE_IMAGE = { uri: `${RAW_BASE}/clad-insulated-pipe.jpg` };
 const MANAGE_MATERIALS_ID = '__manage_materials__';
 
 const geometryOptions: SelectOption[] = [
@@ -90,7 +88,15 @@ export function MaterialWeightCalculator() {
 
   const usesInsulation = geometry === 'insulation-pipe' || geometry === 'insulation-flat';
   const materialKind: MaterialKind = usesInsulation ? 'insulation' : 'metal';
-  const builtinMaterials = usesInsulation ? insulationMaterials : metalMaterials;
+  const builtinMaterials = !usesInsulation
+    ? metalMaterials
+    : geometry === 'insulation-flat'
+      ? insulationMaterials.map((material) =>
+          material.id === 'prorox-ps960' || material.id === 'prorox-ps970'
+            ? { ...material, label: 'Rockwool platen' }
+            : material
+        )
+      : insulationMaterials;
   const customForKind = customMaterials.filter((material) => material.kind === materialKind);
   const thicknessOptions = usesInsulation ? insulationThicknessOptions : plateThicknessOptions;
 
@@ -238,6 +244,33 @@ export function MaterialWeightCalculator() {
     Alert.alert('Opgeslagen', 'De berekening staat in Geschiedenis.');
   };
 
+  const materialImage = (() => {
+    if (geometry === 'plate') {
+      return {
+        source: technicalImages.materials.metalPlate,
+        title: 'Metaalplaat',
+        caption: 'Lengte × breedte × plaatdikte. Gewicht volgt uit het soortelijk gewicht van het gekozen metaal.',
+      };
+    }
+    if (geometry === 'cladding-pipe') {
+      return {
+        source: technicalImages.pipes.straightPipe,
+        title: 'Beplating rond ronde leiding',
+        caption: 'Ø D = buitendiameter over isolatie · t plaat = plaatdikte · L = lengte',
+      };
+    }
+    const set = technicalImages.materials.insulation[materialId];
+    if (!set) return null;
+    const isPipe = geometry === 'insulation-pipe';
+    return {
+      source: isPipe ? set.pipe : set.flat,
+      title: isPipe ? 'Isolatie rond ronde leiding' : 'Vlakke isolatie',
+      caption: isPipe
+        ? 'Ø d = leiding kaal · t = isolatiedikte · Ø D = buitendiameter geïsoleerd · L = lengte'
+        : 'Lengte × breedte × dikte van de isolatieplaat of -deken.',
+    };
+  })();
+
   return (
     <>
       <Screen contentContainerStyle={styles.screenContent}>
@@ -251,22 +284,21 @@ export function MaterialWeightCalculator() {
 
         <SelectInput label="Toepassing" value={geometry} options={geometryOptions} onChange={resetForGeometry} />
 
-        {geometry === 'plate' ? <PlateSketch /> : null}
-        {geometry === 'insulation-flat' ? <PlateSketch title="Vlakke isolatie" /> : null}
-        {geometry === 'insulation-pipe' ? (
+        {materialImage ? (
           <TechnicalImageCard
-            source={INSULATED_PIPE_IMAGE}
+            source={materialImage.source}
+            title={materialImage.title}
+            caption={materialImage.caption}
+          />
+        ) : geometry === 'insulation-pipe' ? (
+          <TechnicalImageCard
+            source={technicalImages.pipes.straightPipe}
             title="Isolatie rond ronde leiding"
             caption="Ø d = leiding kaal · t = isolatiedikte · Ø D = buitendiameter geïsoleerd · L = lengte"
           />
-        ) : null}
-        {geometry === 'cladding-pipe' ? (
-          <TechnicalImageCard
-            source={CLAD_PIPE_IMAGE}
-            title="Beplating rond ronde leiding"
-            caption="Ø D = buitendiameter over isolatie · t plaat = plaatdikte · L = lengte"
-          />
-        ) : null}
+        ) : (
+          <PlateSketch title="Vlakke isolatie" />
+        )}
 
         <Text style={styles.sectionTitle}>Materiaal</Text>
         <SelectInput

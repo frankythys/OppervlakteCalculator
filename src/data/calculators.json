@@ -163,7 +163,7 @@
     },
     {
       "id": "leiding_met_isolatie",
-      "title": "Leiding met isolatie",
+      "title": "Leidingwerk",
       "category": "Leidingen",
       "row_range": [
         5,
@@ -378,7 +378,7 @@
         {
           "id": "E19",
           "source_cell": "E19",
-          "expression": "(B19/2/1000)*(B19/2/1000)*3.14",
+          "expression": "(B19/2/1000)*(B19/2/1000)*Math.PI",
           "excel_formula": "=(B19/2/1000)*(B19/2/1000)*3.14",
           "dependencies": [
             "B19"
@@ -460,7 +460,7 @@
         {
           "id": "E25",
           "source_cell": "E25",
-          "expression": "(B25/2/1000)*(B25/2/1000)*3.14",
+          "expression": "(B25/2/1000)*(B25/2/1000)*Math.PI",
           "excel_formula": "=(B25/2/1000)*(B25/2/1000)*3.14",
           "dependencies": [
             "B25"
@@ -503,7 +503,7 @@
         {
           "id": "E26",
           "source_cell": "E26",
-          "expression": "(B26/2/1000)*(B26/2/1000)*3.14",
+          "expression": "(B26/2/1000)*(B26/2/1000)*Math.PI",
           "excel_formula": "=(B26/2/1000)*(B26/2/1000)*3.14",
           "dependencies": [
             "B26"
@@ -638,7 +638,7 @@
         {
           "id": "E31",
           "source_cell": "E31",
-          "expression": "(B31/2/1000)*(B31/2/1000)*3.14",
+          "expression": "(B31/2/1000)*(B31/2/1000)*Math.PI",
           "excel_formula": "=(B31/2/1000)*(B31/2/1000)*3.14",
           "dependencies": [
             "B31"
@@ -681,7 +681,7 @@
         {
           "id": "E32",
           "source_cell": "E32",
-          "expression": "(B32/2/1000)*(B32/2/1000)*3.14",
+          "expression": "(B32/2/1000)*(B32/2/1000)*Math.PI",
           "excel_formula": "=(B32/2/1000)*(B32/2/1000)*3.14",
           "dependencies": [
             "B32"
@@ -1278,7 +1278,7 @@
         {
           "id": "E57",
           "source_cell": "E57",
-          "expression": "(C57/1000+D57/1000)/2*3.14*B57/1000",
+          "expression": "(C57/1000+D57/1000)/2*Math.PI*B57/1000",
           "excel_formula": "=(C57/1000+D57/1000)/2*3.14*B57/1000",
           "dependencies": [
             "B57",
@@ -1485,7 +1485,7 @@
         {
           "id": "E65",
           "source_cell": "E65",
-          "expression": "(C65*D65/1000)+(B65/2/1000*B65/2/1000)*3.14*2",
+          "expression": "(C65*D65/1000)+(B65/2/1000*B65/2/1000)*Math.PI*2",
           "excel_formula": "=(C65*D65/1000)+(B65/2/1000*B65/2/1000)*3.14*2",
           "dependencies": [
             "B65",
@@ -2149,7 +2149,7 @@
         {
           "id": "E99",
           "source_cell": "E99",
-          "expression": "(C101*D99/1000)+(B101/2/1000*B101/2/1000)*3.14*2",
+          "expression": "(C101*D99/1000)+(B101/2/1000*B101/2/1000)*Math.PI*2",
           "excel_formula": "=(C101*D99/1000)+(B101/2/1000*B101/2/1000)*3.14*2",
           "dependencies": [
             "B101",
@@ -2315,7 +2315,7 @@
         {
           "id": "F104",
           "source_cell": "F104",
-          "expression": "((B104+(C104/2))*1.57)",
+          "expression": "((B104+(C104/2))*(Math.PI/2))",
           "excel_formula": "=((B104+(C104/2))*1.57)",
           "dependencies": [
             "B104",
@@ -2336,7 +2336,7 @@
         {
           "id": "D105",
           "source_cell": "D105",
-          "expression": "((B105+(C105/2))*1.57)",
+          "expression": "((B105+(C105/2))*(Math.PI/2))",
           "excel_formula": "=((B105+(C105/2))*1.57)",
           "dependencies": [
             "B105",
@@ -4434,7 +4434,7 @@
         {
           "id": "E190",
           "source_cell": "E190",
-          "expression": "(B192+(2*C192))*3.14",
+          "expression": "(B192+(2*C192))*Math.PI",
           "excel_formula": "=(B192+(2*C192))*3.14",
           "dependencies": [
             "B192",
@@ -4586,7 +4586,7 @@
         {
           "id": "E197",
           "source_cell": "E197",
-          "expression": "(B199+(2*C199))*3.14",
+          "expression": "(B199+(2*C199))*Math.PI",
           "excel_formula": "=(B199+(2*C199))*3.14",
           "dependencies": [
             "B199",

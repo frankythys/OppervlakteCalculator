@@ -150,7 +150,7 @@ function buildCalculators(): Calculator[] {
   replacements.set('bocht_lengte', [
     deriveCalculator(bochtLengte, {
       id: 'bocht_lengte',
-      title: 'Bocht - buitenlengte 90° / 45°',
+      title: 'Bocht / knik - buitenlengte',
       inputIds: ['B104', 'C104'],
       formulaIds: ['D104', 'F104'],
       outputs: [['F104', 'Buitenlengte 90°'], ['D104', 'Buitenlengte 45°']],

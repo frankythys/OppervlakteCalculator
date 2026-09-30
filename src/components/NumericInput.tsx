@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useScrollToInput } from '@/components/Screen';
 import { colors, radius, spacing } from '@/theme/tokens';
 
 type Props = {
@@ -20,10 +21,17 @@ export function NumericInput({
   step = 1,
   onChange,
 }: Props) {
+  const inputRef = useRef<TextInput>(null);
+  const scrollToInput = useScrollToInput();
+
   const nudge = (direction: 1 | -1) => {
     const numeric = Number(value.replace(',', '.')) || 0;
     const next = Math.max(0, numeric + step * direction);
     onChange(String(next));
+  };
+
+  const handleFocus = () => {
+    if (inputRef.current) scrollToInput(inputRef.current);
   };
 
   return (
@@ -36,8 +44,10 @@ export function NumericInput({
 
         <View style={styles.inputWrap}>
           <TextInput
+            ref={inputRef}
             value={value}
             onChangeText={onChange}
+            onFocus={handleFocus}
             placeholder={placeholder ?? '0'}
             placeholderTextColor={colors.textMuted}
             keyboardType="decimal-pad"

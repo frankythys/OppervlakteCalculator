@@ -131,10 +131,10 @@ export const calculatorMeta: Record<string, CalculatorMeta> = {
     outputs: { E51: { label: 'Oppervlakte', unit: 'm²' } },
   },
   conus_verloop_diameter: {
-    description: 'Bereken de oppervlakte van een conus/verloop op basis van hoogte en twee diameters.',
-    resultHint: 'Hoogte en diameters in mm. Resultaat in m².',
+    description: 'Bereken de oppervlakte van een conus/verloop op basis van lengte en twee diameters.',
+    resultHint: 'Lengte en diameters in mm. Resultaat in m².',
     inputs: {
-      B57: { label: 'Hoogte', unit: 'mm', placeholder: '600' },
+      B57: { label: 'Lengte', unit: 'mm', placeholder: '600' },
       C57: { label: 'Kleine diameter', unit: 'mm', placeholder: '300' },
       D57: { label: 'Grote diameter', unit: 'mm', placeholder: '900' },
     },

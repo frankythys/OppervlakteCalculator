@@ -1,9 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Alert,
-  KeyboardAvoidingView,
   Modal,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -13,6 +11,7 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useKeyboardAwareScroll } from '@/components/Screen';
 import { colors, radius, spacing } from '@/theme/tokens';
 import type { MaterialKind, StoredMaterial } from '@/storage/materialStorage';
 
@@ -34,6 +33,9 @@ export function MaterialLibraryModal({
   onDelete,
 }: Props) {
   const insets = useSafeAreaInsets();
+  const { scrollRef, keyboardHeight, scrollToInput, onScroll } = useKeyboardAwareScroll();
+  const nameRef = useRef<TextInput>(null);
+  const densityRef = useRef<TextInput>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [kind, setKind] = useState<MaterialKind>(initialKind);
@@ -105,10 +107,7 @@ export function MaterialLibraryModal({
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <KeyboardAvoidingView
-        style={styles.backdrop}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      >
+      <View style={styles.backdrop}>
         <View style={[styles.sheet, { paddingBottom: Math.max(insets.bottom, spacing.md) }]}>
           <View style={styles.header}>
             <View>
@@ -120,7 +119,14 @@ export function MaterialLibraryModal({
             </Pressable>
           </View>
 
-          <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.content}>
+          <ScrollView
+            ref={scrollRef}
+            onScroll={onScroll}
+            scrollEventThrottle={16}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            contentContainerStyle={[styles.content, { paddingBottom: spacing.md + keyboardHeight }]}
+          >
             {sorted.length > 0 ? (
               <View style={styles.savedList}>
                 {sorted.map((material) => (
@@ -171,8 +177,10 @@ export function MaterialLibraryModal({
 
               <Text style={styles.label}>Naam</Text>
               <TextInput
+                ref={nameRef}
                 value={name}
                 onChangeText={setName}
+                onFocus={() => nameRef.current && scrollToInput(nameRef.current)}
                 placeholder="Bijv. PIR 35 kg/m³"
                 placeholderTextColor={colors.textMuted}
                 style={styles.input}
@@ -181,8 +189,10 @@ export function MaterialLibraryModal({
               <Text style={styles.label}>Densiteit</Text>
               <View style={styles.densityInputWrap}>
                 <TextInput
+                  ref={densityRef}
                   value={density}
                   onChangeText={setDensity}
+                  onFocus={() => densityRef.current && scrollToInput(densityRef.current)}
                   placeholder="35"
                   placeholderTextColor={colors.textMuted}
                   keyboardType="decimal-pad"
@@ -205,7 +215,7 @@ export function MaterialLibraryModal({
             </View>
           </ScrollView>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </Modal>
   );
 }

@@ -7,6 +7,8 @@ import { NumericInput } from '@/components/NumericInput';
 import { SelectInput } from '@/components/SelectInput';
 import { ResultCard, type ResultRow } from '@/components/ResultCard';
 import { TechnicalSketch } from '@/components/technical/TechnicalSketch';
+import { DefinitionScreen } from '@/components/calculators/DefinitionScreen';
+import { getDefinitionById } from '@/domain/calculators/definitions';
 import { calculateCalculator } from '@/domain/calculators/engine';
 import { getCalculatorById } from '@/domain/calculators/repository';
 import { getInputPresetOptions, getPresetInputLabel } from '@/domain/calculators/inputPresets';
@@ -21,6 +23,13 @@ import { colors, radius, spacing } from '@/theme/tokens';
 import type { Values } from '@/domain/calculators/types';
 
 export default function CalculatorDetailScreen() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const definition = getDefinitionById(id ?? '');
+  if (definition) return <DefinitionScreen def={definition} />;
+  return <LegacyCalculatorScreen />;
+}
+
+function LegacyCalculatorScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const navigation = useNavigation();
   const calculator = getCalculatorById(id ?? '');

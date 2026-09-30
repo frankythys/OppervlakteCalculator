@@ -10,6 +10,9 @@ const HIDDEN_SOURCE_IDS = new Set([
   'isolatie_volume',
   'gaasdeken_gewicht',
   'alu_beplating_gewicht',
+  'leiding_geisoleerd',
+  'conus_verloop_omtrek',
+  'knik_hartmaat',
 ]);
 
 const materialWeightCalculator: Calculator = {
