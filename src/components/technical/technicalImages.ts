@@ -15,6 +15,9 @@ export const technicalImages = {
   tanks: {
     sphere: require('../../../assets/technical/Bol/Bol.png') as ImageSourcePropType,
   },
+  shapes: {
+    pythagoras: require('../../../assets/technical/extra/pythagoras.png') as ImageSourcePropType,
+  },
   caps: {
     flange: require('../../../assets/technical/Kappen/Flenskap.png') as ImageSourcePropType,
     doghouse: require('../../../assets/technical/Kappen/Hondehok_ventiel.png') as ImageSourcePropType,

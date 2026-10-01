@@ -31,15 +31,32 @@ const materialWeightCalculator: Calculator = {
   ],
 };
 
+const pythagorasCalculator: Calculator = {
+  id: 'pythagoras',
+  title: 'Stelling van Pythagoras',
+  category: 'Vormen',
+  row_range: [0, 0],
+  inputs: [],
+  formulas: [],
+  outputs: [],
+  state: 'ready',
+  notes: ['Rechthoekige driehoek: bereken zijden en hoeken uit twee bekende waarden.'],
+};
+
 const visibleSourceCalculators = sourceCalculators.filter(
   (calculator) => !HIDDEN_SOURCE_IDS.has(calculator.id)
 );
 
 export { categories };
-export const calculators: Calculator[] = [materialWeightCalculator, ...visibleSourceCalculators];
+export const calculators: Calculator[] = [
+  materialWeightCalculator,
+  pythagorasCalculator,
+  ...visibleSourceCalculators,
+];
 
 export function getCalculatorById(id: string): Calculator | undefined {
   if (id === materialWeightCalculator.id) return materialWeightCalculator;
+  if (id === pythagorasCalculator.id) return pythagorasCalculator;
   return getSourceCalculatorById(id);
 }
 

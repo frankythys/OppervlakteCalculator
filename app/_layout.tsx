@@ -28,6 +28,7 @@ export default function RootLayout() {
           <Stack.Screen name="category/[category]" options={{ title: 'Categorie' }} />
           <Stack.Screen name="calculator/materiaal_gewicht" options={{ title: 'Materiaalgewicht' }} />
           <Stack.Screen name="calculator/bocht_lengte" options={{ title: 'Bocht / knik' }} />
+          <Stack.Screen name="calculator/pythagoras" options={{ title: 'Pythagoras' }} />
           <Stack.Screen name="calculator/[id]" options={{ title: 'Calculator' }} />
         </Stack>
 
