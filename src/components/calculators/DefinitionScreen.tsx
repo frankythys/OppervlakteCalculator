@@ -20,6 +20,7 @@ export function DefinitionScreen({ def }: { def: CalcDefinition }) {
     Object.fromEntries(def.inputs.map((input) => [input.key, input.defaultValue ?? '']));
 
   const [rawInputs, setRawInputs] = useState<Record<string, string>>(emptyInputs);
+  const [mode, setMode] = useState<string>(def.modes?.[0]?.value ?? '');
 
   useLayoutEffect(() => {
     navigation.setOptions({ title: def.title });
@@ -27,11 +28,16 @@ export function DefinitionScreen({ def }: { def: CalcDefinition }) {
 
   useEffect(() => {
     setRawInputs(emptyInputs());
+    setMode(def.modes?.[0]?.value ?? '');
   }, [def.id]);
+
+  const inMode = (modes?: string[]) => !modes || modes.includes(mode);
+  const visibleInputs = def.inputs.filter((input) => inMode(input.modes));
+  const visibleOutputs = def.outputs.filter((output) => inMode(output.modes));
 
   const values = useMemo<Vars | null>(() => {
     const parsed: Vars = {};
-    for (const input of def.inputs) {
+    for (const input of visibleInputs) {
       const value = parseNumericInput(rawInputs[input.key] ?? '');
       if (value === null) {
         if (input.optional) {
@@ -43,11 +49,12 @@ export function DefinitionScreen({ def }: { def: CalcDefinition }) {
       parsed[input.key] = value;
     }
     return parsed;
-  }, [def, rawInputs]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [def, rawInputs, mode]);
 
   const outputRows: ResultRow[] = useMemo(() => {
     if (!values) return [];
-    return def.outputs.map((output) => {
+    return visibleOutputs.map((output) => {
       const result = output.compute(values);
       const formatted = formatScalar(result, 3);
       return {
@@ -55,15 +62,18 @@ export function DefinitionScreen({ def }: { def: CalcDefinition }) {
         value: output.unit ? `${formatted} ${output.unit}` : formatted,
       };
     });
-  }, [def, values]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [def, values, mode]);
 
-  const primaryIndex = def.outputs.findIndex((output) => output.primary);
-  const primary = outputRows.length
-    ? outputRows[primaryIndex >= 0 ? primaryIndex : outputRows.length - 1]
-    : null;
-  const secondary = outputRows.filter((_, index) => index !== (primaryIndex >= 0 ? primaryIndex : outputRows.length - 1));
+  const primaryPos = visibleOutputs.findIndex((output) => output.primary);
+  const primaryIndex = primaryPos >= 0 ? primaryPos : outputRows.length - 1;
+  const primary = outputRows.length ? outputRows[primaryIndex] : null;
+  const secondary = outputRows.filter((_, index) => index !== primaryIndex);
 
-  const reset = () => setRawInputs(emptyInputs());
+  const reset = () => {
+    setRawInputs(emptyInputs());
+    setMode(def.modes?.[0]?.value ?? '');
+  };
 
   const save = () => {
     if (!values || !primary) {
@@ -96,10 +106,21 @@ export function DefinitionScreen({ def }: { def: CalcDefinition }) {
         {def.description ? <Text style={styles.description}>{def.description}</Text> : null}
       </View>
 
-      <TechnicalSketch calculatorId={def.id} />
+      <TechnicalSketch calculatorId={def.id} mode={mode} />
+
+      {def.modes && def.modes.length > 0 ? (
+        <View style={styles.modeWrap}>
+          <SelectInput
+            label={def.modeLabel ?? 'Type'}
+            value={mode}
+            options={def.modes}
+            onChange={setMode}
+          />
+        </View>
+      ) : null}
 
       <Text style={styles.sectionTitle}>Invoer</Text>
-      {def.inputs.map((input) => {
+      {visibleInputs.map((input) => {
         if (input.options) {
           return (
             <SelectInput
@@ -161,6 +182,7 @@ const styles = StyleSheet.create({
     marginTop: spacing.lg,
     marginBottom: spacing.md,
   },
+  modeWrap: { marginTop: spacing.lg },
   hint: { color: colors.textMuted, fontSize: 12, lineHeight: 18, marginTop: spacing.sm },
   actions: { flexDirection: 'row', gap: spacing.sm, marginTop: spacing.lg },
   primaryButton: {

@@ -14,6 +14,9 @@ const HIDDEN_SOURCE_IDS = new Set([
   'conus_verloop_omtrek',
   'knik_hartmaat',
   'bolkop',
+  'cirkel_segment',
+  'rechthoek_omvang',
+  'inzet',
 ]);
 
 const materialWeightCalculator: Calculator = {

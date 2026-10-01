@@ -119,26 +119,47 @@ export function CladdingSketch() {
   );
 }
 
-export function CircleSketch() {
+export function TrapeziumSketch() {
   return (
-    <SketchCard title="Cirkel">
-      <View style={styles.circle} />
-      <DimensionArrow left={86} top={173} width={160} label="Ø D = diameter" />
-      <SketchLine left={86} top={107} width={160} dashed />
+    <SketchCard title="Trapezium">
+      <View style={styles.trapFill} />
+      <SketchLine left={88} top={62} width={100} />
+      <SketchLine left={58} top={156} width={160} />
+      <SketchLine left={88} top={62} width={99} angle={108} />
+      <SketchLine left={188} top={62} width={99} angle={72} />
+      <DimensionArrow left={88} top={32} width={100} label="A" />
+      <DimensionArrow left={58} top={170} width={160} label="B" />
+      <DimensionArrow left={226} top={62} width={94} label="H" vertical />
     </SketchCard>
   );
 }
 
-export function TrapeziumSketch() {
+export function CircleSketch() {
   return (
-    <SketchCard title="Trapezium">
-      <SketchLine left={105} top={62} width={120} />
-      <SketchLine left={66} top={156} width={200} />
-      <SketchLine left={105} top={62} width={102} angle={112} />
-      <SketchLine left={225} top={62} width={102} angle={68} />
-      <DimensionArrow left={107} top={29} width={116} label="A" />
-      <DimensionArrow left={69} top={173} width={194} label="B" />
-      <DimensionArrow left={242} top={62} width={94} label="H" vertical />
+    <SketchCard title="Cirkel">
+      <View style={styles.circle} />
+      <DimensionArrow left={86} top={170} width={150} label="Ø D" />
+    </SketchCard>
+  );
+}
+
+export function RingSketch() {
+  return (
+    <SketchCard title="Cirkelsegment (ring)">
+      <View style={styles.ringOuter} />
+      <View style={styles.ringInner} />
+      <SketchLabel text="Ø binnen" left={131} top={83} plain />
+      <DimensionArrow left={86} top={170} width={150} label="Ø buiten" />
+    </SketchCard>
+  );
+}
+
+export function RectangleSketch() {
+  return (
+    <SketchCard title="Rechthoek">
+      <View style={styles.rectShape} />
+      <DimensionArrow left={62} top={150} width={190} label="A" />
+      <DimensionArrow left={262} top={46} width={96} label="B" vertical />
     </SketchCard>
   );
 }
@@ -238,8 +259,26 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 68, backgroundColor: colors.surfaceMuted,
   },
   circle: {
-    position: 'absolute', left: 86, top: 28, width: 150, height: 150,
+    position: 'absolute', left: 86, top: 15, width: 150, height: 150,
     borderRadius: 75, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#E3EBF3',
+  },
+  rectShape: {
+    position: 'absolute', left: 62, top: 42, width: 190, height: 98,
+    borderWidth: 2, borderColor: colors.primary, backgroundColor: '#D8E2EC',
+  },
+  ringOuter: {
+    position: 'absolute', left: 86, top: 15, width: 150, height: 150,
+    borderRadius: 75, borderWidth: 3, borderColor: colors.primary, backgroundColor: '#E3EBF3',
+  },
+  ringInner: {
+    position: 'absolute', left: 118, top: 47, width: 86, height: 86,
+    borderRadius: 43, borderWidth: 2, borderColor: colors.accent, backgroundColor: 'transparent',
+  },
+  trapFill: {
+    position: 'absolute', left: 58, top: 62, width: 100, height: 0,
+    borderBottomWidth: 94, borderBottomColor: '#D8E2EC',
+    borderLeftWidth: 30, borderLeftColor: 'transparent',
+    borderRightWidth: 30, borderRightColor: 'transparent',
   },
   sphere: {
     position: 'absolute', left: 91, top: 30, width: 145, height: 145,

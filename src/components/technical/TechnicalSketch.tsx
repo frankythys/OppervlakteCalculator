@@ -2,6 +2,8 @@ import React from 'react';
 import {
   CircleSketch,
   CladdingSketch,
+  RectangleSketch,
+  RingSketch,
   InsulationSketch,
   OvalSketch,
   PlateSketch,
@@ -14,6 +16,7 @@ import { technicalImages } from './technicalImages';
 
 type Props = {
   calculatorId: string;
+  mode?: string;
 };
 
 const FLANGE_PHOTO_IDS = new Set([
@@ -26,16 +29,10 @@ const FLANGE_PHOTO_IDS = new Set([
 ]);
 const ROUND_IDS = new Set(['ronde_afsluiter', 'ronde_afsluiterkap']);
 const OVAL_IDS = new Set(['ovale_afsluiter']);
-const RECTANGULAR_IDS = new Set([
-  'rechthoek_oppervlakte',
-  'rechthoek_omvang',
-  'kast',
-  'inzet',
-]);
+const RECTANGULAR_IDS = new Set(['kast']);
 const INSULATION_IDS = new Set(['isolatie_volume', 'gaasdeken_gewicht']);
-const CIRCLE_IDS = new Set(['cirkel', 'cirkel_segment']);
 
-export function TechnicalSketch({ calculatorId }: Props) {
+export function TechnicalSketch({ calculatorId, mode }: Props) {
   if (calculatorId === 'leiding_met_isolatie') {
     return (
       <TechnicalImageCard
@@ -135,8 +132,9 @@ export function TechnicalSketch({ calculatorId }: Props) {
   if (OVAL_IDS.has(calculatorId)) return <OvalSketch />;
   if (ROUND_IDS.has(calculatorId)) return <RoundValveSketch />;
   if (RECTANGULAR_IDS.has(calculatorId)) return <RectangularHoodSketch />;
+  if (calculatorId === 'cirkel') return mode === 'segment' ? <RingSketch /> : <CircleSketch />;
+  if (calculatorId === 'rechthoek_oppervlakte') return <RectangleSketch />;
   if (INSULATION_IDS.has(calculatorId)) return <InsulationSketch />;
-  if (CIRCLE_IDS.has(calculatorId)) return <CircleSketch />;
   if (calculatorId === 'trapezium') return <TrapeziumSketch />;
 
   return null;

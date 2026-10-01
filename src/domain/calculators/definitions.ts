@@ -15,6 +15,8 @@ export type DefInput = {
   options?: DefSelectOption[];
   // Optionele velden blokkeren het resultaat niet als ze leeg zijn.
   optional?: boolean;
+  // Alleen tonen bij deze modi (leeg = altijd tonen).
+  modes?: string[];
 };
 
 export type Vars = Record<string, number>;
@@ -24,6 +26,8 @@ export type DefOutput = {
   unit?: string;
   primary?: boolean;
   compute: (v: Vars) => number | string;
+  // Alleen tonen bij deze modi (leeg = altijd tonen).
+  modes?: string[];
 };
 
 export type CalcDefinition = {
@@ -34,6 +38,9 @@ export type CalcDefinition = {
   resultHint?: string;
   inputs: DefInput[];
   outputs: DefOutput[];
+  // Optionele modus-dropdown die bepaalt welke invoer/uitkomsten zichtbaar zijn.
+  modeLabel?: string;
+  modes?: DefSelectOption[];
 };
 
 const PI = Math.PI;
@@ -49,31 +56,29 @@ export const definitions: CalcDefinition[] = [
     id: 'cirkel',
     title: 'Cirkel',
     category: 'Vormen',
-    description: 'Bereken omtrek en oppervlakte van een cirkel op basis van de diameter.',
-    inputs: [{ key: 'diameter', label: 'Diameter', unit: 'mm' }],
-    outputs: [
-      { label: 'Omtrek', unit: 'm', compute: ({ diameter }) => circumferenceM(diameter) },
-      { label: 'Oppervlakte', unit: 'm²', primary: true, compute: ({ diameter }) => circleAreaM2(diameter) },
+    description: 'Bereken een volledige cirkel of een cirkelsegment (ring).',
+    modeLabel: 'Type',
+    modes: [
+      { label: 'Volledige cirkel', value: 'vol' },
+      { label: 'Cirkelsegment (ring)', value: 'segment' },
     ],
-  },
-  {
-    id: 'cirkel_segment',
-    title: 'Cirkel segment',
-    category: 'Vormen',
-    description: 'Bereken het ringoppervlak tussen een buiten- en binnendiameter.',
     inputs: [
-      { key: 'buitendiameter', label: 'Buitendiameter', unit: 'mm' },
-      { key: 'binnendiameter', label: 'Binnendiameter', unit: 'mm' },
+      { key: 'diameter', label: 'Diameter', unit: 'mm', modes: ['vol'] },
+      { key: 'buitendiameter', label: 'Buitendiameter', unit: 'mm', modes: ['segment'] },
+      { key: 'binnendiameter', label: 'Binnendiameter', unit: 'mm', modes: ['segment'] },
     ],
     outputs: [
-      { label: 'Omtrek buiten', unit: 'm', compute: ({ buitendiameter }) => circumferenceM(buitendiameter) },
-      { label: 'Oppervlakte buiten', unit: 'm²', compute: ({ buitendiameter }) => circleAreaM2(buitendiameter) },
-      { label: 'Omtrek binnen', unit: 'm', compute: ({ binnendiameter }) => circumferenceM(binnendiameter) },
-      { label: 'Oppervlakte binnen', unit: 'm²', compute: ({ binnendiameter }) => circleAreaM2(binnendiameter) },
+      { label: 'Omtrek', unit: 'm', modes: ['vol'], compute: ({ diameter }) => circumferenceM(diameter) },
+      { label: 'Oppervlakte', unit: 'm²', primary: true, modes: ['vol'], compute: ({ diameter }) => circleAreaM2(diameter) },
+      { label: 'Omtrek buiten', unit: 'm', modes: ['segment'], compute: ({ buitendiameter }) => circumferenceM(buitendiameter) },
+      { label: 'Oppervlakte buiten', unit: 'm²', modes: ['segment'], compute: ({ buitendiameter }) => circleAreaM2(buitendiameter) },
+      { label: 'Omtrek binnen', unit: 'm', modes: ['segment'], compute: ({ binnendiameter }) => circumferenceM(binnendiameter) },
+      { label: 'Oppervlakte binnen', unit: 'm²', modes: ['segment'], compute: ({ binnendiameter }) => circleAreaM2(binnendiameter) },
       {
         label: 'Ringoppervlakte',
         unit: 'm²',
         primary: true,
+        modes: ['segment'],
         compute: ({ buitendiameter, binnendiameter }) => circleAreaM2(buitendiameter) - circleAreaM2(binnendiameter),
       },
     ],
@@ -114,11 +119,16 @@ export const definitions: CalcDefinition[] = [
   },
   {
     id: 'rechthoek_oppervlakte',
-    title: 'Rechthoek - oppervlakte',
+    title: 'Rechthoek',
     category: 'Vormen',
-    description: 'Bereken de totale oppervlakte van één of meerdere rechthoeken.',
+    description: 'Bereken de oppervlakte of de omvang van een rechthoek.',
+    modeLabel: 'Berekening',
+    modes: [
+      { label: 'Oppervlakte', value: 'opp' },
+      { label: 'Omvang', value: 'omv' },
+    ],
     inputs: [
-      { key: 'aantal', label: 'Aantal', unit: 'st', defaultValue: '1' },
+      { key: 'aantal', label: 'Aantal', unit: 'st', defaultValue: '1', modes: ['opp'] },
       { key: 'zijdeA', label: 'Zijde A', unit: 'mm' },
       { key: 'zijdeB', label: 'Zijde B', unit: 'mm' },
     ],
@@ -127,21 +137,16 @@ export const definitions: CalcDefinition[] = [
         label: 'Oppervlakte',
         unit: 'm²',
         primary: true,
+        modes: ['opp'],
         compute: ({ aantal, zijdeA, zijdeB }) => (aantal * zijdeA * zijdeB) / 1_000_000,
       },
-    ],
-  },
-  {
-    id: 'rechthoek_omvang',
-    title: 'Rechthoek - omvang',
-    category: 'Vormen',
-    description: 'Bereken de omvang van een rechthoek.',
-    inputs: [
-      { key: 'zijdeA', label: 'Zijde A', unit: 'mm' },
-      { key: 'zijdeB', label: 'Zijde B', unit: 'mm' },
-    ],
-    outputs: [
-      { label: 'Omvang', unit: 'mm', primary: true, compute: ({ zijdeA, zijdeB }) => zijdeA * 2 + zijdeB * 2 },
+      {
+        label: 'Omvang',
+        unit: 'mm',
+        primary: true,
+        modes: ['omv'],
+        compute: ({ zijdeA, zijdeB }) => zijdeA * 2 + zijdeB * 2,
+      },
     ],
   },
   {
@@ -199,20 +204,6 @@ export const definitions: CalcDefinition[] = [
         primary: true,
         compute: ({ hoogte, zijdeA, zijdeB }) => ((zijdeA + zijdeB) / 2 * hoogte) / 1_000_000,
       },
-    ],
-  },
-  {
-    id: 'inzet',
-    title: 'Inzet',
-    category: 'Vormen',
-    description: 'Bereken de totale omvang uit breedte, lengte en hoogte.',
-    inputs: [
-      { key: 'breedte', label: 'Breedte', unit: 'mm' },
-      { key: 'lengte', label: 'Lengte', unit: 'mm' },
-      { key: 'hoogte', label: 'Hoogte', unit: 'mm' },
-    ],
-    outputs: [
-      { label: 'Omvang', unit: 'mm', primary: true, compute: ({ breedte, lengte, hoogte }) => (breedte + lengte + hoogte) * 2 },
     ],
   },
   {

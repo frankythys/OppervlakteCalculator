@@ -30,12 +30,15 @@ function solveTriangle(
   a: number | null,
   b: number | null,
   c: number | null,
-  alpha: number | null
+  alpha: number | null,
+  beta: number | null
 ): Solved | null {
   let A = a;
   let B = b;
   let C = c;
   let AL = alpha;
+  // Als alleen hoek β gegeven is, volgt α = 90 - β.
+  if (AL == null && beta != null) AL = 90 - beta;
 
   const angleOk = AL == null || (AL > 0 && AL < 90);
 
@@ -73,10 +76,18 @@ export function PythagorasCalculator() {
   const [b, setB] = useState('');
   const [c, setC] = useState('');
   const [alpha, setAlpha] = useState('');
+  const [beta, setBeta] = useState('');
 
   const solved = useMemo(
-    () => solveTriangle(toNumberOrNull(a), toNumberOrNull(b), toNumberOrNull(c), toNumberOrNull(alpha)),
-    [a, b, c, alpha]
+    () =>
+      solveTriangle(
+        toNumberOrNull(a),
+        toNumberOrNull(b),
+        toNumberOrNull(c),
+        toNumberOrNull(alpha),
+        toNumberOrNull(beta)
+      ),
+    [a, b, c, alpha, beta]
   );
 
   const primary: ResultRow | null = solved
@@ -85,10 +96,10 @@ export function PythagorasCalculator() {
 
   const secondary: ResultRow[] = solved
     ? [
-        { label: 'Rechthoekszijde a', value: `${format(solved.a)} mm` },
-        { label: 'Rechthoekszijde b', value: `${format(solved.b)} mm` },
-        { label: 'Hoek α (tegenover a)', value: `${format(solved.alpha, 1)} °` },
-        { label: 'Hoek β (tegenover b)', value: `${format(solved.beta, 1)} °` },
+        { label: 'Overstaande zijde a', value: `${format(solved.a)} mm` },
+        { label: 'Aanliggende zijde b', value: `${format(solved.b)} mm` },
+        { label: 'Hoek α', value: `${format(solved.alpha, 1)} °` },
+        { label: 'Hoek β', value: `${format(solved.beta, 1)} °` },
       ]
     : [];
 
@@ -97,6 +108,7 @@ export function PythagorasCalculator() {
     setB('');
     setC('');
     setAlpha('');
+    setBeta('');
   };
 
   const save = () => {
@@ -127,14 +139,15 @@ export function PythagorasCalculator() {
       <TechnicalImageCard
         source={technicalImages.shapes.pythagoras}
         title="Rechthoekige driehoek"
-        caption="a en b = rechthoekszijden · c = schuine zijde · c² = a² + b². Hoek α ligt tegenover a."
+        caption="a = overstaande zijde · b = aanliggende zijde · c = schuine zijde. α ligt tegenover a, β tegenover b. c² = a² + b²."
       />
 
       <Text style={styles.sectionTitle}>Invoer — vul 2 waarden in</Text>
-      <NumericInput label="Rechthoekszijde a" unit="mm" value={a} onChange={setA} />
-      <NumericInput label="Rechthoekszijde b" unit="mm" value={b} onChange={setB} />
+      <NumericInput label="Overstaande zijde a" unit="mm" value={a} onChange={setA} />
+      <NumericInput label="Aanliggende zijde b" unit="mm" value={b} onChange={setB} />
       <NumericInput label="Schuine zijde c" unit="mm" value={c} onChange={setC} />
-      <NumericInput label="Hoek α (tegenover a)" unit="°" value={alpha} onChange={setAlpha} />
+      <NumericInput label="Hoek α" unit="°" value={alpha} onChange={setAlpha} />
+      <NumericInput label="Hoek β" unit="°" value={beta} onChange={setBeta} />
 
       <ResultCard primary={primary} secondary={secondary} />
 

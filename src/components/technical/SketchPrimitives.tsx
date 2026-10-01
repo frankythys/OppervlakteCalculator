@@ -34,11 +34,12 @@ type LabelProps = {
   left: number;
   top: number;
   emphasis?: boolean;
+  plain?: boolean;
 };
 
-export function SketchLabel({ text, left, top, emphasis = false }: LabelProps) {
+export function SketchLabel({ text, left, top, emphasis = false, plain = false }: LabelProps) {
   return (
-    <View style={[styles.label, { left, top }, emphasis && styles.labelEmphasis]}>
+    <View style={[styles.label, { left, top }, emphasis && styles.labelEmphasis, plain && styles.labelPlain]}>
       <Text
         numberOfLines={1}
         style={[styles.labelText, emphasis && styles.labelTextEmphasis]}
@@ -161,6 +162,12 @@ const styles = StyleSheet.create({
     borderColor: colors.accent,
     backgroundColor: '#F2F7FF',
   },
+  labelPlain: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+  },
   labelText: {
     color: colors.text,
     fontSize: 11,
@@ -202,14 +209,9 @@ const styles = StyleSheet.create({
   },
   verticalLabelWrap: {
     position: 'absolute',
-    left: 14,
+    left: 12,
     width: 64,
-    paddingHorizontal: 5,
-    paddingVertical: 3,
-    borderRadius: 6,
-    backgroundColor: '#F2F7FF',
-    borderWidth: 1,
-    borderColor: colors.accent,
+    backgroundColor: 'transparent',
   },
   dimensionText: {
     color: colors.accent,

@@ -77,7 +77,7 @@ function buildCalculators(): Calculator[] {
   replacements.set('rechthoek', [
     deriveCalculator(rechthoek, {
       id: 'rechthoek_oppervlakte',
-      title: 'Rechthoek - oppervlakte',
+      title: 'Rechthoek',
       inputIds: ['B38', 'C38', 'D38'],
       formulaIds: ['E38'],
       outputs: [['E38', 'Oppervlakte']],
