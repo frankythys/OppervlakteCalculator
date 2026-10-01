@@ -10,6 +10,7 @@ export const technicalImages = {
   bends: {
     bend90: require('../../../assets/technical/bends/bocht-90-radius.png') as ImageSourcePropType,
     kink: require('../../../assets/technical/bends/knik.png') as ImageSourcePropType,
+    segments: require('../../../assets/technical/bends/segmenten-bocht.png') as ImageSourcePropType,
   },
   tanks: {
     sphere: require('../../../assets/technical/Bol/Bol.png') as ImageSourcePropType,

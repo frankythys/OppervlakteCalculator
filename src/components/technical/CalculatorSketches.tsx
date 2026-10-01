@@ -119,19 +119,6 @@ export function CladdingSketch() {
   );
 }
 
-export function BendSketch() {
-  return (
-    <SketchCard title="Bocht">
-      <View style={styles.bendOuter} />
-      <View style={styles.bendInnerMask} />
-      <SketchLine left={95} top={153} width={95} dashed />
-      <SketchLine left={188} top={62} width={92} angle={90} dashed />
-      <SketchLabel text="R = radius" left={105} top={128} emphasis />
-      <SketchLabel text="Ø D" left={226} top={76} emphasis />
-    </SketchCard>
-  );
-}
-
 export function CircleSketch() {
   return (
     <SketchCard title="Cirkel">

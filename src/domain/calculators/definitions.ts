@@ -13,6 +13,8 @@ export type DefInput = {
   step?: number;
   defaultValue?: string;
   options?: DefSelectOption[];
+  // Optionele velden blokkeren het resultaat niet als ze leeg zijn.
+  optional?: boolean;
 };
 
 export type Vars = Record<string, number>;
@@ -313,16 +315,23 @@ export const definitions: CalcDefinition[] = [
   },
   {
     id: 'bocht_segmenten',
-    title: 'Bocht - segmentradius',
+    title: 'Segmenten bocht (Duitse bocht)',
     category: 'Bochten',
     description: 'Bereken hoeken en segmentradius voor een gesegmenteerde bocht.',
     inputs: [
       { key: 'hoogteC', label: 'Hoogte C', unit: 'mm' },
       { key: 'aantalSegmenten', label: 'Aantal segmenten', unit: 'st' },
+      { key: 'kaleDiameter', label: 'Kale leidingdiameter', unit: 'mm', placeholder: '1230', optional: true },
+      { key: 'isolatiedikte', label: 'Isolatiedikte', unit: 'mm', placeholder: '80', optional: true },
     ],
     outputs: [
       { label: 'Hoek 1', unit: '°', compute: ({ aantalSegmenten }) => 90 / aantalSegmenten },
       { label: 'Hoek 2', unit: '°', compute: ({ aantalSegmenten }) => 90 - 90 / aantalSegmenten },
+      {
+        label: 'DIA (buitendiameter geïsoleerd)',
+        unit: 'mm',
+        compute: ({ kaleDiameter, isolatiedikte }) => kaleDiameter + 2 * isolatiedikte,
+      },
       {
         label: 'Radius',
         unit: 'mm',

@@ -33,7 +33,13 @@ export function DefinitionScreen({ def }: { def: CalcDefinition }) {
     const parsed: Vars = {};
     for (const input of def.inputs) {
       const value = parseNumericInput(rawInputs[input.key] ?? '');
-      if (value === null) return null;
+      if (value === null) {
+        if (input.optional) {
+          parsed[input.key] = 0;
+          continue;
+        }
+        return null;
+      }
       parsed[input.key] = value;
     }
     return parsed;

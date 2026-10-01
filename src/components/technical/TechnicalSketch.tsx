@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  BendSketch,
   CircleSketch,
   CladdingSketch,
   InsulationSketch,
@@ -34,7 +33,6 @@ const RECTANGULAR_IDS = new Set([
   'inzet',
 ]);
 const INSULATION_IDS = new Set(['isolatie_volume', 'gaasdeken_gewicht']);
-const BEND_SKETCH_IDS = new Set(['bocht_segmenten', 'bocht_praktische_limiet']);
 const CIRCLE_IDS = new Set(['cirkel', 'cirkel_segment']);
 
 export function TechnicalSketch({ calculatorId }: Props) {
@@ -48,12 +46,26 @@ export function TechnicalSketch({ calculatorId }: Props) {
     );
   }
 
-  if (calculatorId === 'bocht_lengte' || calculatorId === 'bocht_oppervlakte') {
+  if (
+    calculatorId === 'bocht_lengte' ||
+    calculatorId === 'bocht_oppervlakte' ||
+    calculatorId === 'bocht_praktische_limiet'
+  ) {
     return (
       <TechnicalImageCard
         source={technicalImages.bends.bend90}
         title="Bocht met radius"
         caption="R is de hartlijnradius. ØD is de buitendiameter van de geïsoleerde leiding; t is de isolatiedikte."
+      />
+    );
+  }
+
+  if (calculatorId === 'bocht_segmenten') {
+    return (
+      <TechnicalImageCard
+        source={technicalImages.bends.segments}
+        title="Segmenten bocht (Duitse bocht)"
+        caption="Hoogte C en het aantal segmenten bepalen de hoeken en de segmentradius."
       />
     );
   }
@@ -124,7 +136,6 @@ export function TechnicalSketch({ calculatorId }: Props) {
   if (ROUND_IDS.has(calculatorId)) return <RoundValveSketch />;
   if (RECTANGULAR_IDS.has(calculatorId)) return <RectangularHoodSketch />;
   if (INSULATION_IDS.has(calculatorId)) return <InsulationSketch />;
-  if (BEND_SKETCH_IDS.has(calculatorId)) return <BendSketch />;
   if (CIRCLE_IDS.has(calculatorId)) return <CircleSketch />;
   if (calculatorId === 'trapezium') return <TrapeziumSketch />;
 
